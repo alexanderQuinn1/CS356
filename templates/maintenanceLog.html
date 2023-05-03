@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <title>Maintenance Log</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/stylesheet.css') }}">
+     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/maintenanceLog.css') }}">
 </head>
 <body>
-      <div class="container">
-
-         <header>
+    <div class="container">
+        <header>
             <h1>Maintenance Log</h1>
-         </header>
-
-         <nav>
+        </header>
+        <nav>
             <ul>
                <li><a href="dashboard">Dashboard</a></li>
                <li><a href="productionLine">Production Line Status</a></li>
@@ -20,7 +19,8 @@
                <li><a href="productionSchedule">Production Schedule Overruns</a></li>
                <li><a href="maintenanceLog">Maintenance Log</a></li>
             </ul>
-         </nav>
-      </div>
+        </nav>
+        <a class="maintenance-log__add" href="/maintenanceEntry">+ add maintenance activity</a>
+    </div>
 </body>
 </html>
