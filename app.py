@@ -8,23 +8,23 @@ app = Flask(__name__)
 def run_app():
     return render_template('dashboard.html')
 
-@app.route('/dashboard.html')
+@app.route('/dashboard')
 def run_dashboard():
     return render_template('dashboard.html')
 
-@app.route('/productionLine.html')
+@app.route('/productionLine')
 def run_productionLine():
     return render_template('productionLine.html')
 
-@app.route('/productionSchedule.html')
+@app.route('/productionSchedule')
 def run_productionSchedule():
     return render_template('productionSchedule.html')
 
-@app.route('/qualityAssurance.html')
+@app.route('/qualityAssurance')
 def run_qualityAssurance():
     return render_template('qualityAssurance.html')
 
-@app.route('/maintenanceLog.html')
+@app.route('/maintenanceLog')
 def run_maintenanceLog():
     return render_template('maintenanceLog.html')
 
