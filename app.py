@@ -2,6 +2,8 @@ from flask import Flask, render_template, request
 import pika
 import json
 
+from maintenance import save_maintenance_activity
+
 app = Flask(__name__)
 
 
@@ -33,6 +35,15 @@ def run_qualityAssurance():
 @app.route('/maintenanceLog.html')
 def run_maintenanceLog():
     return render_template('maintenanceLog.html')
+
+
+@app.route('/maintenanceEntry', methods=['GET', 'POST'])
+def run_maintenance_entry():
+    if request.method == 'GET':
+        return render_template('maintenanceEntry.html')
+    else:
+        response = save_maintenance_activity(request.form)
+        return render_template('maintenanceEntry.html', response=response)
 
 
 if __name__ == '__main__':
