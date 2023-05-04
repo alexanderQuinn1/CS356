@@ -63,6 +63,9 @@
                 <button type="submit">Submit Maintenance Activity</button>
             </div>
         </form>
+        {% if response %}
+            <div>{{ response }}</div>
+        {% endif %}
     </div>
 </body>
 </html>

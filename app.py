@@ -3,6 +3,7 @@ import pika
 import json
 
 from maintenance import save_maintenance_activity
+from productionSchedule import create_batch
 
 app = Flask(__name__)
 
@@ -44,6 +45,15 @@ def run_maintenance_entry():
     else:
         response = save_maintenance_activity(request.form)
         return render_template('maintenanceEntry.html', response=response)
+
+
+@app.route('/batchScheduleEntry', methods=['GET', 'POST'])
+def run_batch_schedule_entry():
+    if request.method == 'GET':
+        return render_template('batchScheduleEntry.html')
+    else:
+        response = create_batch(request.form)
+        return render_template('batchScheduleEntry.html', response=response)
 
 
 if __name__ == '__main__':

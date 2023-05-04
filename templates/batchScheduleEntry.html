@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Batch Schedule Entry</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/stylesheet.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Schedule a Batch</h1>
+        </header>
+        <form action="/batchScheduleEntry" method="post">
+            <div class="form-group">
+                <label for="prod_line">Select Plant needing maintenance:</label><br/>
+                <select name="prod_line" id="prod_line">
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="prod_type">Select a product type:</label><br/>
+                <select name="prod_type" id="prod_type">
+                  <option value="12345">cell culture 1</option>
+                  <option value="12346">cell culture 2</option>
+                  <option value="12347">cell culture 3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="prod_start">Schedule for production:*</label><br/>
+                <input type="datetime-local" name="prod_start" id="prod_start" required>
+            </div>
+            <div>
+                <button type="submit">Submit Batch for schedule</button>
+            </div>
+        </form>
+        {% if response %}
+            <div>{{ response }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>

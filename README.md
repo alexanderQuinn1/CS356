@@ -1,3 +1,5 @@
 # CS356
 
-# Everyone please clone repository.
+## User Guide
+[TODO]
+

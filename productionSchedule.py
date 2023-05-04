@@ -5,18 +5,7 @@ import pika
 import json
 
 
-def main():
-    # Get information displaying in prodSched
-    print("Placeholder")
-
-
-if __name__ == '__main__':
-    try:
-        main()
-    except KeyboardInterrupt:
-        print('Interrupted')
-        try:
-            sys.exit(0)
-        except SystemExit:
-            os._exit(0)
-
+def create_batch(form):
+    print(form)
+    # validate prod line doesnt have anything scheduled simultaneously
+    return 'batch IRVyymm9999 scheduled'
