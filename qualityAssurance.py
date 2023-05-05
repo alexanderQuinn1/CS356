@@ -10,6 +10,11 @@ def main():
     print("Placeholder")
 
 
+def save_maintenance_activity(form):
+    print(form)
+    return 'Quality Assurance Saved'
+
+
 if __name__ == '__main__':
     try:
         main()
@@ -19,4 +24,3 @@ if __name__ == '__main__':
             sys.exit(0)
         except SystemExit:
             os._exit(0)
-
