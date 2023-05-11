@@ -2,7 +2,7 @@ import mysql.connector
 import os
 
 
-def connectDatabase(database):
+def connect_database(database):
     if database is None:
         miracle_cure_biotech_db = mysql.connector.connect(
             host="localhost",
@@ -20,8 +20,8 @@ def connectDatabase(database):
     return miracle_cure_biotech_db
 
 
-def createdatabase(dbname):
-    db = connectDatabase(None)
+def create_database(dbname):
+    db = connect_database(None)
     createDB = db.cursor()
     dbname = dbname
     createDB.execute(f"CREATE  DATABASE {dbname}")
@@ -30,18 +30,18 @@ def createdatabase(dbname):
 
 
 def create_tables(dbname):
-    sql_files = [f for f in os.listdir() if f.endswith('.sql')]
+    sql_files = [f for f in os.listdir('scripts/setup')]
     for sql_file in sql_files:
         with open(sql_file, 'r') as file:
             sql_create = file.read()
-            db = connectDatabase(dbname)
+            db = connect_database(dbname)
             mydb = db.cursor()
             mydb.execute(sql_create)
             mydb.close()
             db.close()
 
 
-database_name = "miracle_cure_biotech"
-db = createdatabase(database_name)
-print(db)
-create_tables(db)
+def create():
+    database_name = "miracle_cure_biotech"
+    db = create_database(database_name)
+    create_tables(db)
