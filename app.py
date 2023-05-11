@@ -31,6 +31,16 @@ def run_maintenance_log():
     return render_template('maintenance-log.html')
 
 
+
+@app.route('/qualityAssuranceEntry', methods=['GET', 'POST'])
+def run_quality_assurance_entry():
+    if request.method == 'GET':
+        return render_template('qualityAssuranceEntry.html')
+    else:
+        response = save_quality_assurance(request.form)
+        return render_template('qualityAssuranceEntry.html', response=response)
+
+
 @app.route('/maintenanceEntry', methods=['GET', 'POST'])
 def run_maintenance_entry():
     if request.method == 'GET':
