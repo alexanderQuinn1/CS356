@@ -1,4 +1,4 @@
-def schedule_batch():
+def schedule_batch(form):
     print(form)
     # validate prod line doesnt have another batch scheduled simultaneously
     # prod_end = start_time + prod_duration

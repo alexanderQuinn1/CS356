@@ -10,6 +10,6 @@ def main():
     print("Placeholder")
 
 
-def save_maintenance_activity(form):
+def save_qa(form):
     print(form)
     return 'Quality Assurance Saved'

@@ -37,7 +37,7 @@ def run_quality_assurance_entry():
     if request.method == 'GET':
         return render_template('qa-entry.html')
     else:
-        response = qa.save_quality_assurance(request.form)
+        response = qa.save_qa(request.form)
         return render_template('qa-entry.html', response=response)
 
 
