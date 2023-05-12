@@ -1,61 +1,61 @@
 from flask import Flask, render_template, request
-from maintenance import save_maintenance_activity
-from productionSchedule import create_batch
 import database_connection as db
+import models.batch as batch
+import models.maintenance_operation as maintenance
+import models.quality_assurance as qa
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def run_app():
-    return render_template('dashboard.html')
+    return render_template('dashboard.html', heading='Management Dashboard')
 
 
-@app.route('/productionLine')
+@app.route('/prod-line-monitor')
 def run_production_line():
-    return render_template('prod-line-monitor.html')
+    return render_template('prod-line-monitor.html', heading='Production Line Monitor')
 
 
-@app.route('/productionSchedule')
+@app.route('/prod-schedule')
 def run_production_schedule():
-    return render_template('prod-line-schedule.html')
+    return render_template('prod-line-schedule.html', heading="Production Schedule")
 
 
-@app.route('/qualityAssurance')
+@app.route('/qa-log')
 def run_quality_assurance():
-    return render_template('qa-log.html')
+    return render_template('qa-log.html', heading="Quality Assurance Log")
 
 
-@app.route('/maintenanceLog')
+@app.route('/maintenance-log')
 def run_maintenance_log():
-    return render_template('maintenance-log.html')
+    return render_template('maintenance-log.html', heading="Maintenance Log")
 
 
-
-@app.route('/qualityAssuranceEntry', methods=['GET', 'POST'])
+@app.route('/qa-entry', methods=['GET', 'POST'])
 def run_quality_assurance_entry():
     if request.method == 'GET':
-        return render_template('qualityAssuranceEntry.html')
+        return render_template('qa-entry.html')
     else:
-        response = save_quality_assurance(request.form)
-        return render_template('qualityAssuranceEntry.html', response=response)
+        response = qa.save_quality_assurance(request.form)
+        return render_template('qa-entry.html', response=response)
 
 
-@app.route('/maintenanceEntry', methods=['GET', 'POST'])
+@app.route('/maintenance-entry', methods=['GET', 'POST'])
 def run_maintenance_entry():
     if request.method == 'GET':
         return render_template('maintenanc-entry.html')
     else:
-        response = save_maintenance_activity(request.form)
+        response = maintenance.save_maintenance_activity(request.form)
         return render_template('maintenanc-entry.html', response=response)
 
 
-@app.route('/batchScheduleEntry', methods=['GET', 'POST'])
+@app.route('/batch-schedule-entry', methods=['GET', 'POST'])
 def run_batch_schedule_entry():
     if request.method == 'GET':
         return render_template('batch-schedule-entry.html')
     else:
-        response = create_batch(request.form)
+        response = batch.schedule_batch(request.form)
         return render_template('batch-schedule-entry.html', response=response)
 
 
