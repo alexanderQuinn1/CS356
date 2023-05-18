@@ -1,6 +1,7 @@
 import mysql.connector
 import os
-
+# uncomment and add filepath in case of [WinError 3] The system cannot find the path
+# os.chdir(<absolute_url>)
 
 def connect_database(database):
     if database is None:
@@ -36,8 +37,8 @@ def create_database(dbname):
 
 
 def create_tables(dbname):
-    path = 'scripts/db-setup'
-    sql_files = [f for f in os.listdir('scripts/db-setup')]
+    path = 'scripts/setup'
+    sql_files = [f for f in os.listdir('scripts/setup')]
     for sql_file in sql_files:
         with open(os.path.join(path, sql_file), 'r') as file:
             sql_create = file.read().split(';')
