@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: miracle_cure_biotech
+-- Host: localhost    Database: miracle_cure_biotech
 -- ------------------------------------------------------
 -- Server version	8.0.33
 
@@ -16,35 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `production_monitor`
+-- Table structure for table `stage_lookup`
 --
 
-DROP TABLE IF EXISTS `production_monitor`;
+DROP TABLE IF EXISTS `stage_lookup`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `production_monitor` (
-  `production_monitor_id` int NOT NULL,
-  `batch_no` int DEFAULT NULL,
-  `operator_id` int DEFAULT NULL,
-  `date_time` datetime DEFAULT NULL,
-  `room_temp` int DEFAULT NULL,
-  `humidity` int DEFAULT NULL,
-  `last_stir_delta` int DEFAULT NULL,
-  PRIMARY KEY (`production_monitor_id`),
-  KEY `production_monitor_batch_fk_idx` (`batch_no`),
-  KEY `production_monitor_operator_fk_idx` (`operator_id`),
-  CONSTRAINT `production_monitor_batch_fk` FOREIGN KEY (`batch_no`) REFERENCES `batch` (`batch_no`),
-  CONSTRAINT `production_monitor_operator_fk` FOREIGN KEY (`operator_id`) REFERENCES `operator` (`operator_id`)
+CREATE TABLE `stage_lookup` (
+  `stage_id` int NOT NULL,
+  `stage_name` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`stage_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `production_monitor`
+-- Dumping data for table `stage_lookup`
 --
 
-LOCK TABLES `production_monitor` WRITE;
-/*!40000 ALTER TABLE `production_monitor` DISABLE KEYS */;
-/*!40000 ALTER TABLE `production_monitor` ENABLE KEYS */;
+LOCK TABLES `stage_lookup` WRITE;
+/*!40000 ALTER TABLE `stage_lookup` DISABLE KEYS */;
+INSERT INTO `stage_lookup` VALUES (1,'start'),(2,'expansion 1'),(3,'passage 1'),(4,'expansion 2'),(5,'passage 2'),(6,'expansion 3'),(7,'end of line'),(8,'fill room'),(9,'complete');
+/*!40000 ALTER TABLE `stage_lookup` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-30 13:04:17
+-- Dump completed on 2023-05-18 13:45:15

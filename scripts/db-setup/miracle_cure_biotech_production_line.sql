@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: miracle_cure_biotech
+-- Host: localhost    Database: miracle_cure_biotech
 -- ------------------------------------------------------
 -- Server version	8.0.33
 
@@ -34,6 +34,7 @@ CREATE TABLE `production_line` (
 
 LOCK TABLES `production_line` WRITE;
 /*!40000 ALTER TABLE `production_line` DISABLE KEYS */;
+INSERT INTO `production_line` VALUES ('A'),('B'),('C');
 /*!40000 ALTER TABLE `production_line` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -46,4 +47,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-30 13:04:18
+-- Dump completed on 2023-05-18 13:45:13
