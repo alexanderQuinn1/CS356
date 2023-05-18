@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Production Schedule Example</title>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<div>
+
+<canvas id="myChart" ></canvas>
+</div>
+
+
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['37.2'],
+      datasets: [{
+        label: 'Temperature',
+        data: [37.2],
+          borderColor: "green",
+        backgroundColor: "#90EE90",
+        borderWidth: 1
+      }]
+    },
+    options: {
+    indexAxis: 'y',
+    elements: {
+      bar: {
+        borderWidth: 2,
+      }
+    },
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'right',
+      },
+      title: {
+        display: true,
+        text: 'Temperature'
+      }}}});
+</script>
+</body>
+</html>
