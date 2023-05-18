@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: miracle_cure_biotech
+-- Host: localhost    Database: miracle_cure_biotech
 -- ------------------------------------------------------
 -- Server version	8.0.33
 
@@ -16,35 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `batch`
+-- Table structure for table `passage_monitor`
 --
 
-DROP TABLE IF EXISTS `batch`;
+DROP TABLE IF EXISTS `passage_monitor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `batch` (
-  `batch_no` int NOT NULL,
-  `prod_start` time DEFAULT NULL,
-  `prod_end` time DEFAULT NULL,
-  `quantity` int DEFAULT NULL,
-  `prod_line` char(1) NOT NULL,
-  `prod_type_code` varchar(6) DEFAULT NULL,
-  `over_runs` varchar(1000) DEFAULT NULL,
-  PRIMARY KEY (`batch_no`),
-  KEY `prod_line_fk_idx` (`prod_line`),
-  KEY `product_type_batch_fk_idx` (`prod_type_code`),
-  CONSTRAINT `prod_line_batch_fk` FOREIGN KEY (`prod_line`) REFERENCES `production_line` (`prod_line`),
-  CONSTRAINT `product_type_batch_fk` FOREIGN KEY (`prod_type_code`) REFERENCES `product_type` (`prod_type_code`)
+CREATE TABLE `passage_monitor` (
+  `passage_monitor_id` int NOT NULL,
+  `passage_id` int DEFAULT NULL,
+  `cell_count` int DEFAULT NULL,
+  `peristaltic_pump` varchar(10) DEFAULT NULL,
+  KEY `passage_monitor_Passage_FK_idx` (`passage_id`),
+  CONSTRAINT `passage_monitor_passage_FK` FOREIGN KEY (`passage_id`) REFERENCES `passage` (`passage_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `batch`
+-- Dumping data for table `passage_monitor`
 --
 
-LOCK TABLES `batch` WRITE;
-/*!40000 ALTER TABLE `batch` DISABLE KEYS */;
-/*!40000 ALTER TABLE `batch` ENABLE KEYS */;
+LOCK TABLES `passage_monitor` WRITE;
+/*!40000 ALTER TABLE `passage_monitor` DISABLE KEYS */;
+INSERT INTO `passage_monitor` VALUES (1,1,19,'low'),(2,2,25,'off'),(3,3,24,'high'),(4,4,345,'low'),(5,5,64,'low'),(6,6,34,'high'),(7,7,56,'off'),(8,8,23,'low'),(9,9,122,'low');
+/*!40000 ALTER TABLE `passage_monitor` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-30 13:04:16
+-- Dump completed on 2023-05-18 13:45:15

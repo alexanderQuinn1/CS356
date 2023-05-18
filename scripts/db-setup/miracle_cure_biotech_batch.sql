@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: miracle_cure_biotech
+-- Host: localhost    Database: miracle_cure_biotech
 -- ------------------------------------------------------
 -- Server version	8.0.33
 
@@ -16,31 +16,39 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `flask_monitor`
+-- Table structure for table `batch`
 --
 
-DROP TABLE IF EXISTS `flask_monitor`;
+DROP TABLE IF EXISTS `batch`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `flask_monitor` (
-  `flask_monitor_id` int NOT NULL,
-  `expansion_monitor_id` int DEFAULT NULL,
-  `temp` int DEFAULT NULL,
-  `ph` int DEFAULT NULL,
-  `osmoality` int DEFAULT NULL,
-  PRIMARY KEY (`flask_monitor_id`),
-  KEY `flask_monitor_expansion_monitor_fk_idx` (`expansion_monitor_id`),
-  CONSTRAINT `flask_monitor_expansion_monitor_fk` FOREIGN KEY (`expansion_monitor_id`) REFERENCES `expansion_monitor` (`expansion_monitor_id`)
+CREATE TABLE `batch` (
+  `batch_no` varchar(11) NOT NULL,
+  `prod_start` time DEFAULT NULL,
+  `prod_end` time DEFAULT NULL,
+  `quantity` int DEFAULT NULL,
+  `prod_line` char(1) NOT NULL,
+  `prod_type_code` varchar(6) DEFAULT NULL,
+  `over_runs` varchar(1000) DEFAULT NULL,
+  `current_stage` int DEFAULT NULL,
+  PRIMARY KEY (`batch_no`),
+  KEY `prod_line_fk_idx` (`prod_line`),
+  KEY `product_type_batch_fk_idx` (`prod_type_code`),
+  KEY `batch_stage_lookup_FK_idx` (`current_stage`),
+  CONSTRAINT `batch_stage_lookup_FK` FOREIGN KEY (`current_stage`) REFERENCES `stage_lookup` (`stage_id`),
+  CONSTRAINT `prod_line_batch_fk` FOREIGN KEY (`prod_line`) REFERENCES `production_line` (`prod_line`),
+  CONSTRAINT `product_type_batch_fk` FOREIGN KEY (`prod_type_code`) REFERENCES `product_type` (`prod_type_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `flask_monitor`
+-- Dumping data for table `batch`
 --
 
-LOCK TABLES `flask_monitor` WRITE;
-/*!40000 ALTER TABLE `flask_monitor` DISABLE KEYS */;
-/*!40000 ALTER TABLE `flask_monitor` ENABLE KEYS */;
+LOCK TABLES `batch` WRITE;
+/*!40000 ALTER TABLE `batch` DISABLE KEYS */;
+INSERT INTO `batch` VALUES ('IRV2305001','09:00:00','13:00:00',0,'A','XXX10','yes',1),('IRV2305003','09:30:00','12:30:00',0,'B','XXX11','yes',2),('IRV2305004','10:00:00','12:00:00',0,'C','XXX12','yes',3);
+/*!40000 ALTER TABLE `batch` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +60,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-30 13:04:14
+-- Dump completed on 2023-05-18 13:45:14

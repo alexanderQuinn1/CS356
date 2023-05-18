@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: miracle_cure_biotech
+-- Host: localhost    Database: miracle_cure_biotech
 -- ------------------------------------------------------
 -- Server version	8.0.33
 
@@ -16,37 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `maintenance_operation`
+-- Table structure for table `fill_room_monitor`
 --
 
-DROP TABLE IF EXISTS `maintenance_operation`;
+DROP TABLE IF EXISTS `fill_room_monitor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `maintenance_operation` (
-  `maintenance_id` int NOT NULL,
-  `date` date DEFAULT NULL,
-  `start_time` time DEFAULT NULL,
-  `end_time` time DEFAULT NULL,
-  `plant_id` varchar(9) DEFAULT NULL,
-  `description` varchar(2000) DEFAULT NULL,
-  `man_hours` int DEFAULT NULL,
-  `parts_replaced` varchar(2000) DEFAULT NULL,
-  `cost` decimal(10,0) DEFAULT NULL,
-  `shutdown_required` tinyint DEFAULT NULL,
-  `planned_activity` tinyint DEFAULT NULL,
-  PRIMARY KEY (`maintenance_id`),
-  KEY `maintenance_operation_plant_fk_idx` (`plant_id`),
-  CONSTRAINT `maintenance_operation_plant_fk` FOREIGN KEY (`plant_id`) REFERENCES `plant` (`plant_id`)
+CREATE TABLE `fill_room_monitor` (
+  `fill_room_monitor_id` int NOT NULL,
+  `fill_room_id` int DEFAULT NULL,
+  `humidity` int DEFAULT NULL,
+  `last_stir_delta` int DEFAULT NULL,
+  PRIMARY KEY (`fill_room_monitor_id`),
+  KEY `fill_room_monitor_fill_room_FK_idx` (`fill_room_id`),
+  CONSTRAINT `fill_room_monitor_fill_room_FK` FOREIGN KEY (`fill_room_id`) REFERENCES `fill_room` (`fill_room_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `maintenance_operation`
+-- Dumping data for table `fill_room_monitor`
 --
 
-LOCK TABLES `maintenance_operation` WRITE;
-/*!40000 ALTER TABLE `maintenance_operation` DISABLE KEYS */;
-/*!40000 ALTER TABLE `maintenance_operation` ENABLE KEYS */;
+LOCK TABLES `fill_room_monitor` WRITE;
+/*!40000 ALTER TABLE `fill_room_monitor` DISABLE KEYS */;
+INSERT INTO `fill_room_monitor` VALUES (1,1,40,79),(2,2,60,82),(3,3,70,90);
+/*!40000 ALTER TABLE `fill_room_monitor` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -58,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-30 13:04:17
+-- Dump completed on 2023-05-18 13:45:13

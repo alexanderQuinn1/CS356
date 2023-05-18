@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: miracle_cure_biotech
+-- Host: localhost    Database: miracle_cure_biotech
 -- ------------------------------------------------------
 -- Server version	8.0.33
 
@@ -16,33 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `product_type`
+-- Table structure for table `operator`
 --
 
-DROP TABLE IF EXISTS `product_type`;
+DROP TABLE IF EXISTS `operator`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `product_type` (
-  `prod_type_code` varchar(6) NOT NULL,
-  `type_name` varchar(50) DEFAULT NULL,
-  `max_ph` int DEFAULT NULL,
-  `min_ph` int DEFAULT NULL,
-  `max_temp` int DEFAULT NULL,
-  `min_temp` int DEFAULT NULL,
-  `max_osmoality` int DEFAULT NULL,
-  `min_osmoality` int DEFAULT NULL,
-  `min_sterility` int DEFAULT NULL,
-  PRIMARY KEY (`prod_type_code`)
+CREATE TABLE `operator` (
+  `operator_id` int NOT NULL,
+  `firstname` varchar(50) DEFAULT NULL,
+  `surname` varchar(50) DEFAULT NULL,
+  `access_code` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`operator_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `product_type`
+-- Dumping data for table `operator`
 --
 
-LOCK TABLES `product_type` WRITE;
-/*!40000 ALTER TABLE `product_type` DISABLE KEYS */;
-/*!40000 ALTER TABLE `product_type` ENABLE KEYS */;
+LOCK TABLES `operator` WRITE;
+/*!40000 ALTER TABLE `operator` DISABLE KEYS */;
+INSERT INTO `operator` VALUES (1,'Jack ','Drysdale','ABC123456'),(2,'Calum','Brown','ABC123457'),(3,'Julie ','Bateman','ABC123458');
+/*!40000 ALTER TABLE `operator` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-30 13:04:18
+-- Dump completed on 2023-05-18 13:45:16
