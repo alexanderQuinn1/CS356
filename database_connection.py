@@ -10,7 +10,7 @@ def connect_database(database):
             password="512451245124j@D"
         )
     else:
-        miracle_cure_biotech_db  = mysql.connector.connect(
+        miracle_cure_biotech_db = mysql.connector.connect(
             host="localhost",
             user="root",
             password="512451245124j@D",
@@ -22,21 +22,31 @@ def connect_database(database):
 
 def create_database(dbname):
     db = connect_database(None)
-    createDB = db.cursor()
-    dbname = dbname
-    createDB.execute(f"CREATE  DATABASE {dbname}")
+    create_db = db.cursor()
+
+    create_db.execute(f"SHOW DATABASES LIKE '{dbname}'")
+
+    if not create_db.fetchone():
+        create_db.execute(f"CREATE DATABASE {dbname}")
+
+    create_db.close()
     db.close()
+
     return dbname
 
 
 def create_tables(dbname):
-    sql_files = [f for f in os.listdir('scripts/setup')]
+    path = 'scripts/db-setup'
+    sql_files = [f for f in os.listdir('scripts/db-setup')]
     for sql_file in sql_files:
-        with open(sql_file, 'r') as file:
-            sql_create = file.read()
+        with open(os.path.join(path, sql_file), 'r') as file:
+            sql_create = file.read().split(';')
             db = connect_database(dbname)
             mydb = db.cursor()
-            mydb.execute(sql_create)
+            for sql_statement in sql_create:
+                if sql_statement.strip():  # Skip empty statements
+                    mydb.execute(sql_statement)
+                    db.commit()
             mydb.close()
             db.close()
 

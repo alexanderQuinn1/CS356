@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: miracle_cure_biotech
+-- Host: localhost    Database: miracle_cure_biotech
 -- ------------------------------------------------------
 -- Server version	8.0.33
 
@@ -16,30 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `expansion_monitor`
+-- Table structure for table `expansion`
 --
 
-DROP TABLE IF EXISTS `expansion_monitor`;
+DROP TABLE IF EXISTS `expansion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `expansion_monitor` (
-  `expansion_monitor_id` int NOT NULL,
-  `production_monitor_id` int DEFAULT NULL,
-  `peristaltic_pump` varchar(10) DEFAULT NULL,
-  `cell_count` int DEFAULT NULL,
-  PRIMARY KEY (`expansion_monitor_id`),
-  KEY `expansion_monitor_production_monitor_fk_idx` (`production_monitor_id`),
-  CONSTRAINT `expansion_monitor_production_monitor_fk` FOREIGN KEY (`production_monitor_id`) REFERENCES `production_monitor` (`production_monitor_id`)
+CREATE TABLE `expansion` (
+  `expansion_id` int NOT NULL,
+  `batch_id` varchar(11) DEFAULT NULL,
+  `stage` int DEFAULT NULL,
+  PRIMARY KEY (`expansion_id`),
+  KEY `expansion_batch_fk_idx` (`batch_id`),
+  KEY `expansion_stage_lookup_fk_idx` (`stage`),
+  CONSTRAINT `expansion_batch_fk` FOREIGN KEY (`batch_id`) REFERENCES `batch` (`batch_no`),
+  CONSTRAINT `expansion_stage_lookup_fk` FOREIGN KEY (`stage`) REFERENCES `stage_lookup` (`stage_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `expansion_monitor`
+-- Dumping data for table `expansion`
 --
 
-LOCK TABLES `expansion_monitor` WRITE;
-/*!40000 ALTER TABLE `expansion_monitor` DISABLE KEYS */;
-/*!40000 ALTER TABLE `expansion_monitor` ENABLE KEYS */;
+LOCK TABLES `expansion` WRITE;
+/*!40000 ALTER TABLE `expansion` DISABLE KEYS */;
+INSERT INTO `expansion` VALUES (1,'IRV2305001',2),(2,'IRV2305001',4),(3,'IRV2305001',6),(4,'IRV2305003',2),(5,'IRV2305003',4),(6,'IRV2305003',6),(7,'IRV2305004',2),(8,'IRV2305004',4),(9,'IRV2305004',6);
+/*!40000 ALTER TABLE `expansion` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-30 13:04:16
+-- Dump completed on 2023-05-18 13:45:12

@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: miracle_cure_biotech
+-- Host: localhost    Database: miracle_cure_biotech
 -- ------------------------------------------------------
 -- Server version	8.0.33
 
@@ -16,31 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `maintenance_operators`
+-- Table structure for table `passage`
 --
 
-DROP TABLE IF EXISTS `maintenance_operators`;
+DROP TABLE IF EXISTS `passage`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `maintenance_operators` (
-  `maintenance_operator_id` int NOT NULL,
-  `maintenance_id` int DEFAULT NULL,
-  `operatore_id` int DEFAULT NULL,
-  PRIMARY KEY (`maintenance_operator_id`),
-  KEY `maintenance_operators_maintenance_operation_idx` (`maintenance_id`),
-  KEY `maintenace_operators_operator_fk_idx` (`operatore_id`),
-  CONSTRAINT `maintenace_operators_operator_fk` FOREIGN KEY (`operatore_id`) REFERENCES `operator` (`operator_id`),
-  CONSTRAINT `maintenance_operators_maintenance_operation` FOREIGN KEY (`maintenance_id`) REFERENCES `maintenance_operation` (`maintenance_id`)
+CREATE TABLE `passage` (
+  `passage_id` int NOT NULL,
+  `batch_id` varchar(11) DEFAULT NULL,
+  `stage` int DEFAULT NULL,
+  PRIMARY KEY (`passage_id`),
+  KEY `passage_batch_FK_idx` (`batch_id`),
+  KEY `passage_stage_lookup_fk_idx` (`stage`),
+  CONSTRAINT `passage_batch_FK` FOREIGN KEY (`batch_id`) REFERENCES `batch` (`batch_no`),
+  CONSTRAINT `passage_stage_lookup_fk` FOREIGN KEY (`stage`) REFERENCES `stage_lookup` (`stage_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `maintenance_operators`
+-- Dumping data for table `passage`
 --
 
-LOCK TABLES `maintenance_operators` WRITE;
-/*!40000 ALTER TABLE `maintenance_operators` DISABLE KEYS */;
-/*!40000 ALTER TABLE `maintenance_operators` ENABLE KEYS */;
+LOCK TABLES `passage` WRITE;
+/*!40000 ALTER TABLE `passage` DISABLE KEYS */;
+INSERT INTO `passage` VALUES (1,'IRV2305001',3),(2,'IRV2305001',5),(3,'IRV2305001',7),(4,'IRV2305003',3),(5,'IRV2305003',5),(6,'IRV2305003',7),(7,'IRV2305004',3),(8,'IRV2305004',5),(9,'IRV2305004',7);
+/*!40000 ALTER TABLE `passage` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-30 13:04:15
+-- Dump completed on 2023-05-18 13:45:14

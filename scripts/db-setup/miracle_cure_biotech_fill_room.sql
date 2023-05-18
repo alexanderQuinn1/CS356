@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: miracle_cure_biotech
+-- Host: localhost    Database: miracle_cure_biotech
 -- ------------------------------------------------------
 -- Server version	8.0.33
 
@@ -16,32 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `quality assurance`
+-- Table structure for table `fill_room`
 --
 
-DROP TABLE IF EXISTS `quality assurance`;
+DROP TABLE IF EXISTS `fill_room`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `quality assurance` (
-  `qa_id` int NOT NULL,
-  `batch_no` int DEFAULT NULL,
-  `mycoplasma` varchar(15) DEFAULT NULL,
-  `virus_testing` varchar(15) DEFAULT NULL,
-  `amin_acids` varchar(15) DEFAULT NULL,
-  `trace_elements` varchar(15) DEFAULT NULL,
-  PRIMARY KEY (`qa_id`),
-  KEY `quality_assurance_batch_fk_idx` (`batch_no`),
-  CONSTRAINT `quality_assurance_batch_fk` FOREIGN KEY (`batch_no`) REFERENCES `batch` (`batch_no`)
+CREATE TABLE `fill_room` (
+  `fill_room_id` int NOT NULL,
+  `batch_id` varchar(11) DEFAULT NULL,
+  `stage` int DEFAULT NULL,
+  PRIMARY KEY (`fill_room_id`),
+  KEY `fill_room_batch_fk_idx` (`batch_id`),
+  KEY `fill_room_stage_looup_fk_idx` (`stage`),
+  CONSTRAINT `fill_room_batch_fk` FOREIGN KEY (`batch_id`) REFERENCES `batch` (`batch_no`),
+  CONSTRAINT `fill_room_stage_looup_fk` FOREIGN KEY (`stage`) REFERENCES `stage_lookup` (`stage_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `quality assurance`
+-- Dumping data for table `fill_room`
 --
 
-LOCK TABLES `quality assurance` WRITE;
-/*!40000 ALTER TABLE `quality assurance` DISABLE KEYS */;
-/*!40000 ALTER TABLE `quality assurance` ENABLE KEYS */;
+LOCK TABLES `fill_room` WRITE;
+/*!40000 ALTER TABLE `fill_room` DISABLE KEYS */;
+INSERT INTO `fill_room` VALUES (1,'IRV2305001',8),(2,'IRV2305003',8),(3,'IRV2305004',8);
+/*!40000 ALTER TABLE `fill_room` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-30 13:04:17
+-- Dump completed on 2023-05-18 13:45:16
