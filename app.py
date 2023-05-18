@@ -60,5 +60,5 @@ def run_batch_schedule_entry():
 
 
 if __name__ == '__main__':
-    # db.create()
+    db.create()
     app.run(debug=True, port=5001)

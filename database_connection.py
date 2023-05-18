@@ -1,7 +1,7 @@
 import mysql.connector
 import os
 # uncomment and add filepath in case of [WinError 3] The system cannot find the path
-# os.chdir(<absolute_url>)
+os.chdir('c:/users/mhb20160/myprojects/cs356')
 
 def connect_database(database):
     if database is None:
