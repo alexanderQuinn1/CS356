@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import database_connection as db
 import models.batch as batch
 import models.maintenance_operation as maintenance
-import models.quality_assurance as qa
+import models.passage_qa as qa
 
 app = Flask(__name__)
 
@@ -44,10 +44,10 @@ def run_quality_assurance_entry():
 @app.route('/maintenance-entry', methods=['GET', 'POST'])
 def run_maintenance_entry():
     if request.method == 'GET':
-        return render_template('maintenanc-entry.html')
+        return render_template('maintenance-entry.html')
     else:
         response = maintenance.save_maintenance_activity(request.form)
-        return render_template('maintenanc-entry.html', response=response)
+        return render_template('maintenance-entry.html', response=response)
 
 
 @app.route('/batch-schedule-entry', methods=['GET', 'POST'])
