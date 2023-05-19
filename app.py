@@ -1,70 +1,64 @@
 from flask import Flask, render_template, request
-import pika
-import json
-
-from maintenance import save_maintenance_activity
-from productionSchedule import create_batch
+import database_connection as db
+import models.batch as batch
+import models.maintenance_operation as maintenance
+import models.passage_qa as qa
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def run_app():
-    return render_template('dashboard.html')
+    return render_template('dashboard.html', heading='Management Dashboard')
 
 
-@app.route('/dashboard')
-def run_dashboard():
-    return render_template('dashboard.html')
+@app.route('/prod-line-monitor')
+def run_production_line():
+    return render_template('prod-line-monitor.html', heading='Production Line Monitor')
 
 
-@app.route('/productionLine')
-def run_productionLine():
-    return render_template('productionLine.html')
+@app.route('/prod-schedule')
+def run_production_schedule():
+    return render_template('prod-line-schedule.html', heading="Production Schedule")
 
 
-@app.route('/productionSchedule')
-def run_productionSchedule():
-    return render_template('productionSchedule.html')
+@app.route('/qa-log')
+def run_quality_assurance():
+    return render_template('qa-log.html', heading="Quality Assurance Log")
 
 
-@app.route('/qualityAssurance')
-def run_qualityAssurance():
-    return render_template('qualityAssurance.html')
+@app.route('/maintenance-log')
+def run_maintenance_log():
+    return render_template('maintenance-log.html', heading="Maintenance Log")
 
 
-@app.route('/maintenanceLog')
-def run_maintenanceLog():
-    return render_template('maintenanceLog.html')
-
-
-
-@app.route('/qualityAssuranceEntry', methods=['GET', 'POST'])
+@app.route('/qa-entry', methods=['GET', 'POST'])
 def run_quality_assurance_entry():
     if request.method == 'GET':
-        return render_template('qualityAssuranceEntry.html')
+        return render_template('qa-entry.html')
     else:
-        response = save_quality_assurance(request.form)
-        return render_template('qualityAssuranceEntry.html', response=response)
+        response = qa.save_qa(request.form)
+        return render_template('qa-entry.html', response=response)
 
 
-@app.route('/maintenanceEntry', methods=['GET', 'POST'])
+@app.route('/maintenance-entry', methods=['GET', 'POST'])
 def run_maintenance_entry():
     if request.method == 'GET':
-        return render_template('maintenanceEntry.html')
+        return render_template('maintenance-entry.html')
     else:
-        response = save_maintenance_activity(request.form)
-        return render_template('maintenanceEntry.html', response=response)
+        response = maintenance.save_maintenance_activity(request.form)
+        return render_template('maintenance-entry.html', response=response)
 
 
-@app.route('/batchScheduleEntry', methods=['GET', 'POST'])
+@app.route('/batch-schedule-entry', methods=['GET', 'POST'])
 def run_batch_schedule_entry():
     if request.method == 'GET':
-        return render_template('batchScheduleEntry.html')
+        return render_template('batch-schedule-entry.html')
     else:
-        response = create_batch(request.form)
-        return render_template('batchScheduleEntry.html', response=response)
+        response = batch.schedule_batch(request.form)
+        return render_template('batch-schedule-entry.html', response=response)
 
 
 if __name__ == '__main__':
+    db.create()
     app.run(debug=True, port=5001)
