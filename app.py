@@ -1,3 +1,5 @@
+import math
+
 from flask import Flask, render_template, request
 import database_connection as db
 import models.batch as batch
@@ -12,9 +14,49 @@ def run_app():
     return render_template('dashboard.html', heading='Management Dashboard')
 
 
-@app.route('/prod-line-monitor')
+@app.route('/prod-line-monitor', methods=['GET', 'POST'])
 def run_production_line():
-    return render_template('prod-line-monitor.html', heading='Production Line Monitor')
+    # get production line
+    pl = 'A'
+    b = {
+        'batch_id': 'IRV99999999',
+        'prod_type': 'x',
+        'current_stage': 'expansion',
+    }
+    if request.method == 'GET':
+        if b['current_stage'] == 'expansion':
+            p = {
+                'min_temp': 36.5,
+                'max_temp': 37.5
+            }
+            m = {
+                'flaskA': {
+                    'id'
+                    'temp': 37,
+                    'ph': 7,
+                    'osmolality': 369,
+                },
+                'flaskB': {
+                    'id'
+                    'temp': 37
+                },
+                'flaskC': {
+                    'id'
+                    'temp': 37
+                },
+                'flaskD': {
+                    'id'
+                    'temp': 37
+                }
+            }
+            return render_template('expansion-monitor.html', heading='Production Line Monitor', prod_line=pl, batch=b, monitor=m, product=p)
+        elif b['current_stage'] == 'passage':
+            m = {
+                'perastaltic_pump': 'low',
+                'cell_count': 122777282828229828292
+            }
+            qa = None
+            return render_template('passage-monitor.html', heading='Production Line Monitor', prod_line=pl, batch=b, monitor=m, qa_data=qa)
 
 
 @app.route('/prod-schedule')
