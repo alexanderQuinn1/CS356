@@ -1,0 +1,37 @@
+{% extends 'prod-line-monitor.html' %}
+
+{% block head %}
+{{ super() }}
+<script src="pureknob.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/monitor.css') }}">
+{% endblock %}
+
+{% block prod_activity %}
+{% for flask in monitor.flasks %}
+<div class="bm-monitor-group">
+    <h3 class="bm-monitor-group__heading">Flask Monitor ({{flask.id}})</h3>
+    <div class="row g-2">
+        <div class="col-md-4">
+            <div class="bm-monitor-info-block">
+                <h4 class="bm-monitor-info-block__title">Temperature</h4>
+                <div class="bm-monitor-temp-dial"></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="bm-monitor-info-block">
+                <h4 class="bm-monitor-info-block__title">Ph</h4>
+                <div class="bm-monitor-ph-dial"></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="bm-monitor-info-block">
+                <h4 class="bm-monitor-info-block__title">Osmoality</h4>
+                <div class="bm-monitor-osmolality-dial"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<script src="scripts/expansion_dials.js"></script>
+{% endblock %}

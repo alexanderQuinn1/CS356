@@ -2,10 +2,13 @@
 
 {% block head %}
 <!--stylesheet linkrel-->
-
 {% endblock %}
 
 {% block content %}
+<!--prod line tabs go here-->
+<!--prod steps go here-->
+{% block prod_activity %}
+{% endblock %}
 <!-- Use parameters to pass in link which line is clicked, loopback to same page + ?line -->
 <div class="tab">
     <button class="tablink" onclick="openProdLine(event, 'line1')">Line 1</button>

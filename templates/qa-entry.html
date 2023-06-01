@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Quality Assurance Form</title>
-      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/stylesheet.css') }}">
-  </head>
-  <body>
-  <div class="container">
-
-    <header>
-      <h1>Quality Assurance Entry</h1>
-    </header>
-
+{% extends 'prod-line-monitor.html' %}
+{% block content %}
     <form>
       <label for="batch-number">Batch Number (format: IRVYYMMNNNN):</label>
       <input type="text" id="batch-number" name="batch-number" pattern="IRV[0-9]{4}[0-9]{4}" required><br><br>
@@ -38,6 +27,4 @@
 
       <input type="submit" value="Submit">
     </form>
-  </div>
-  </body>
-</html>
+{% endblock %}

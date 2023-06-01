@@ -1,23 +1,16 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 20px;
+:root {
+  --bm-blue: #0000b6;
+  --bm-blue--light: #caf0ff;
+  --bm-green: #168039;
+  --bm-green--light: #C1E1C1;
+  --bm-red: #ff0000;
+  --bm-red--light: #faa0a0;
+  --bm-grey--dark: #333;
 }
 
 header {
-  height: 100px;
+  padding: 20px 12px;
   background-color: #ccc;
-}
-
-.row {
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-}
-
-.col {
-  flex: 1;
-  border: 1px solid #000;
 }
 
 table {
@@ -48,9 +41,10 @@ tr:hover {
 }
 
 nav {
-  background-color: #333;
+  background-color: var(--bm-grey--dark);
   color: #fff;
   padding: 10px;
+  margin-bottom: 16px;
 }
 
 nav ul {
@@ -77,7 +71,7 @@ nav a:hover {
   margin-bottom: 10px;
 }
 
-
+/*change to indiviudal stylesheets for tabs*/
 /* Style the tab */
 .tab {
   overflow: hidden;
