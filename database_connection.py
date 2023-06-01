@@ -45,7 +45,7 @@ def create_tables(dbname):
             db = connect_database(dbname)
             mydb = db.cursor()
             for sql_statement in sql_create:
-                if sql_statement.strip():  # Skip empty statements
+                if sql_statement.strip():
                     mydb.execute(sql_statement)
                     db.commit()
             mydb.close()
