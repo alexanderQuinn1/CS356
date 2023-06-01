@@ -48,14 +48,16 @@ def create_tables(dbname):
             db = connectDatabase(dbname)
             mydb = db.cursor()
             for sql_statement in sql_create:
-                if sql_statement.strip():  # Skip empty statements
+                if sql_statement.strip():
                     mydb.execute(sql_statement)
                     db.commit()
             mydb.close()
             db.close()
 
 
-database_name = "miracle_cure_biotech"
-db = createdatabase(database_name)
-print(db)
-create_tables(db)
+
+
+#database_name = "miracle_cure_biotech"
+#db = createdatabase(database_name)
+#print(db)
+#create_tables(db)
