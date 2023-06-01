@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "mysql": "^2.18.1",
+    "progressbar.js": "^1.1.0"
+  }
+}

@@ -14,7 +14,7 @@ def run_app():
 
 @app.route('/prod-line-monitor')
 def run_production_line():
-    return render_template('prod-line-monitor.html', heading='Production Line Monitor')
+    return render_template('prod-line-monitor.html', heading='Production Line Monitor', batch=b, stage=c)
 
 
 @app.route('/prod-schedule')

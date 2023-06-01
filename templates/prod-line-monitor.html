@@ -2,22 +2,150 @@
 
 {% block head %}
 <!--stylesheet linkrel-->
+
 {% endblock %}
 
 {% block content %}
-    <div class="row">
+<!-- Use parameters to pass in link which line is clicked, loopback to same page + ?line -->
+<div class="tab">
+    <button class="tablink" onclick="openProdLine(event, 'line1')">Line 1</button>
+    <button class="tablink" onclick="openProdLine(event, 'Line2')">Line 2</button>
+    <button class="tablink" onclick="openProdLine(event, 'Line3')">Line 2</button>
+</div>
 
-            <div class="col">
-               <h2>Line 1</h2>
-            </div>
+<div id="line1" class="tabcontent">
+    <h3>Line 1</h3>
 
-            <div class="col">
-               <h2>Line 2</h2>
-            </div>
+    <div id="line1-bar"></div>
+    <p id="line1-stage"> Start </p>
 
-            <div class="col">
-               <h2>Line 3</h2>
-            </div>
+    <button id="stageMove" onclick="moveNextBatchState('line1')">Next Stage</button>
 
-         </div>
+</div>
+
+<div id="Line2" class="tabcontent">
+    <h3>Line 2</h3>
+
+    <div id="line2-bar"></div>
+    <p id="line2-stage"> Start </p>
+    <p>Subject to Maintenance (Planned maintenance)</p>
+</div>
+
+<div id="Line3" class="tabcontent">
+    <h3>Line 3</h3>
+    <p>Production Line Idle</p>
+</div>
+
+
+<script>
+    function openProdLine(event, prodLine) {
+        var i, tabcontent, tablinks;
+
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", " ");
+        }
+
+        document.getElementById(prodLine).style.display = "block";
+        event.currentTarget.className += " active";
+    }
+
+    //Manage stages
+
+    let stages = document.querySelector('#stageMove');
+    let stageProgress = 0.0004;
+
+    let lineBar = new ProgressBar.Line('#line1-bar', {
+        strokeWidth: 4,
+        easing: 'easeInOut',
+        duration: 500,
+        color: '#006bbf',
+        trailColor: '#eee',
+        trailWidth: 1,
+        svgStyle: {width: '100%', height: '100%'},
+        text: {
+            style: {
+                color: '#999',
+                position: 'absolute',
+                right: '0',
+                top: '30px',
+                padding: 0,
+                margin: 0,
+                transform: null
+            },
+            autoStyleContainer: false
+        },
+        from: {color: '#FFEA82'},
+        to: {color: '#ED6A5A'},
+        step: (state, bar) => {
+            if (bar.value() > 0.5) {
+                bar.setText(bar.value() * 100 + ' %');
+            } else {
+                {
+                    bar.setText('test')
+                }
+            }
+        }
+    });
+    lineBar.animate(stageProgress);
+
+    stages.onclick = function () {
+        if (stageProgress >= 0.99) {
+            lineBar.animate(stageProgress);
+        } else {
+            stageProgress += 0.1666;
+            //move in database
+
+
+            console.log(stageProgress);
+            lineBar.animate(stageProgress);
+            moveNextBatchState(stageProgress)
+        }
+    };
+
+
+    function moveNextBatchState() {
+// 7 stages but start = 0 so  16.67 for each stage but start = 0.04 to get 100? - Aayza
+
+        switch (stageProgress) {
+            case 0.167:
+                stageText = "Expansion 1";
+                break;
+            case  0.3336:
+                stageText = "Passage 2";
+                break;
+            case  0.5002:
+                stageText = "Expansion 2";
+                break;
+            case  0.6668:
+                stageText = "Passage 2";
+                break;
+            case  0.8333999999999999:
+                stageText = "Expansion 2";
+                break;
+            case 0.9999999999999999:
+                stageText = "End of Line";
+                break;
+            default:
+                stageText = "Unknown Stage";
+        }
+        document.getElementById("line1-stage").innerHTML = stageText;
+
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "/SQLQueries.py",
+        data: {param: stageText}
+    }).done(function update_batch_stage() {
+        // do something
+
+    });
+
+</script>
 {% endblock %}
