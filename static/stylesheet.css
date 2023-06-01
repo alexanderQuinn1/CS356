@@ -1,11 +1,15 @@
 :root {
   --bm-blue: #0000b6;
   --bm-blue--light: #caf0ff;
+  --bm-green: #168039;
+  --bm-green--light: #C1E1C1;
+  --bm-red: #ff0000;
+  --bm-red--light: #faa0a0;
   --bm-grey--dark: #333;
 }
 
 header {
-  height: 100px;
+  padding: 20px 12px;
   background-color: #ccc;
 }
 
