@@ -1,0 +1,23 @@
+.bm-monitor-info-block {
+    border: solid 2px var(--bm-grey--dark);
+    text-align: center;
+    border-radius: 4px;
+    padding: 20px 0;
+    cursor: default;
+}
+
+.bm-monitor-info-block--blue {
+    color: var(--bm-blue);
+    border-color: var(--bm-blue);
+    background-color: var(--bm-blue--light);
+}
+
+.bm-monitor-info-block--clickable {
+    cursor: pointer;
+}
+
+.bm-monitor-info-block__title {
+    font-size: 20px;
+}
+
+

@@ -18,17 +18,21 @@ def run_app():
 def run_production_line():
     # get production line
     pl = 'A'
+    # get batch
     b = {
         'batch_id': 'IRV99999999',
         'prod_type': 'x',
-        'current_stage': 'expansion',
+        'current_stage': 'passage',
     }
     if request.method == 'GET':
+        # do this for expansion, todo: this should use ID's for expansion 1 or 2
         if b['current_stage'] == 'expansion':
+            # get operating params
             p = {
                 'min_temp': 36.5,
                 'max_temp': 37.5
             }
+            # get flask monitors
             m = {
                 'flaskA': {
                     'id'
@@ -50,11 +54,14 @@ def run_production_line():
                 }
             }
             return render_template('expansion-monitor.html', heading='Production Line Monitor', prod_line=pl, batch=b, monitor=m, product=p)
+        # do this for passage, todo: this should use ID's for passage 1 or 2 or end of line
         elif b['current_stage'] == 'passage':
+            # get monitor
             m = {
-                'perastaltic_pump': 'low',
+                'peristaltic_pump': 'low',
                 'cell_count': 122777282828229828292
             }
+            # get qa
             qa = None
             return render_template('passage-monitor.html', heading='Production Line Monitor', prod_line=pl, batch=b, monitor=m, qa_data=qa)
 
@@ -102,5 +109,5 @@ def run_batch_schedule_entry():
 
 
 if __name__ == '__main__':
-    db.create()
+    # db.create()
     app.run(debug=True, port=5001)

@@ -1,7 +1,42 @@
 {% extends 'prod-line-monitor.html' %}
 
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/passage_monitor.css') }}">
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/passage_monitor.css') }}">
 {% endblock %}
 
-{% block prod_stage %}{% endblock %}
+{% block prod_activity %}
+<div class="row">
+    <a href=""> <i class="fas fa-edit"></i> update monitor</a>
+</div>
+<div class="row g-2">
+    <div class="col-md-3">
+        <div class="bm-monitor-info-block">
+            <h3 class="bm-monitor-info-block__title">Paristaltic Pump</h3>
+            <span class="bm-monitor-info-block__text">{{ monitor.peristaltic_pump }}</span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="bm-monitor-info-block">
+            <h3 class="bm-monitor-info-block__title">Cell Count</h3>
+            <span class="bm-monitor-info-block__text">{{ monitor.cell_count }}</span>
+        </div>
+    </div>
+
+    {% if qa %}
+    <div class="col-md-3">
+        <div class="bm-monitor-info-block bm-monitor-info-block--{{qa.colour}}">
+            <h3 class="bm-monitor-info-block__title">QA</h3>
+            <span class="bm-monitor-info-block__text">{{ qa.status }}</span>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-md-3">
+        <div class="bm-monitor-info-block bm-monitor-info-block--blue bm-monitor-info-block--clickable">
+            <h3 class="bm-monitor-info-block__title">Add QA</h3>
+            <i class="fa-xl fa-solid fa-plus bm-monitor-info-block__button"></i>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
