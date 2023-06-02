@@ -2,68 +2,37 @@
 
 {% block head %}
 <!--stylesheet linkrel-->
+
 {% endblock %}
 
 {% block content %}
 <!--prod line tabs go here-->
-<!--prod steps go here-->
-{% block prod_activity %}
-{% endblock %}
+
 <!-- Use parameters to pass in link which line is clicked, loopback to same page + ?line -->
+<!-- chnage tab links to hyperlinks ro reduce copied code, just use script to change which tab is active in style -->
+
 <div class="tab">
-    <button class="tablink" onclick="openProdLine(event, 'line1')">Line 1</button>
-    <button class="tablink" onclick="openProdLine(event, 'Line2')">Line 2</button>
-    <button class="tablink" onclick="openProdLine(event, 'Line3')">Line 2</button>
+    <a id="a" href="/prod-line-monitor/A" class="btn tablink">Line A</a>
+    <a id="b" href="/prod-line-monitor/B" class="btn tablink">Line B</a>
+    <a id="c" href="/prod-line-monitor/C" class="btn tablink">Line C</a>
 </div>
 
-<div id="line1" class="tabcontent">
-    <h3>Line 1</h3>
+<div id="line">
+    <h3>{{batch.batch_no}} - {{prod_line}}</h3>
 
-    <div id="line1-bar"></div>
-    <p id="line1-stage"> Start </p>
+    <div id="line-bar"></div>
+    <p id="stage"> {{batch.current_stage}} </p>
 
-    <button id="stageMove" onclick="moveNextBatchState('line1')">Next Stage</button>
+    <button id="stageMove" onclick="moveNextBatchState('{{ batch.current_stage }}')">Next Stage</button>
 
 </div>
-
-<div id="Line2" class="tabcontent">
-    <h3>Line 2</h3>
-
-    <div id="line2-bar"></div>
-    <p id="line2-stage"> Start </p>
-    <p>Subject to Maintenance (Planned maintenance)</p>
-</div>
-
-<div id="Line3" class="tabcontent">
-    <h3>Line 3</h3>
-    <p>Production Line Idle</p>
-</div>
-
 
 <script>
-    function openProdLine(event, prodLine) {
-        var i, tabcontent, tablinks;
-
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", " ");
-        }
-
-        document.getElementById(prodLine).style.display = "block";
-        event.currentTarget.className += " active";
-    }
-
     //Manage stages
-
-    let stages = document.querySelector('#stageMove');
+    var prodLine = '{{ prod_line }}';
+    let currentStage = '{{ batch.current_stage }}';
     let stageProgress = 0.0004;
-
-    let lineBar = new ProgressBar.Line('#line1-bar', {
+    let lineBar = new ProgressBar.Line('#line-bar', {
         strokeWidth: 4,
         easing: 'easeInOut',
         duration: 500,
@@ -95,60 +64,100 @@
             }
         }
     });
+    switch (currentStage) {
+        case '1':
+            stageProgress = 0.0;
+            break;
+        case '2':
+            stageProgress = 0.125;
+            break;
+        case '3':
+            stageProgress = 0.25;
+            break;
+        case '4':
+            stageProgress = 0.375;
+            break;
+        case '5':
+            stageProgress = 0.50;
+            break;
+        case '6':
+            stageProgress = 0.625;
+            break;
+        case '7':
+            stageProgress = 0.75;
+            break;
+        case '8':
+            stageProgress = 0.875;
+            break;
+        case '9':
+            stageProgress = 1;
+            break;
+    }
+
     lineBar.animate(stageProgress);
 
-    stages.onclick = function () {
-        if (stageProgress >= 0.99) {
-            lineBar.animate(stageProgress);
-        } else {
-            stageProgress += 0.1666;
-            //move in database
 
+    function moveNextBatchState(current) {
+// 9 stages but start = 0 so  16.67 for each stage but start = 0.04 to get 100? - Aayza
+//         switch (currentStage) {
+//             case 3:
+//                 stageProgress = 0.167;
+//                 lineBar.animate(stageProgress);
+//                 break;
+//         }
+//         if (stageProgress >= 0.99) {
+//             lineBar.animate(stageProgress);
+//         } else {
+//             stageProgress += 0.1666;
+//             //move in database
+//
+//             console.log(stageProgress);
+//             lineBar.animate(stageProgress);
+//             moveNextBatchState(stageProgress)
+//         }
 
-            console.log(stageProgress);
-            lineBar.animate(stageProgress);
-            moveNextBatchState(stageProgress)
-        }
-    };
+        // switch (stageProgress) {
+        //     case 0.167:
+        //         stageText = "Expansion 1";
+        //         break;
+        //     case  0.3336:
+        //         stageText = "Passage 2";
+        //         break;
+        //     case  0.5002:
+        //         stageText = "Expansion 2";
+        //         break;
+        //     case  0.6668:
+        //         stageText = "Passage 2";
+        //         break;
+        //     case  0.8333999999999999:
+        //         stageText = "Expansion 2";
+        //         break;
+        //     case 0.9999999999999999:
+        //         stageText = "End of Line";
+        //         break;
+        //     default:
+        //         stageText = "Unknown Stage";
+        // }
+        // document.getElementById("stage").innerHTML = stageText;
 
-
-    function moveNextBatchState() {
-// 7 stages but start = 0 so  16.67 for each stage but start = 0.04 to get 100? - Aayza
-
-        switch (stageProgress) {
-            case 0.167:
-                stageText = "Expansion 1";
-                break;
-            case  0.3336:
-                stageText = "Passage 2";
-                break;
-            case  0.5002:
-                stageText = "Expansion 2";
-                break;
-            case  0.6668:
-                stageText = "Passage 2";
-                break;
-            case  0.8333999999999999:
-                stageText = "Expansion 2";
-                break;
-            case 0.9999999999999999:
-                stageText = "End of Line";
-                break;
-            default:
-                stageText = "Unknown Stage";
-        }
-        document.getElementById("line1-stage").innerHTML = stageText;
 
     }
 
-    $.ajax({
-        type: "POST",
-        url: "/SQLQueries.py",
-        data: {param: stageText}
-    }).done(function update_batch_stage() {
-        // do something
-
-    });
+    // $.ajax({
+    //     type: "POST",
+    //     url: "/SQLQueries.py",
+    //     data: {param: stageText}
+    // }).done(function update_batch_stage() {
+    //     // do something
+    //
+    // });
 
 </script>
+
 {% endblock %}
+
+{% block prod_activity %}
+<!--prod steps go here-->
+
+{% endblock %}
+
