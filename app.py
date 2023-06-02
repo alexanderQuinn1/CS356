@@ -15,12 +15,10 @@ def run_app():
     return render_template('dashboard.html', heading='Management Dashboard')
 
 
-@app.route('/prod-line-monitor', methods=['GET', 'POST'])
-def run_production_line():
+@app.route('/prod-line-monitor/<prod_line>')
+def run_production_line(prod_line):
     heading = 'Production Line Monitor'
-    # get production line from URL params
-    pl = 'A'
-    return plm.render_prod_activity(pl, heading)
+    return plm.render_prod_activity(heading, prod_line)
 
 
 @app.route('/prod-schedule')

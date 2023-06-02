@@ -36,9 +36,13 @@ def render_expansion_monitor(heading, prod_line, batch):
         # TODO get operating params for the batch
         p = {
             'min_temp': 36.5,
-            'max_temp': 37.5
+            'max_temp': 37.5,
+            'min_ph': 6.2,
+            'max_ph': 7.8,
+            'min_osmolality': 360,
+            'max_osmolality': 420,
         }
-        # get flask monitors
+        # TODO get flask monitoring data for the current expansion
         m = {
             'flasks': [
                 {
@@ -66,7 +70,7 @@ def render_expansion_monitor(heading, prod_line, batch):
                     'osmolality': 369,
                 }]
         }
-        return render_template('expansion-monitor.html', heading=heading, prod_line=prod_line, batch=b, monitor=m,
+        return render_template('expansion-monitor.html', heading=heading, prod_line=prod_line, batch=batch, monitor=m,
                                product=p)
 
 
