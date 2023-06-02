@@ -1,12 +1,12 @@
 .bm-monitor-group {
     border: solid 2px var(--bm-grey--dark);
-    padding: 16px 8px;
+    padding: 20px;
     border-radius: 4px;
     margin-bottom: 20px
 }
 
 .bm-monitor-group__heading {
-    font-size: 24px;
+    font-size: 28px;
     color: var(--bm-grey--dark);
     margin-bottom: 12px;
 }
@@ -55,4 +55,6 @@
     margin-bottom: 8px;
 }
 
-
+.bm-monitor-dial__wrapper {
+    width: 100%;
+}
