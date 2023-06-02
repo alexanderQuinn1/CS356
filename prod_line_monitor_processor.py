@@ -12,8 +12,12 @@ def render_prod_activity(prod_line, heading):
     if b['current_stage'] == 'expansion':
         # get operating params
         p = {
-            'min_temp': 36.5,
-            'max_temp': 37.5
+            'min_temp': 36,
+            'max_temp': 38,
+            'min_ph': 6,
+            'max_ph': 8,
+            'min_osmolality': 360,
+            'max_osmolality': 420
         }
         # get flask monitors
         m = {
@@ -21,12 +25,12 @@ def render_prod_activity(prod_line, heading):
                 {
                     'id': 12345678,
                     'temp': 37,
-                    'ph': 7,
+                    'ph': 8.,
                     'osmolality': 369,
                 },
                 {
                     'id': 12345679,
-                    'temp': 37,
+                    'temp': 35,
                     'ph': 7,
                     'osmolality': 369,
                 },
@@ -53,9 +57,8 @@ def render_prod_activity(prod_line, heading):
             'cell_count': '1.63x10^9'
         }
         # get qa
-        qa = None
-        # qa = {
-        #     'status': 'pass',
-        #     'colour': 'green'
-        # }
+        qa = {
+            'status': 'pass',
+            'colour': 'green'
+        }
         return render_template('passage-monitor.html', heading=heading, prod_line=prod_line, batch=b, monitor=m, qa=qa)
