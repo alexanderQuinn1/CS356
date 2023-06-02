@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Dials</title>
-    <script src="pureknob.js"></script>
+    <script src="../static/js/pureknob.js"></script>
 </head>
 <script>
     function demoKnob() {
@@ -17,9 +17,6 @@
 
 				knob.setValue(37.2);
 
-				const listener = function(knob, value) {
-					console.log(value);
-				};
 
 				knob.addListener(listener);
 

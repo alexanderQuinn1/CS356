@@ -2,22 +2,167 @@
 
 {% block head %}
 <!--stylesheet linkrel-->
+
 {% endblock %}
 
 {% block content %}
-    <div class="row">
+<!--prod line tabs go here-->
 
-            <div class="col">
-               <h2>Line 1</h2>
-            </div>
+<!-- Use parameters to pass in link which line is clicked, loopback to same page + ?line -->
+<!-- chnage tab links to hyperlinks ro reduce copied code, just use script to change which tab is active in style -->
 
-            <div class="col">
-               <h2>Line 2</h2>
-            </div>
+<div class="tab">
+    <a id="a" href="/prod-line-monitor/A" class="btn tablink">Line A</a>
+    <a id="b" href="/prod-line-monitor/B" class="btn tablink">Line B</a>
+    <a id="c" href="/prod-line-monitor/C" class="btn tablink">Line C</a>
+</div>
 
-            <div class="col">
-               <h2>Line 3</h2>
-            </div>
+<div id="line">
+    <h3>{{batch.batch_no}} - {{prod_line}}</h3>
 
-         </div>
+    <div id="line-bar"></div>
+    <p id="stage"> {{batch.current_stage}} </p>
+
+    <button id="stageMove" onclick="moveNextBatchState('{{ batch.current_stage }}')">Next Stage</button>
+
+</div>
+
+<script>
+    //Manage stages
+    var prodLine = '{{ prod_line }}';
+    let currentStage = '{{ batch.current_stage }}';
+    let stageProgress = 0.0004;
+    let lineBar = new ProgressBar.Line('#line-bar', {
+        strokeWidth: 4,
+        easing: 'easeInOut',
+        duration: 500,
+        color: '#006bbf',
+        trailColor: '#eee',
+        trailWidth: 1,
+        svgStyle: {width: '100%', height: '100%'},
+        text: {
+            style: {
+                color: '#999',
+                position: 'absolute',
+                right: '0',
+                top: '30px',
+                padding: 0,
+                margin: 0,
+                transform: null
+            },
+            autoStyleContainer: false
+        },
+        from: {color: '#FFEA82'},
+        to: {color: '#ED6A5A'},
+        step: (state, bar) => {
+            if (bar.value() > 0.5) {
+                bar.setText(bar.value() * 100 + ' %');
+            } else {
+                {
+                    bar.setText('test')
+                }
+            }
+        }
+    });
+    switch (currentStage) {
+        case '1':
+            stageProgress = 0.0;
+            break;
+        case '2':
+            stageProgress = 0.125;
+            break;
+        case '3':
+            stageProgress = 0.25;
+            break;
+        case '4':
+            stageProgress = 0.375;
+            break;
+        case '5':
+            stageProgress = 0.50;
+            break;
+        case '6':
+            stageProgress = 0.625;
+            break;
+        case '7':
+            stageProgress = 0.75;
+            break;
+        case '8':
+            stageProgress = 0.875;
+            break;
+        case '9':
+            stageProgress = 1;
+            break;
+    }
+
+    lineBar.animate(stageProgress);
+
+
+    function moveNextBatchState() {
+        let stageText;
+// 9 stages but start = 0 so  16.67 for each stage but start = 0.04 to get 100? - Aayza
+
+        if (stageProgress >= 0.99) {
+            lineBar.animate(stageProgress);
+        } else {
+            stageProgress += 0.125;
+            //move in database
+
+            console.log(stageProgress);
+            lineBar.animate(stageProgress);
+            moveNextBatchState(stageProgress)
+        }
+
+        switch (stageProgress) {
+            case 0.0:
+                stageText = "Start";
+                break;
+            case  0.125:
+                stageText = "Expansion 1";
+                break;
+            case  0.25:
+                stageText = "Passage 1";
+                break;
+            case  0.375:
+                stageText = "Expansion 2";
+                break;
+            case  0.50:
+                stageText = "Passage 2";
+                break;
+            case 0.625:
+                stageText = "Expansion 3";
+                break;
+            case 0.75:
+                stageText = "End of Line";
+                break;
+            case 0.875:
+                stageText = "Fill Room";
+                break;
+            case 1:
+                stageText = "End of Line";
+                break;
+            default:
+                stageText = "Unknown Stage";
+        }
+        document.getElementById("stage").innerHTML = stageText;
+
+
+    }
+
+    // $.ajax({
+    //     type: "POST",
+    //     url: "/SQLQueries.py",
+    //     data: {param: stageText}
+    // }).done(function update_batch_stage() {
+    //     // do something
+    //
+    // });
+
+</script>
+
 {% endblock %}
+
+{% block prod_activity %}
+<!--prod steps go here-->
+
+{% endblock %}
+
