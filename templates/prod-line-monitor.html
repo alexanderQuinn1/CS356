@@ -97,48 +97,53 @@
     lineBar.animate(stageProgress);
 
 
-    function moveNextBatchState(current) {
+    function moveNextBatchState() {
+        let stageText;
 // 9 stages but start = 0 so  16.67 for each stage but start = 0.04 to get 100? - Aayza
-//         switch (currentStage) {
-//             case 3:
-//                 stageProgress = 0.167;
-//                 lineBar.animate(stageProgress);
-//                 break;
-//         }
-//         if (stageProgress >= 0.99) {
-//             lineBar.animate(stageProgress);
-//         } else {
-//             stageProgress += 0.1666;
-//             //move in database
-//
-//             console.log(stageProgress);
-//             lineBar.animate(stageProgress);
-//             moveNextBatchState(stageProgress)
-//         }
 
-        // switch (stageProgress) {
-        //     case 0.167:
-        //         stageText = "Expansion 1";
-        //         break;
-        //     case  0.3336:
-        //         stageText = "Passage 2";
-        //         break;
-        //     case  0.5002:
-        //         stageText = "Expansion 2";
-        //         break;
-        //     case  0.6668:
-        //         stageText = "Passage 2";
-        //         break;
-        //     case  0.8333999999999999:
-        //         stageText = "Expansion 2";
-        //         break;
-        //     case 0.9999999999999999:
-        //         stageText = "End of Line";
-        //         break;
-        //     default:
-        //         stageText = "Unknown Stage";
-        // }
-        // document.getElementById("stage").innerHTML = stageText;
+        if (stageProgress >= 0.99) {
+            lineBar.animate(stageProgress);
+        } else {
+            stageProgress += 0.125;
+            //move in database
+
+            console.log(stageProgress);
+            lineBar.animate(stageProgress);
+            moveNextBatchState(stageProgress)
+        }
+
+        switch (stageProgress) {
+            case 0.0:
+                stageText = "Start";
+                break;
+            case  0.125:
+                stageText = "Expansion 1";
+                break;
+            case  0.25:
+                stageText = "Passage 1";
+                break;
+            case  0.375:
+                stageText = "Expansion 2";
+                break;
+            case  0.50:
+                stageText = "Passage 2";
+                break;
+            case 0.625:
+                stageText = "Expansion 3";
+                break;
+            case 0.75:
+                stageText = "End of Line";
+                break;
+            case 0.875:
+                stageText = "Fill Room";
+                break;
+            case 1:
+                stageText = "End of Line";
+                break;
+            default:
+                stageText = "Unknown Stage";
+        }
+        document.getElementById("stage").innerHTML = stageText;
 
 
     }
