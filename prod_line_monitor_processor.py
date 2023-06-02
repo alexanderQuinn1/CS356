@@ -25,7 +25,7 @@ def render_prod_activity(prod_line, heading):
                 {
                     'id': 12345678,
                     'temp': 37,
-                    'ph': 8.,
+                    'ph': 8.2,
                     'osmolality': 369,
                 },
                 {
