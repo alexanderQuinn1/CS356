@@ -1,31 +1,33 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<!--stylesheet linkrel-->
-
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/prod_line.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/monitor.css') }}">
 {% endblock %}
 
 {% block content %}
-<!--prod line tabs go here-->
+<ul class="bm-prod-line-tab nav nav-tabs">
+    <li class="nav-item">
+        <a id="a" class="bm-prod-line-tab__link nav-link {% if prod_line== 'A' %} active {% endif %}" href="/prod-line-monitor/A">Line A</a>
+    </li>
+    <li class="nav-item">
+        <a id="b" class="bm-prod-line-tab__link nav-link {% if prod_line== 'B' %} active {% endif %}" href="/prod-line-monitor/B">Line B</a>
+    </li>
+    <li class="nav-item">
+        <a id="c" class="bm-prod-line-tab__link nav-link {% if prod_line== 'C' %} active {% endif %}" href="/prod-line-monitor/C">Line C</a>
+    </li>
+</ul>
 
-<!-- Use parameters to pass in link which line is clicked, loopback to same page + ?line -->
-<!-- chnage tab links to hyperlinks ro reduce copied code, just use script to change which tab is active in style -->
-
-<div class="tab">
-    <a id="a" href="/prod-line-monitor/A" class="btn tablink">Line A</a>
-    <a id="b" href="/prod-line-monitor/B" class="btn tablink">Line B</a>
-    <a id="c" href="/prod-line-monitor/C" class="btn tablink">Line C</a>
-</div>
-
-<div id="line">
-    <h3>{{batch.batch_no}} - {{prod_line}}</h3>
+<div id="line" class="container-fluid bm-prod-line-tab__content">
+    <h4>{{batch.batch_no}} - {{batch.prod_type}}</h4>
 
     <div id="line-bar"></div>
-    <p id="stage"> {{batch.current_stage}} </p>
+    <p id="stage"> {{batch.current_stage.name}} </p>
 
-    <button id="stageMove" onclick="moveNextBatchState('{{ batch.current_stage }}')">Next Stage</button>
-
+    {% block prod_activity %}
+    {% endblock %}
 </div>
+
 
 <script>
     //Manage stages
@@ -158,11 +160,6 @@
     // });
 
 </script>
-
-{% endblock %}
-
-{% block prod_activity %}
-<!--prod steps go here-->
 
 {% endblock %}
 
