@@ -1,13 +1,4 @@
-{% extends 'prod-line-monitor.html' %}
-
-{% block head %}
-{{ super() }}
-<script type="text/javascript" src="{{ url_for('static', filename='js/pureknob.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/expansion_dials.js') }}"></script>
-{% endblock %}
-
-{% block prod_activity %}
-{% for flask in monitor.flasks %}
+{% for flask in expansion_monitor.flasks %}
 <div class="bm-monitor-group">
     <h5 class="bm-monitor-group__heading">Flask Monitor ({{flask.id}})</h5>
     <div class="row g-2">
@@ -19,7 +10,7 @@
         </div>
         <div class="col-md-4">
             <div class="bm-monitor-info-block" value="{{flask.ph}}" min="{{product.min_ph}}" max="{{product.max_ph}}">
-                <h6 class="bm-monitor-info-block__title">Ph</h4>
+                <h6 class="bm-monitor-info-block__title">Ph</h6>
                 <div class="bm-monitor-dial__wrapper"></div>
             </div>
         </div>
@@ -32,4 +23,3 @@
     </div>
 </div>
 {% endfor %}
-{% endblock %}

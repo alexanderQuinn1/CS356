@@ -3,163 +3,44 @@
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/prod_line.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/monitor.css') }}">
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/pureknob.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/expansion_dials.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/stages.js') }}"></script>
 {% endblock %}
 
 {% block content %}
 <ul class="bm-prod-line-tab nav nav-tabs">
     <li class="nav-item">
-        <a id="a" class="bm-prod-line-tab__link nav-link {% if prod_line== 'A' %} active {% endif %}" href="/prod-line-monitor/A">Line A</a>
+        <a id="a" class="bm-prod-line-tab__link nav-link {% if prod_line== 'A' %} active {% endif %}"
+           href="/prod-line-monitor/A">Line A</a>
     </li>
     <li class="nav-item">
-        <a id="b" class="bm-prod-line-tab__link nav-link {% if prod_line== 'B' %} active {% endif %}" href="/prod-line-monitor/B">Line B</a>
+        <a id="b" class="bm-prod-line-tab__link nav-link {% if prod_line== 'B' %} active {% endif %}"
+           href="/prod-line-monitor/B">Line B</a>
     </li>
     <li class="nav-item">
-        <a id="c" class="bm-prod-line-tab__link nav-link {% if prod_line== 'C' %} active {% endif %}" href="/prod-line-monitor/C">Line C</a>
+        <a id="c" class="bm-prod-line-tab__link nav-link {% if prod_line== 'C' %} active {% endif %}"
+           href="/prod-line-monitor/C">Line C</a>
     </li>
 </ul>
 
+</div>
 <div id="line" class="container-fluid bm-prod-line-tab__content">
     <h4>{{batch.batch_no}} - {{batch.prod_type}}</h4>
 
-    <div id="line-bar"></div>
-    <p id="stage"> {{batch.current_stage.name}} </p>
 
-    {% block prod_activity %}
-    {% endblock %}
+    <div class="bm-prod-line-stepper">
+        <button (onClick)="moveToNextStage()">next step</button>
+    </div>
+
+    {% if expansion_monitor %}
+		{% include 'expansion-monitor.html' %}
+    {% elif passage_monitor %}
+		{% include 'passage-monitor.html' %}
+    {% else %}
+     <div>start of production - no data </div>
+    {% endif %}
 </div>
-
-
-<script>
-    //Manage stages
-    var prodLine = '{{ prod_line }}';
-    let currentStage = '{{ batch.current_stage }}';
-    let stageProgress = 0.0004;
-    let lineBar = new ProgressBar.Line('#line-bar', {
-        strokeWidth: 4,
-        easing: 'easeInOut',
-        duration: 500,
-        color: '#006bbf',
-        trailColor: '#eee',
-        trailWidth: 1,
-        svgStyle: {width: '100%', height: '100%'},
-        text: {
-            style: {
-                color: '#999',
-                position: 'absolute',
-                right: '0',
-                top: '30px',
-                padding: 0,
-                margin: 0,
-                transform: null
-            },
-            autoStyleContainer: false
-        },
-        from: {color: '#FFEA82'},
-        to: {color: '#ED6A5A'},
-        step: (state, bar) => {
-            if (bar.value() > 0.5) {
-                bar.setText(bar.value() * 100 + ' %');
-            } else {
-                {
-                    bar.setText('test')
-                }
-            }
-        }
-    });
-    switch (currentStage) {
-        case '1':
-            stageProgress = 0.0;
-            break;
-        case '2':
-            stageProgress = 0.125;
-            break;
-        case '3':
-            stageProgress = 0.25;
-            break;
-        case '4':
-            stageProgress = 0.375;
-            break;
-        case '5':
-            stageProgress = 0.50;
-            break;
-        case '6':
-            stageProgress = 0.625;
-            break;
-        case '7':
-            stageProgress = 0.75;
-            break;
-        case '8':
-            stageProgress = 0.875;
-            break;
-        case '9':
-            stageProgress = 1;
-            break;
-    }
-
-    lineBar.animate(stageProgress);
-
-
-    function moveNextBatchState() {
-        let stageText;
-// 9 stages but start = 0 so  16.67 for each stage but start = 0.04 to get 100? - Aayza
-
-        if (stageProgress >= 0.99) {
-            lineBar.animate(stageProgress);
-        } else {
-            stageProgress += 0.125;
-            //move in database
-
-            console.log(stageProgress);
-            lineBar.animate(stageProgress);
-            moveNextBatchState(stageProgress)
-        }
-
-        switch (stageProgress) {
-            case 0.0:
-                stageText = "Start";
-                break;
-            case  0.125:
-                stageText = "Expansion 1";
-                break;
-            case  0.25:
-                stageText = "Passage 1";
-                break;
-            case  0.375:
-                stageText = "Expansion 2";
-                break;
-            case  0.50:
-                stageText = "Passage 2";
-                break;
-            case 0.625:
-                stageText = "Expansion 3";
-                break;
-            case 0.75:
-                stageText = "End of Line";
-                break;
-            case 0.875:
-                stageText = "Fill Room";
-                break;
-            case 1:
-                stageText = "End of Line";
-                break;
-            default:
-                stageText = "Unknown Stage";
-        }
-        document.getElementById("stage").innerHTML = stageText;
-
-
-    }
-
-    // $.ajax({
-    //     type: "POST",
-    //     url: "/SQLQueries.py",
-    //     data: {param: stageText}
-    // }).done(function update_batch_stage() {
-    //     // do something
-    //
-    // });
-
-</script>
-
 {% endblock %}
 
