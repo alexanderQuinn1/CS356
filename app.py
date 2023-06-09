@@ -69,6 +69,12 @@ def run_passage_monitor_entry():
         return render_template('passage-monitor-entry.html', heading='Enter Passage Monitoring Data')
 
 
+@app.route('/move_to_next_stage/<prod_line>/<batch_no>')
+def move_batch_to_next_stage(prod_line, batch_no):
+    # process here
+    return redirect('/prod-line-monitor/{line}'.format(line=prod_line))
+
+
 if __name__ == '__main__':
     # db.create()
     app.run(debug=True, port=5001)

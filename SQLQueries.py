@@ -145,6 +145,7 @@ def production_schedule_maintenance():
 
 production_schedule_passage()
 
+
 def get_batch_stage(batch):
     cursor = get_cursor()
     prod_batch = """SELECT current_stage from miracle_cure_biotech.Batch Where batch_no = "IRV2305001";"""
@@ -157,5 +158,3 @@ def update_batch_stage(batch, stage):
     prod_batch = """SELECT current_stage from miracle_cure_biotech.Batch Where batch_no = "IRV2305001";"""
     cursor.execute(prod_batch)
     print(cursor.fetchall())
-
-##CANT CALL FROM JS WITHOUT AJAX OR WRITE JS, BASE FOR OTHER QUEIRES AND CONNECTIONS TO FRONTEND
