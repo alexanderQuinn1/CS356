@@ -3,7 +3,6 @@
 {% block head %}
 <!--stylesheet linkrel-->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/stepper.css') }}">
-<link rel="stylesheet" href="https://cdn.korzh.com/metroui/v4/css/metro-all.min.css">
 
 {% endblock %}
 
@@ -25,22 +24,16 @@
     <h3>{{batch.batch_no}} - {{prod_line}}</h3>
 
 
-<div data-role="stepper"
-     data-steps="5"
-     data-step="3"
-     data-view="cycle"
-     data-cls-complete="bg-pink"
-     data-cls-current="bg-red">
-</div>
 <!--    <div id="line-bar"></div>-->
 <!--    <p id="stage"> {{batch.current_stage}} </p>-->
     <div class="bm-stepper" id="stepper">
-        {% for stage in %}
+        {% for stage in stages %}
         <span class="bm-stepper__step bm-stepper__step--{{status}}">{{stage_name}}</span>
+        {% endfor %}
     </div>
 
 
-    <button id="stageMove">Next Stage</button>
+    <button id="stageMove" onclick="update_stage('batch.batch_no', '{{prod_line}}')">Next Stage</button>
 
 </div>
 
@@ -49,6 +42,7 @@
     function getDescendantElements(parent) {
 	return [].slice.call(parent.getElementsByTagName('*'));
 }
+
     // function load_stages(){
     // let stepperContainer = document.querySelector("#stepper");
     //     for () {
@@ -62,23 +56,24 @@
 
         //update to next stage
 
+
         let stepperContainer = document.querySelector("#stepper");
         let currentStep = document.getElementsByClassName('bm-stepper__step--current');
         let nextStep = document.getElementsByClassName('bm-stepper__step--next');
 
         //move current to done
-        currentStep.classList.remove('bm-stepper__step--current')
-        currentStep.classList.add('bm-stepper__step--done')
+        currentStep.classList.remove('bm-stepper__step--active')
+        currentStep.classList.add('bm-stepper__step--complete')
 
         //move next to current
         nextStep.classList.remove('bm-stepper__step--next')
-        currentStep.classList.add('bm-stepper__step--current')
+        currentStep.classList.add('bm-stepper__step--active')
 
         //find next inactive and move to next
-        for (stepperContainer)
 
 
         //update in database
+
     }
 
 </script>
