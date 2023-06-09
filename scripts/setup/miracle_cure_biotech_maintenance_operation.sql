@@ -25,8 +25,6 @@ DROP TABLE IF EXISTS `maintenance_operation`;
 CREATE TABLE `maintenance_operation` (
   `maintenance_id` int NOT NULL,
   `date` date DEFAULT NULL,
-  `start_time` time DEFAULT NULL,
-  `end_time` time DEFAULT NULL,
   `plant_id` varchar(9) DEFAULT NULL,
   `description` varchar(2000) DEFAULT NULL,
   `man_hours` int DEFAULT NULL,
@@ -34,9 +32,12 @@ CREATE TABLE `maintenance_operation` (
   `cost` decimal(10,0) DEFAULT NULL,
   `shutdown_required` tinyint DEFAULT NULL,
   `planned_activity` tinyint DEFAULT NULL,
+  `prod_schedule_id` int DEFAULT NULL,
   PRIMARY KEY (`maintenance_id`),
   KEY `maintenance_operation_plant_fk_idx` (`plant_id`),
-  CONSTRAINT `maintenance_operation_plant_fk` FOREIGN KEY (`plant_id`) REFERENCES `plant` (`plant_id`)
+  KEY `maintenance_operation_prod_schedule_FK_idx` (`prod_schedule_id`),
+  CONSTRAINT `maintenance_operation_plant_fk` FOREIGN KEY (`plant_id`) REFERENCES `plant` (`plant_id`),
+  CONSTRAINT `maintenance_operation_prod_schedule_FK` FOREIGN KEY (`prod_schedule_id`) REFERENCES `production_schedule` (`prod_schedule_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -46,7 +47,7 @@ CREATE TABLE `maintenance_operation` (
 
 LOCK TABLES `maintenance_operation` WRITE;
 /*!40000 ALTER TABLE `maintenance_operation` DISABLE KEYS */;
-INSERT INTO `maintenance_operation` VALUES (10,'2023-05-15','09:00:00','13:00:00','IRV100111','Change Perstalic Pump',3,'Perstalic Pump',1000,1,1),(11,'2023-05-16','09:30:00','13:30:00','IRV100112','Change Flask sensor',NULL,'Flask Sensor',300,1,0),(12,'2023-05-14','12:00:00','14:00:00','IRV100113','Change Perstalic Pump',3,'Perstalic Pump',1000,1,1);
+INSERT INTO `maintenance_operation` VALUES (10,'2023-05-15','IRV100111','Change Perstalic Pump',3,'Perstalic Pump',1000,1,1,1),(11,'2023-05-16','IRV100112','Change Flask sensor',NULL,'Flask Sensor',300,1,0,2),(12,'2023-05-14','IRV100113','Change Perstalic Pump',3,'Perstalic Pump',1000,1,1,3);
 /*!40000 ALTER TABLE `maintenance_operation` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +60,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-18 13:45:15
+-- Dump completed on 2023-06-01 14:59:00
