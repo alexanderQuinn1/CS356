@@ -2,10 +2,14 @@
 
 {% block head %}
 <!--stylesheet linkrel-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/stepper.css') }}">
+<link rel="stylesheet" href="https://cdn.korzh.com/metroui/v4/css/metro-all.min.css">
 
 {% endblock %}
 
 {% block content %}
+<script src="https://cdn.korzh.com/metroui/v4/js/metro.min.js"></script>
+
 <!--prod line tabs go here-->
 
 <!-- Use parameters to pass in link which line is clicked, loopback to same page + ?line -->
@@ -20,156 +24,204 @@
 <div id="line">
     <h3>{{batch.batch_no}} - {{prod_line}}</h3>
 
-    <div id="line-bar"></div>
-    <p id="stage"> {{batch.current_stage}} </p>
 
-    <button id="stageMove" onclick="moveNextBatchState('{{ batch.current_stage }}')">Next Stage</button>
+<div data-role="stepper"
+     data-steps="5"
+     data-step="3"
+     data-view="cycle"
+     data-cls-complete="bg-pink"
+     data-cls-current="bg-red">
+</div>
+<!--    <div id="line-bar"></div>-->
+<!--    <p id="stage"> {{batch.current_stage}} </p>-->
+    <div class="bm-stepper" id="stepper">
+        {% for stage in %}
+        <span class="bm-stepper__step bm-stepper__step--{{status}}">{{stage_name}}</span>
+    </div>
+
+
+    <button id="stageMove">Next Stage</button>
 
 </div>
 
 <script>
-    //Manage stages
-    let stageText;
-    var prodLine = '{{ prod_line }}';
-    let currentStage = '{{ batch.current_stage }}';
-    let stageProgress = 0.0004;
-    let lineBar = new ProgressBar.Line('#line-bar', {
-        strokeWidth: 4,
-        easing: 'easeInOut',
-        duration: 500,
-        color: '#006bbf',
-        trailColor: '#eee',
-        trailWidth: 1,
-        svgStyle: {width: '100%', height: '100%'},
-        text: {
-            style: {
-                color: '#999',
-                position: 'absolute',
-                right: '0',
-                top: '30px',
-                padding: 0,
-                margin: 0,
-                transform: null
-            },
-            autoStyleContainer: false
-        },
-        from: {color: '#FFEA82'},
-        to: {color: '#ED6A5A'},
-        step: (state, bar) => {
-            // if (bar.value() > 0.5) {
-            //     bar.setText(bar.value() * 100 + ' %');
-            // } else {
-            //     {
-            //         bar.setText('test')
-            //     }
-            // }
-        }
-    });
-    switch (currentStage) {
-        case '1':
-            stageProgress = 0.0;
-            break;
-        case '2':
-            stageProgress = 0.125;
-            break;
-        case '3':
-            stageProgress = 0.25;
-            break;
-        case '4':
-            stageProgress = 0.375;
-            break;
-        case '5':
-            stageProgress = 0.50;
-            break;
-        case '6':
-            stageProgress = 0.625;
-            break;
-        case '7':
-            stageProgress = 0.75;
-            break;
-        case '8':
-            stageProgress = 0.875;
-            break;
-        case '9':
-            stageProgress = 1;
-            break;
+
+    function getDescendantElements(parent) {
+	return [].slice.call(parent.getElementsByTagName('*'));
+}
+    // function load_stages(){
+    // let stepperContainer = document.querySelector("#stepper");
+    //     for () {
+    //         let step = document.createElement('span');
+    //         step.classList.add('bm-stepper__step')
+    //         stepperContainer.appendChild(step);
+    //     }
+    // }
+
+    function update_stage(batch_id, prod_line){
+
+        //update to next stage
+
+        let stepperContainer = document.querySelector("#stepper");
+        let currentStep = document.getElementsByClassName('bm-stepper__step--current');
+        let nextStep = document.getElementsByClassName('bm-stepper__step--next');
+
+        //move current to done
+        currentStep.classList.remove('bm-stepper__step--current')
+        currentStep.classList.add('bm-stepper__step--done')
+
+        //move next to current
+        nextStep.classList.remove('bm-stepper__step--next')
+        currentStep.classList.add('bm-stepper__step--current')
+
+        //find next inactive and move to next
+        for (stepperContainer)
+
+
+        //update in database
     }
-
-    lineBar.animate(stageProgress);
-
-
-    function moveNextBatchState() {
-// 9 stages but start = 0 so  12.5 - Aayza
-
-        if (stageProgress >= 1) {
-            lineBar.animate(stageProgress);
-        } else {
-            stageProgress += 0.125;
-            currentStage += 1;
-            // update stage text and database
-            updateStage();
-            //debugging
-            console.log(stageProgress);
-            console.log(currentStage);
-        }
-
-    }
-
-    function updateStage() {
-        switch (stageProgress) {
-            case 0.0:
-                stageText = "Start";
-                break;
-            case  0.125:
-                stageText = "Expansion 1";
-                break;
-            case  0.25:
-                stageText = "Passage 1";
-                break;
-            case  0.375:
-                stageText = "Expansion 2";
-                break;
-            case  0.50:
-                stageText = "Passage 2";
-                break;
-            case 0.625:
-                stageText = "Expansion 3";
-                break;
-            case 0.75:
-                stageText = "End of Line";
-                break;
-            case 0.875:
-                stageText = "Fill Room";
-                break;
-            case 1:
-                stageText = "End of Line";
-                break;
-            default:
-                stageText = "Unknown Stage";
-        }
-        document.getElementById("stage").innerHTML = stageText;
-        lineBar.animate(stageProgress);
-        updateStageDatabase();
-    }
-
-    function updateStageDatabase() {
-        $.ajax({
-            type: "POST",
-            url: "/SQLQueries.py",
-            data: {param: currentStage}
-        }).done(function update_batch_stage() {
-            // # TO DO update in db
-
-        });
-    }
-
 
 </script>
 
+<!--<script>-->
+<!--    //Manage stages-->
+<!--    let stageText;-->
+<!--    var prodLine = '{{ prod_line }}';-->
+<!--    let currentStage = '{{ batch.current_stage }}';-->
+<!--    let stageProgress = 0.0004;-->
+<!--    let lineBar = new ProgressBar.Line('#line-bar', {-->
+<!--        strokeWidth: 4,-->
+<!--        easing: 'easeInOut',-->
+<!--        duration: 500,-->
+<!--        color: '#006bbf',-->
+<!--        trailColor: '#eee',-->
+<!--        trailWidth: 1,-->
+<!--        svgStyle: {width: '100%', height: '100%'},-->
+<!--        text: {-->
+<!--            style: {-->
+<!--                color: '#999',-->
+<!--                position: 'absolute',-->
+<!--                right: '0',-->
+<!--                top: '30px',-->
+<!--                padding: 0,-->
+<!--                margin: 0,-->
+<!--                transform: null-->
+<!--            },-->
+<!--            autoStyleContainer: false-->
+<!--        },-->
+<!--        from: {color: '#FFEA82'},-->
+<!--        to: {color: '#ED6A5A'},-->
+<!--        step: (state, bar) => {-->
+<!--            // if (bar.value() > 0.5) {-->
+<!--            //     bar.setText(bar.value() * 100 + ' %');-->
+<!--            // } else {-->
+<!--            //     {-->
+<!--            //         bar.setText('test')-->
+<!--            //     }-->
+<!--            // }-->
+<!--        }-->
+<!--    });-->
+<!--    switch (currentStage) {-->
+<!--        case '1':-->
+<!--            stageProgress = 0.0;-->
+<!--            break;-->
+<!--        case '2':-->
+<!--            stageProgress = 0.125;-->
+<!--            break;-->
+<!--        case '3':-->
+<!--            stageProgress = 0.25;-->
+<!--            break;-->
+<!--        case '4':-->
+<!--            stageProgress = 0.375;-->
+<!--            break;-->
+<!--        case '5':-->
+<!--            stageProgress = 0.50;-->
+<!--            break;-->
+<!--        case '6':-->
+<!--            stageProgress = 0.625;-->
+<!--            break;-->
+<!--        case '7':-->
+<!--            stageProgress = 0.75;-->
+<!--            break;-->
+<!--        case '8':-->
+<!--            stageProgress = 0.875;-->
+<!--            break;-->
+<!--        case '9':-->
+<!--            stageProgress = 1;-->
+<!--            break;-->
+<!--    }-->
+
+<!--    lineBar.animate(stageProgress);-->
+
+
+<!--    function moveNextBatchState() {-->
+<!--// 9 stages but start = 0 so  12.5 - Aayza-->
+
+<!--        if (stageProgress >= 1) {-->
+<!--            lineBar.animate(stageProgress);-->
+<!--        } else {-->
+<!--            stageProgress += 0.125;-->
+<!--            currentStage += 1;-->
+<!--            // update stage text and database-->
+<!--            updateStage();-->
+<!--            //debugging-->
+<!--            console.log(stageProgress);-->
+<!--            console.log(currentStage);-->
+<!--        }-->
+
+<!--    }-->
+
+<!--    function updateStage() {-->
+<!--        switch (stageProgress) {-->
+<!--            case 0.0:-->
+<!--                stageText = "Start";-->
+<!--                break;-->
+<!--            case  0.125:-->
+<!--                stageText = "Expansion 1";-->
+<!--                break;-->
+<!--            case  0.25:-->
+<!--                stageText = "Passage 1";-->
+<!--                break;-->
+<!--            case  0.375:-->
+<!--                stageText = "Expansion 2";-->
+<!--                break;-->
+<!--            case  0.50:-->
+<!--                stageText = "Passage 2";-->
+<!--                break;-->
+<!--            case 0.625:-->
+<!--                stageText = "Expansion 3";-->
+<!--                break;-->
+<!--            case 0.75:-->
+<!--                stageText = "End of Line";-->
+<!--                break;-->
+<!--            case 0.875:-->
+<!--                stageText = "Fill Room";-->
+<!--                break;-->
+<!--            case 1:-->
+<!--                stageText = "End of Line";-->
+<!--                break;-->
+<!--            default:-->
+<!--                stageText = "Unknown Stage";-->
+<!--        }-->
+<!--        document.getElementById("stage").innerHTML = stageText;-->
+<!--        lineBar.animate(stageProgress);-->
+<!--        updateStageDatabase();-->
+<!--    }-->
+
+<!--    function updateStageDatabase() {-->
+<!--        $.ajax({-->
+<!--            type: "POST",-->
+<!--            url: "/SQLQueries.py",-->
+<!--            data: {param: currentStage}-->
+<!--        }).done(function update_batch_stage() {-->
+<!--            // # TO DO update in db-->
+
+<!--        });-->
+<!--    }-->
+
+
+<!--</script>-->
+
 {% endblock %}
 
-{% block prod_activity %}
-<!--prod steps go here-->
-
-{% endblock %}
 

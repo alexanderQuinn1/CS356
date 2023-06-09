@@ -24,7 +24,7 @@ def render_batch_manufacture(heading, prod_line):
         'current_stage': 3,
     }
     # do this for expansion, todo: this should use ID's for expansion 1 or 2
-    if b['current_stage'] == 'expansion':
+    if b['current_stage'] == 3:
         # get operating params
         p = {
             'min_temp': 36.5,
