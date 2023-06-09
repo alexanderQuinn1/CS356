@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/prod_line.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/monitor.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/stepper.css') }}">
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/pureknob.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/expansion_dials.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/stages.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<ul class="bm-prod-line-tab nav nav-tabs">
+    <li class="nav-item">
+        <a id="a" class="bm-prod-line-tab__link nav-link {% if prod_line== 'A' %} active {% endif %}"
+           href="/prod-line-monitor/A">Line A</a>
+    </li>
+    <li class="nav-item">
+        <a id="b" class="bm-prod-line-tab__link nav-link {% if prod_line== 'B' %} active {% endif %}"
+           href="/prod-line-monitor/B">Line B</a>
+    </li>
+    <li class="nav-item">
+        <a id="c" class="bm-prod-line-tab__link nav-link {% if prod_line== 'C' %} active {% endif %}"
+           href="/prod-line-monitor/C">Line C</a>
+    </li>
+</ul>
+
+<div id="line" class="container-fluid bm-prod-line-tab__content">
+    <h4>{{batch.batch_no}} - {{batch.prod_type}}</h4>
+
+
+    <div class="bm-prod-line-stepper">
+    </div>
+    <div class="bm-stepper" id="stepper">
+        {% for stage in stages %}
+        <span class="bm-stepper__step bm-stepper__step--{{stage.status}}">{{stage.id}} <i class="fa-solid fa-arrow-right"></i></span>
+        {{stage.name}}
+        {% endfor %}
+    </div>
+
+    <button onClick="moveToNextStage('{{prod_line}}', '{{batch.batch_no}}', '{{batch.current_stage}}')">next step</button>
+
+    {% if expansion_monitor %}
+    {% include 'expansion-monitor.html' %}
+    {% elif passage_monitor %}
+    {% include 'passage-monitor.html' %}
+    {% else %}
+    <div>start of production - no data</div>
+    {% endif %}
+
+</div>
+
+<script>
+    function getDescendantElements(parent) {
+        return [].slice.call(parent.getElementsByTagName('*'));
+    }
+
+    // function load_stages(){
+    // let stepperContainer = document.querySelector("#stepper");
+    //     for () {
+    //         let step = document.createElement('span');
+    //         step.classList.add('bm-stepper__step')
+    //         stepperContainer.appendChild(step);
+    //     }
+    // }
+
+    function update_stage(batch_id, prod_line) {
+
+        //update to next stage
+        window.location = `/move_to_next_stage/${prodLine}/${batchNo}`;
+
+        let stepperContainer = document.querySelector("#stepper");
+        let currentStep = document.getElementsByClassName('bm-stepper__step--current');
+        let nextStep = document.getElementsByClassName('bm-stepper__step--next');
+
+        //move current to done
+        currentStep.classList.remove('bm-stepper__step--active')
+        currentStep.classList.add('bm-stepper__step--complete')
+
+        //move next to current
+        nextStep.classList.remove('bm-stepper__step--next')
+        currentStep.classList.add('bm-stepper__step--active')
+
+        //find next inactive and move to next
+
+
+        //update in database
+
+    }
+
+</script>
+{% endblock %}

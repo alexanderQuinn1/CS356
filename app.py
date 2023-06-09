@@ -1,70 +1,80 @@
-from flask import Flask, render_template, request
-import pika
-import json
-
-from maintenance import save_maintenance_activity
-from productionSchedule import create_batch
+from flask import Flask, render_template, request, redirect, url_for
+import database_connection as db
+import prod_line_monitor_processor as plm
+import models.maintenance_operation as maintenance
+import models.passage_qa as qa
+import models.batch as batch
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def run_app():
-    return render_template('dashboard.html')
+    return redirect('/prod-line-monitor/A')
 
 
-@app.route('/dashboard')
-def run_dashboard():
-    return render_template('dashboard.html')
+@app.route('/prod-line-monitor/<prod_line>')
+def run_production_line(prod_line):
+    heading = 'Production Line Monitor'
+    return plm.render_prod_activity(heading, prod_line)
 
 
-@app.route('/productionLine')
-def run_productionLine():
-    return render_template('productionLine.html')
+@app.route('/prod-schedule')
+def run_production_schedule():
+    return render_template('prod-line-schedule.html', heading="Production Schedule")
 
 
-@app.route('/productionSchedule')
-def run_productionSchedule():
-    return render_template('productionSchedule.html')
+@app.route('/qa-log')
+def run_quality_assurance():
+    return render_template('qa-log.html', heading="Quality Assurance Log")
 
 
-@app.route('/qualityAssurance')
-def run_qualityAssurance():
-    return render_template('qualityAssurance.html')
+@app.route('/maintenance-log')
+def run_maintenance_log():
+    return render_template('maintenance-log.html', heading="Maintenance Log")
 
 
-@app.route('/maintenanceLog')
-def run_maintenanceLog():
-    return render_template('maintenanceLog.html')
-
-
-
-@app.route('/qualityAssuranceEntry', methods=['GET', 'POST'])
+@app.route('/qa-entry', methods=['GET', 'POST'])
 def run_quality_assurance_entry():
+    heading = 'Enter QA Test Data'
     if request.method == 'GET':
-        return render_template('qualityAssuranceEntry.html')
+        return render_template('qa-entry.html', heading=heading)
     else:
-        response = save_quality_assurance(request.form)
-        return render_template('qualityAssuranceEntry.html', response=response)
+        response = qa.save_qa(request.form)
+        return render_template('qa-entry.html', heading=heading, response=response)
 
 
-@app.route('/maintenanceEntry', methods=['GET', 'POST'])
+@app.route('/maintenance-entry', methods=['GET', 'POST'])
 def run_maintenance_entry():
     if request.method == 'GET':
-        return render_template('maintenanceEntry.html')
+        return render_template('maintenance-entry.html')
     else:
-        response = save_maintenance_activity(request.form)
-        return render_template('maintenanceEntry.html', response=response)
+        response = maintenance.save_maintenance_activity(request.form)
+        return render_template('maintenance-entry.html', response=response)
 
 
-@app.route('/batchScheduleEntry', methods=['GET', 'POST'])
+@app.route('/batch-schedule-entry', methods=['GET', 'POST'])
 def run_batch_schedule_entry():
+    heading = 'schedule a batch'
     if request.method == 'GET':
-        return render_template('batchScheduleEntry.html')
+        return render_template('batch-schedule-entry.html', heading=heading)
     else:
-        response = create_batch(request.form)
-        return render_template('batchScheduleEntry.html', response=response)
+        response = batch.schedule_batch(request.form)
+        return render_template('batch-schedule-entry.html', heading=heading, response=response)
+
+
+@app.route('/update_passage_monitor', methods=['GET', 'POST'])
+def run_passage_monitor_entry():
+    if request.method == 'GET':
+        return render_template('passage-monitor-entry.html', heading='Enter Passage Monitoring Data')
+
+
+@app.route('/move_to_next_stage/<prod_line>/<batch_no>/<current_stage_id>')
+def move_batch_to_next_stage(prod_line, batch_no, current_stage_id):
+    plm.update_batch_stage(batch_no, current_stage_id)
+    return redirect('/prod-line-monitor/{line}'.format(line=prod_line))
 
 
 if __name__ == '__main__':
+    db.create()
     app.run(debug=True, port=5001)

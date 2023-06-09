@@ -1,0 +1,25 @@
+{% for flask in expansion_monitor.flasks %}
+<div class="bm-monitor-group">
+    <h5 class="bm-monitor-group__heading">Flask Monitor ({{flask.id}})</h5>
+    <div class="row g-2">
+        <div class="col-md-4">
+            <div class="bm-monitor-info-block" value="{{flask.temp}}" min="{{product.min_temp}}" max="{{product.max_temp}}" unit="°C">
+                <h6 class="bm-monitor-info-block__title">Temperature</h6>
+                <div class="bm-monitor-dial__wrapper"></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="bm-monitor-info-block" value="{{flask.ph}}" min="{{product.min_ph}}" max="{{product.max_ph}}">
+                <h6 class="bm-monitor-info-block__title">Ph</h6>
+                <div class="bm-monitor-dial__wrapper"></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="bm-monitor-info-block" value="{{flask.osmolality}}" min="{{product.min_osmolality}}" max="{{product.max_osmolality}}">
+                <h6 class="bm-monitor-info-block__title">Osmoality (mOsmol/kg)</h6>
+                <div class="bm-monitor-dial__wrapper"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
