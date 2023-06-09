@@ -40,3 +40,8 @@ def render_batch_manufacture(heading, prod_line, prod_activity):
     else:
         return render_template('prod-line-monitor.html', heading=heading, prod_line=prod_line, stages=stages,
                                batch=b)
+
+
+def update_batch_stage(batch_no, current_stage_id):
+    stage_id = int(current_stage_id) + 1
+    batch.update_batch_stage(batch_no, stage_id)

@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import database_connection as db
 import prod_line_monitor_processor as plm
-import models.batch as batch
 import models.maintenance_operation as maintenance
 import models.passage_qa as qa
 import models.batch as batch
@@ -77,5 +76,5 @@ def move_batch_to_next_stage(prod_line, batch_no, current_stage_id):
 
 
 if __name__ == '__main__':
-    # db.create()
+    db.create()
     app.run(debug=True, port=5001)
