@@ -1,76 +1,47 @@
 from flask import render_template
-
+import models.product_type as product_type
+import models.flask_monitor as flask_monitor
+import models.passage_monitor as passage_monitor
+import models.passage_qa as passage_qa
+import models.prod_schedule as prod_schedule
+import models.batch as batch
+import models.prod_stage_lookup as prod_stage_lookup
+import SQLQueries as sql
 
 def render_prod_activity(heading, prod_line):
-    #TODO fetch prod activity from DB
-    prod_activity = {
-        'type': 'batch_manufacture'
-    }
+    prod_activity = prod_schedule.get_current_prod_activity(prod_line)
     if prod_activity['type'] == 'batch_manufacture':
-        return render_batch_manufacture(heading, prod_line)
+        return render_batch_manufacture(heading, prod_line, prod_activity)
     elif prod_activity['type'] == 'maintenance':
-        #TODO
+        # TODO
         return None
     else:
-        #TODO
+        # TODO
         return None
 
 
-def render_batch_manufacture(heading, prod_line):
+def render_batch_manufacture(heading, prod_line, prod_activity):
     # TODO get batch currently in production on prod_line from DB
-    b = {
-        'batch_no': 'IRV99999999',
-        'prod_type': 'x',
-        'current_stage': 3,
-    }
-    # do this for expansion, todo: this should use ID's for expansion 1 or 2
-    if b['current_stage'] == 'expansion':
-        # get operating params
-        p = {
-            'min_temp': 36.5,
-            'max_temp': 37.5
-        }
-        # get flask monitors
-        m = {
-            'flasks': [
-                {
-                    'id': 12345678,
-                    'temp': 37,
-                    'ph': 7,
-                    'osmolality': 369,
-                },
-                {
-                    'id': 12345679,
-                    'temp': 37,
-                    'ph': 7,
-                    'osmolality': 369,
-                },
-                {
-                    'id': 12345680,
-                    'temp': 37,
-                    'ph': 7,
-                    'osmolality': 369,
-                },
-                {
-                    'id': 123456790,
-                    'temp': 37,
-                    'ph': 7,
-                    'osmolality': 369,
-                }]
-        }
-        return render_template('expansion-monitor.html', heading=heading, prod_line=prod_line, batch=b, monitor=m,
-                               product=p)
-    # do this for passage, todo: this should use ID's for passage 1 or 2 or end of line
-    elif b['current_stage'] == 'passage':
-        # get monitor
-        m = {
-            'peristaltic_pump': 'low',
-            'cell_count': '1.63x10^9'
-        }
-        # get qa
-        qa = None
-        # qa = {
-        #     'status': 'pass',
-        #     'colour': 'green'
-        # }
-        return render_template('passage-monitor.html', heading=heading, prod_line=prod_line, batch=b, monitor=m, qa=qa)
+    b = batch.get_batch_in_production(prod_activity['id'])
+    product = product_type.get_product(b['prod_type'])
+    stages = prod_stage_lookup.get_all_stages_based_on_step(b['current_stage'])
+
+    stage_type = prod_stage_lookup.get_stage_type(b['current_stage'])
+
+    if stage_type == 'expansion':
+        f = flask_monitor.get_flask_monitor(batch['batch_no'], batch['current_stage'])
+        return render_template('prod-line-monitor.html', heading=heading, prod_line=prod_line, stages=stages,
+                               batch=batch, expansion_monitor=f, product=product)
+    elif stage_type == 'passage':
+        p = passage_monitor.get_passage_monitor(b['batch_no'], b['current_stage'])
+        qa = passage_qa.get_qa_outcome(p['id'])
+        return render_template('prod-line-monitor.html', heading=heading, prod_line=prod_line, stages=stages,
+                               batch=b, passage_monitor=p, passage_qa=qa, product=product)
+    else:
+        return render_template('prod-line-monitor.html', heading=heading, prod_line=prod_line, stages=stages,
+                               batch=b)
+
+
+def update_batch_stage(batch_no, current_stage_id):
+    stage_id = int(current_stage_id) + 1
+    batch.update_batch_stage(batch_no, stage_id)

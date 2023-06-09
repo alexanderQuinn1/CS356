@@ -1,15 +1,10 @@
-import database_connection
+import database_connection as db
 import mysql.connector
-
-
-def get_cursor():
-    database_name = "miracle_cure_biotech"
-    return database_connection.connect_database(database_name).cursor()
 
 
 # Get the current production line status
 def prodScheduleCurrent():
-    cursor = get_cursor()
+    cursor = db.get_cursor()
     prod_schedule_query = """
     SELECT prod_schedule_id , prod_line, activity_type 
     FROM miracle_cure_biotech.production_schedule
@@ -25,7 +20,7 @@ def prodScheduleCurrent():
 
 
 def production_schedule_passage():
-    cursor = get_cursor()
+    cursor = db.get_cursor()
     prod_schedule_query = """SELECT batch.batch_no , stage_lookup.stage_name, production_schedule.prod_line 
     FROM batch
     join production_schedule on batch.prod_schedule_id = production_schedule.prod_schedule_id 
@@ -132,7 +127,7 @@ def production_schedule_passage():
 
 
 def production_schedule_maintenance():
-    cursor = get_cursor()
+    cursor = db.get_cursor()
     prod_schedule_maintenance = """SELECT maintenance_operation.*
     FROM maintenance_operation
     join production_schedule on maintenance_operation.prod_schedule_id = production_schedule.prod_schedule_id 
@@ -143,22 +138,13 @@ def production_schedule_maintenance():
     print(cursor.fetchall())
 
 
-production_schedule_passage()
-
-
-# production_schedule_maintenance()
-
 def get_batch_stage(batch):
-    cursor = get_cursor()
-    prod_batch = """SELECT current_stage from miracle_cure_biotech.Batch Where batch_no = "IRV2305001";"""
+    cursor = db.get_cursor()
+    prod_batch = """SELECT current_stage from miracle_cure_biotech.Batch Where batch_no = batch;"""
     cursor.execute(prod_batch)
     print(cursor.fetchall())
 
 
-def update_batch_stage(batch, stage):
-    cursor = get_cursor()
-    prod_batch = """SELECT current_stage from miracle_cure_biotech.Batch Where batch_no = "IRV2305001";"""
-    cursor.execute(prod_batch)
-    print(cursor.fetchall())
-
-##CANT CALL FROM JS WITHOUT AJAX OR WRITE JS, BASE FOR OTHER QUEIRES AND CONNECTIONS TO FRONTEND
+def test():
+    with db.get_cursor() as cursor:
+        cursor.execute("show database")
