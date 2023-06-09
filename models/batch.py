@@ -8,7 +8,7 @@ def schedule_batch(form):
 
 def get_batch_in_production(prod_schedule_id):
     return {
-        'batch_no': 'IRV99999999',
+        'batch_no': 'IRV2305001',
         'prod_type': 'XXXX99',
         'current_stage': 3,
     }

@@ -31,31 +31,30 @@
 
 
     <div class="bm-prod-line-stepper">
-        <button onClick="moveToNextStage('{{prod_line}}', '{{batch.batch_no}}')">next step</button>
     </div>
-     <div class="bm-stepper" id="stepper">
+    <div class="bm-stepper" id="stepper">
         {% for stage in stages %}
-        <span class="bm-stepper__step bm-stepper__step--{{status}}">{{stage_name}}</span>
+        <span class="bm-stepper__step bm-stepper__step--{{stage.status}}">{{stage.id}} <i class="fa-solid fa-arrow-right"></i></span>
+        {{stage.name}}
         {% endfor %}
     </div>
 
-
-    <button id="stageMove" onclick="update_stage('batch.batch_no', '{{prod_line}}')">Next Stage</button>
+    <button onClick="moveToNextStage('{{prod_line}}', '{{batch.batch_no}}', '{{batch.current_stage}}')">next step</button>
 
     {% if expansion_monitor %}
-		{% include 'expansion-monitor.html' %}
+    {% include 'expansion-monitor.html' %}
     {% elif passage_monitor %}
-		{% include 'passage-monitor.html' %}
+    {% include 'passage-monitor.html' %}
     {% else %}
-     <div>start of production - no data </div>
+    <div>start of production - no data</div>
     {% endif %}
 
 </div>
 
 <script>
     function getDescendantElements(parent) {
-	return [].slice.call(parent.getElementsByTagName('*'));
-}
+        return [].slice.call(parent.getElementsByTagName('*'));
+    }
 
     // function load_stages(){
     // let stepperContainer = document.querySelector("#stepper");
@@ -66,10 +65,10 @@
     //     }
     // }
 
-    function update_stage(batch_id, prod_line){
+    function update_stage(batch_id, prod_line) {
 
         //update to next stage
-
+        window.location = `/move_to_next_stage/${prodLine}/${batchNo}`;
 
         let stepperContainer = document.querySelector("#stepper");
         let currentStep = document.getElementsByClassName('bm-stepper__step--current');

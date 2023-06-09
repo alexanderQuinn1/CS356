@@ -4,6 +4,7 @@ import prod_line_monitor_processor as plm
 import models.batch as batch
 import models.maintenance_operation as maintenance
 import models.passage_qa as qa
+import models.batch as batch
 
 app = Flask(__name__)
 
@@ -69,9 +70,9 @@ def run_passage_monitor_entry():
         return render_template('passage-monitor-entry.html', heading='Enter Passage Monitoring Data')
 
 
-@app.route('/move_to_next_stage/<prod_line>/<batch_no>')
-def move_batch_to_next_stage(prod_line, batch_no):
-    # process here
+@app.route('/move_to_next_stage/<prod_line>/<batch_no>/<current_stage_id>')
+def move_batch_to_next_stage(prod_line, batch_no, current_stage_id):
+    plm.update_batch_stage(batch_no, current_stage_id)
     return redirect('/prod-line-monitor/{line}'.format(line=prod_line))
 
 

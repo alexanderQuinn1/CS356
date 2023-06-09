@@ -42,7 +42,7 @@ def create_tables(dbname):
     for sql_file in sql_files:
         with open(os.path.join(path, sql_file), 'r') as file:
             sql_create = file.read().split(';')
-            db = connect_database(dbname)
+            db = connect_database()
             mydb = db.cursor()
             for sql_statement in sql_create:
                 if sql_statement.strip():

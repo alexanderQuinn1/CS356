@@ -6,7 +6,7 @@ import models.passage_qa as passage_qa
 import models.prod_schedule as prod_schedule
 import models.batch as batch
 import models.prod_stage_lookup as prod_stage_lookup
-
+import SQLQueries as sql
 
 def render_prod_activity(heading, prod_line):
     prod_activity = prod_schedule.get_current_prod_activity(prod_line)
