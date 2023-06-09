@@ -1,6 +1,4 @@
-import math
-
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import database_connection as db
 import prod_line_monitor_processor as plm
 import models.batch as batch
@@ -12,7 +10,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def run_app():
-    return render_template('dashboard.html', heading='Management Dashboard')
+    return redirect('/prod-line-monitor/A')
 
 
 @app.route('/prod-line-monitor/<prod_line>')
@@ -69,6 +67,12 @@ def run_batch_schedule_entry():
 def run_passage_monitor_entry():
     if request.method == 'GET':
         return render_template('passage-monitor-entry.html', heading='Enter Passage Monitoring Data')
+
+
+@app.route('/move_to_next_stage/<prod_line>/<batch_no>')
+def move_batch_to_next_stage(prod_line, batch_no):
+    # process here
+    return redirect('/prod-line-monitor/{line}'.format(line=prod_line))
 
 
 if __name__ == '__main__':

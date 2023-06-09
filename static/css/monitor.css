@@ -1,12 +1,11 @@
 .bm-monitor-group {
-    border: solid 2px var(--bm-grey--dark);
+    border: solid 1px var(--bm-grey--light);
     padding: 20px;
     border-radius: 4px;
     margin-bottom: 20px
 }
 
 .bm-monitor-group__heading {
-    font-size: 28px;
     color: var(--bm-grey--dark);
     margin-bottom: 12px;
 }
@@ -36,7 +35,6 @@
     border-color: var(--bm-red);
     background-color: var(--bm-red--light);
 }
-
 
 .bm-monitor-info-block--clickable {
     cursor: pointer;

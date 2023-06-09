@@ -1,32 +1,39 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<!--stylesheet linkrel-->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/stepper.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/prod_line.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/monitor.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/stepper.css') }}">
 
+<script type="text/javascript" src="{{ url_for('static', filename='js/pureknob.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/expansion_dials.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/stages.js') }}"></script>
 {% endblock %}
 
 {% block content %}
-<script src="https://cdn.korzh.com/metroui/v4/js/metro.min.js"></script>
+<ul class="bm-prod-line-tab nav nav-tabs">
+    <li class="nav-item">
+        <a id="a" class="bm-prod-line-tab__link nav-link {% if prod_line== 'A' %} active {% endif %}"
+           href="/prod-line-monitor/A">Line A</a>
+    </li>
+    <li class="nav-item">
+        <a id="b" class="bm-prod-line-tab__link nav-link {% if prod_line== 'B' %} active {% endif %}"
+           href="/prod-line-monitor/B">Line B</a>
+    </li>
+    <li class="nav-item">
+        <a id="c" class="bm-prod-line-tab__link nav-link {% if prod_line== 'C' %} active {% endif %}"
+           href="/prod-line-monitor/C">Line C</a>
+    </li>
+</ul>
 
-<!--prod line tabs go here-->
-
-<!-- Use parameters to pass in link which line is clicked, loopback to same page + ?line -->
-<!-- chnage tab links to hyperlinks ro reduce copied code, just use script to change which tab is active in style -->
-
-<div class="tab">
-    <a id="a" href="/prod-line-monitor/A" class="btn tablink">Line A</a>
-    <a id="b" href="/prod-line-monitor/B" class="btn tablink">Line B</a>
-    <a id="c" href="/prod-line-monitor/C" class="btn tablink">Line C</a>
-</div>
-
-<div id="line">
-    <h3>{{batch.batch_no}} - {{prod_line}}</h3>
+<div id="line" class="container-fluid bm-prod-line-tab__content">
+    <h4>{{batch.batch_no}} - {{batch.prod_type}}</h4>
 
 
-<!--    <div id="line-bar"></div>-->
-<!--    <p id="stage"> {{batch.current_stage}} </p>-->
-    <div class="bm-stepper" id="stepper">
+    <div class="bm-prod-line-stepper">
+        <button onClick="moveToNextStage('{{prod_line}}', '{{batch.batch_no}}')">next step</button>
+    </div>
+     <div class="bm-stepper" id="stepper">
         {% for stage in stages %}
         <span class="bm-stepper__step bm-stepper__step--{{status}}">{{stage_name}}</span>
         {% endfor %}
@@ -35,10 +42,17 @@
 
     <button id="stageMove" onclick="update_stage('batch.batch_no', '{{prod_line}}')">Next Stage</button>
 
+    {% if expansion_monitor %}
+		{% include 'expansion-monitor.html' %}
+    {% elif passage_monitor %}
+		{% include 'passage-monitor.html' %}
+    {% else %}
+     <div>start of production - no data </div>
+    {% endif %}
+
 </div>
 
 <script>
-
     function getDescendantElements(parent) {
 	return [].slice.call(parent.getElementsByTagName('*'));
 }
@@ -77,146 +91,4 @@
     }
 
 </script>
-
-<!--<script>-->
-<!--    //Manage stages-->
-<!--    let stageText;-->
-<!--    var prodLine = '{{ prod_line }}';-->
-<!--    let currentStage = '{{ batch.current_stage }}';-->
-<!--    let stageProgress = 0.0004;-->
-<!--    let lineBar = new ProgressBar.Line('#line-bar', {-->
-<!--        strokeWidth: 4,-->
-<!--        easing: 'easeInOut',-->
-<!--        duration: 500,-->
-<!--        color: '#006bbf',-->
-<!--        trailColor: '#eee',-->
-<!--        trailWidth: 1,-->
-<!--        svgStyle: {width: '100%', height: '100%'},-->
-<!--        text: {-->
-<!--            style: {-->
-<!--                color: '#999',-->
-<!--                position: 'absolute',-->
-<!--                right: '0',-->
-<!--                top: '30px',-->
-<!--                padding: 0,-->
-<!--                margin: 0,-->
-<!--                transform: null-->
-<!--            },-->
-<!--            autoStyleContainer: false-->
-<!--        },-->
-<!--        from: {color: '#FFEA82'},-->
-<!--        to: {color: '#ED6A5A'},-->
-<!--        step: (state, bar) => {-->
-<!--            // if (bar.value() > 0.5) {-->
-<!--            //     bar.setText(bar.value() * 100 + ' %');-->
-<!--            // } else {-->
-<!--            //     {-->
-<!--            //         bar.setText('test')-->
-<!--            //     }-->
-<!--            // }-->
-<!--        }-->
-<!--    });-->
-<!--    switch (currentStage) {-->
-<!--        case '1':-->
-<!--            stageProgress = 0.0;-->
-<!--            break;-->
-<!--        case '2':-->
-<!--            stageProgress = 0.125;-->
-<!--            break;-->
-<!--        case '3':-->
-<!--            stageProgress = 0.25;-->
-<!--            break;-->
-<!--        case '4':-->
-<!--            stageProgress = 0.375;-->
-<!--            break;-->
-<!--        case '5':-->
-<!--            stageProgress = 0.50;-->
-<!--            break;-->
-<!--        case '6':-->
-<!--            stageProgress = 0.625;-->
-<!--            break;-->
-<!--        case '7':-->
-<!--            stageProgress = 0.75;-->
-<!--            break;-->
-<!--        case '8':-->
-<!--            stageProgress = 0.875;-->
-<!--            break;-->
-<!--        case '9':-->
-<!--            stageProgress = 1;-->
-<!--            break;-->
-<!--    }-->
-
-<!--    lineBar.animate(stageProgress);-->
-
-
-<!--    function moveNextBatchState() {-->
-<!--// 9 stages but start = 0 so  12.5 - Aayza-->
-
-<!--        if (stageProgress >= 1) {-->
-<!--            lineBar.animate(stageProgress);-->
-<!--        } else {-->
-<!--            stageProgress += 0.125;-->
-<!--            currentStage += 1;-->
-<!--            // update stage text and database-->
-<!--            updateStage();-->
-<!--            //debugging-->
-<!--            console.log(stageProgress);-->
-<!--            console.log(currentStage);-->
-<!--        }-->
-
-<!--    }-->
-
-<!--    function updateStage() {-->
-<!--        switch (stageProgress) {-->
-<!--            case 0.0:-->
-<!--                stageText = "Start";-->
-<!--                break;-->
-<!--            case  0.125:-->
-<!--                stageText = "Expansion 1";-->
-<!--                break;-->
-<!--            case  0.25:-->
-<!--                stageText = "Passage 1";-->
-<!--                break;-->
-<!--            case  0.375:-->
-<!--                stageText = "Expansion 2";-->
-<!--                break;-->
-<!--            case  0.50:-->
-<!--                stageText = "Passage 2";-->
-<!--                break;-->
-<!--            case 0.625:-->
-<!--                stageText = "Expansion 3";-->
-<!--                break;-->
-<!--            case 0.75:-->
-<!--                stageText = "End of Line";-->
-<!--                break;-->
-<!--            case 0.875:-->
-<!--                stageText = "Fill Room";-->
-<!--                break;-->
-<!--            case 1:-->
-<!--                stageText = "End of Line";-->
-<!--                break;-->
-<!--            default:-->
-<!--                stageText = "Unknown Stage";-->
-<!--        }-->
-<!--        document.getElementById("stage").innerHTML = stageText;-->
-<!--        lineBar.animate(stageProgress);-->
-<!--        updateStageDatabase();-->
-<!--    }-->
-
-<!--    function updateStageDatabase() {-->
-<!--        $.ajax({-->
-<!--            type: "POST",-->
-<!--            url: "/SQLQueries.py",-->
-<!--            data: {param: currentStage}-->
-<!--        }).done(function update_batch_stage() {-->
-<!--            // # TO DO update in db-->
-
-<!--        });-->
-<!--    }-->
-
-
-<!--</script>-->
-
 {% endblock %}
-
-

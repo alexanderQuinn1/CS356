@@ -1,39 +1,31 @@
-{% extends 'prod-line-monitor.html' %}
-
-{% block head %}
-{{ super() }}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/monitor.css') }}">
-{% endblock %}
-
-{% block prod_activity %}
 <div class="row">
     <a class="bm-monitor-link" href="/update_passage_monitor"><i class="fas fa-edit"></i>Update Monitor</a>
 </div>
 <div class="row g-2">
     <div class="col-md-3">
         <div class="bm-monitor-info-block">
-            <h4 class="bm-monitor-info-block__title">Peristaltic Pump</h4>
-            <span class="bm-monitor-info-block__text">{{ monitor.peristaltic_pump }}</span>
+            <h6 class="bm-monitor-info-block__title">Peristaltic Pump</h6>
+            <span class="bm-monitor-info-block__text">{{ passage_monitor.peristaltic_pump }}</span>
         </div>
     </div>
     <div class="col-md-3">
         <div class="bm-monitor-info-block">
-            <h4 class="bm-monitor-info-block__title">Cell Count</h4>
-            <span class="bm-monitor-info-block__text">{{ monitor.cell_count }}</span>
+            <h6 class="bm-monitor-info-block__title">Cell Count</h6>
+            <span class="bm-monitor-info-block__text">{{ passage_monitor.cell_count }}</span>
         </div>
     </div>
 
     {% if qa %}
     <div class="col-md-3">
         <div class="bm-monitor-info-block bm-monitor-info-block--{{qa.colour}}">
-            <h4 class="bm-monitor-info-block__title">QA Results</h4>
-            <span class="bm-monitor-info-block__text">{{ qa.status }}</span>
+            <h6 class="bm-monitor-info-block__title">QA Results</h6>
+            <span class="bm-monitor-info-block__text">{{ passage_qa.status }}</span>
         </div>
     </div>
-        {% if qa.status == 'pass' %}
+        {% if passage_qa.status == 'pass' %}
         <div class="col-md-3">
             <div class="bm-monitor-info-block bm-monitor-info-block--blue bm-monitor-info-block--clickable">
-                <h4 class="bm-monitor-info-block__title">Proceed to next stage</h4>
+                <h6 class="bm-monitor-info-block__title">Proceed to next stage</h6>
                 <i class="fa-solid fa-arrow-right"></i>
             </div>
         </div>
@@ -41,7 +33,7 @@
     {% else %}
     <div class="col-md-3">
         <div onclick="addQA()" class="bm-monitor-info-block bm-monitor-info-block--blue bm-monitor-info-block--clickable">
-            <h4 class="bm-monitor-info-block__title">Add QA</h4>
+            <h6 class="bm-monitor-info-block__title">Add QA</h6>
             <i class="fa-xl fa-solid fa-plus bm-monitor-info-block__button"></i>
         </div>
     </div>
@@ -53,5 +45,3 @@ function addQA() {
   window.location.href = '/qa-entry'
 }
 </script>
-
-{% endblock %}

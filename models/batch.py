@@ -5,3 +5,10 @@ def schedule_batch(form):
     # batch_no = IRVyymm9999
     return 'batch IRVyymm9999 scheduled'
 
+
+def get_batch_in_production(prod_schedule_id):
+    return {
+        'batch_no': 'IRV99999999',
+        'prod_type': 'XXXX99',
+        'current_stage': 3,
+    }
