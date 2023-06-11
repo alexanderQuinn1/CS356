@@ -1,11 +1,15 @@
 :root {
+  --bm-blue--dark: #00008B;
   --bm-blue: #0000b6;
-  --bm-blue--light: #caf0ff;
+  --bm-blue--light: #29b6f6;
+  --bm-blue--lighter: #b3e5fc;
+  --bm-blue--lightest: #caf0ff;
   --bm-green: #168039;
   --bm-green--light: #C1E1C1;
   --bm-red: #ff0000;
   --bm-red--light: #faa0a0;
   --bm-grey--dark: #333;
+  --bm-grey: #888;
   --bm-grey--light: #bebebe;
   --bm-grey--lighter: #dee2e6;
 }

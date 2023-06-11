@@ -9,7 +9,7 @@ def schedule_batch(form):
     return 'batch IRVyymm9999 scheduled'
 
 
-def get_batch_in_production(prod_schedule_id):
+def get_batch_by_prod_schedule(prod_schedule_id):
     return {
         'batch_no': 'IRV2305001',
         'prod_type': 'XXXX99',
@@ -22,6 +22,4 @@ def update_batch_stage(batch_no, stage_id):
     SET current_stage = %s    
     WHERE batch_no= %s ;"""
 
-    print(batch_no)
-    print(stage_id)
     db.execute_update(query, (stage_id, batch_no))
