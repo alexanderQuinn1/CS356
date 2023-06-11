@@ -71,7 +71,6 @@ def execute_fetch(query_string, params = None):
 
     cursor.execute(query_string, params)
     results = cursor.fetchall()
-    print(results)
 
     cursor.close()
     db.close()
