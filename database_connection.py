@@ -64,3 +64,15 @@ def execute_update(query_string, params):
     cursor.close()
     db.close()
 
+
+def execute_fetch(query_string, params = None):
+    db = connect_database()
+    cursor = db.cursor()
+
+    cursor.execute(query_string, params)
+    results = cursor.fetchall()
+    print(results)
+
+    cursor.close()
+    db.close()
+    return results
