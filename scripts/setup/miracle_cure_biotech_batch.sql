@@ -24,19 +24,17 @@ DROP TABLE IF EXISTS `batch`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `batch` (
   `batch_no` varchar(11) NOT NULL,
-  `prod_start` time DEFAULT NULL,
-  `prod_end` time DEFAULT NULL,
   `quantity` int DEFAULT NULL,
-  `prod_line` char(1) NOT NULL,
   `prod_type_code` varchar(6) DEFAULT NULL,
   `over_runs` varchar(1000) DEFAULT NULL,
   `current_stage` int DEFAULT NULL,
+  `prod_schedule_id` int DEFAULT NULL,
   PRIMARY KEY (`batch_no`),
-  KEY `prod_line_fk_idx` (`prod_line`),
   KEY `product_type_batch_fk_idx` (`prod_type_code`),
   KEY `batch_stage_lookup_FK_idx` (`current_stage`),
+  KEY `batch_production_schedule_fk_idx` (`prod_schedule_id`),
+  CONSTRAINT `batch_production_schedule_fk` FOREIGN KEY (`prod_schedule_id`) REFERENCES `production_schedule` (`prod_schedule_id`),
   CONSTRAINT `batch_stage_lookup_FK` FOREIGN KEY (`current_stage`) REFERENCES `stage_lookup` (`stage_id`),
-  CONSTRAINT `prod_line_batch_fk` FOREIGN KEY (`prod_line`) REFERENCES `production_line` (`prod_line`),
   CONSTRAINT `product_type_batch_fk` FOREIGN KEY (`prod_type_code`) REFERENCES `product_type` (`prod_type_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -47,7 +45,7 @@ CREATE TABLE `batch` (
 
 LOCK TABLES `batch` WRITE;
 /*!40000 ALTER TABLE `batch` DISABLE KEYS */;
-INSERT INTO `batch` VALUES ('IRV2305001','09:00:00','13:00:00',0,'A','XXX10','yes',1),('IRV2305003','09:30:00','12:30:00',0,'B','XXX11','yes',2),('IRV2305004','10:00:00','12:00:00',0,'C','XXX12','yes',3);
+INSERT INTO `batch` VALUES ('IRV2305001',0,'XXX10','yes',3,4),('IRV2305003',0,'XXX11','yes',2,5),('IRV2305004',0,'XXX12','yes',8,6);
 /*!40000 ALTER TABLE `batch` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -60,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-18 13:45:14
+-- Dump completed on 2023-06-01 14:58:59
