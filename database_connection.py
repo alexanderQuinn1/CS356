@@ -65,7 +65,7 @@ def execute_update(query_string, params):
     db.close()
 
 
-def execute_fetch(query_string, params):
+def execute_fetch(query_string, params = None):
     db = connect_database()
     cursor = db.cursor()
 

@@ -10,10 +10,15 @@ def schedule_batch(form):
 
 
 def get_batch_by_prod_schedule(prod_schedule_id):
+    query = """SELECT * FROM miracle_cure_biotech.batch  
+        WHERE prod_schedule_id = %s ;"""
+
+    results = db.execute_fetch(query, (prod_schedule_id,))
+    result = results[0]
     return {
-        'batch_no': 'IRV2305001',
-        'prod_type': 'XXXX99',
-        'current_stage': 3,
+        'batch_no': result[0],
+        'prod_type': result[2],
+        'current_stage': result[4],
     }
 
 

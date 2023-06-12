@@ -1,5 +1,5 @@
 def get_current_prod_activity(line):
     return {
-        'id': 123,
+        'id': 4,
         'type': 'batch_manufacture'
     }

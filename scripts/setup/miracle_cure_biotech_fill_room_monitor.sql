@@ -27,6 +27,7 @@ CREATE TABLE `fill_room_monitor` (
   `fill_room_id` int DEFAULT NULL,
   `humidity` int DEFAULT NULL,
   `last_stir_delta` int DEFAULT NULL,
+  `temp` int DEFAULT NULL,
   PRIMARY KEY (`fill_room_monitor_id`),
   KEY `fill_room_monitor_fill_room_FK_idx` (`fill_room_id`),
   CONSTRAINT `fill_room_monitor_fill_room_FK` FOREIGN KEY (`fill_room_id`) REFERENCES `fill_room` (`fill_room_id`)
@@ -39,7 +40,7 @@ CREATE TABLE `fill_room_monitor` (
 
 LOCK TABLES `fill_room_monitor` WRITE;
 /*!40000 ALTER TABLE `fill_room_monitor` DISABLE KEYS */;
-INSERT INTO `fill_room_monitor` VALUES (1,1,40,79),(2,2,60,82),(3,3,70,90);
+INSERT INTO `fill_room_monitor` VALUES (1,1,40,79,70),(2,2,60,82,80),(3,3,70,90,90);
 /*!40000 ALTER TABLE `fill_room_monitor` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-18 13:45:13
+-- Dump completed on 2023-06-01 14:59:03
