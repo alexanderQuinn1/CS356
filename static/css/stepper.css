@@ -24,7 +24,6 @@
     z-index: 1;
     background-color: #989898;
     color: #fff;
-    cursor: pointer;
     position: relative;
 }
 
@@ -43,19 +42,22 @@
 
 .bm-stepper__step--active {
     background-color: var(--bm-blue);
-    color: #fff;
 }
 
 .bm-stepper__step--next {
-    background-color: var(--bm-blue--light);
-    color: #fff;
+    background-color: var(--bm-grey--light);
+    border: solid 1px var(--bm-grey--dark);
+    color: var(--bm-grey--dark);
+    cursor: pointer;
+}
+
+.bm-stepper__step--next:hover {
+    background-color: var(--bm-grey);
 }
 
 .bm-stepper__step--disabled {
-    background-color: var(--bm-grey--light);
-    color: #fff;
+    background-color: var(--bm-grey--lighter);
 }
-
 
 .bm-stepper__step--complete {
     background-color: var(--bm-green);
