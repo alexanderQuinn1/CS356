@@ -1,7 +1,5 @@
 import mysql.connector
 import os
-# uncomment and add filepath in case of [WinError 3] The system cannot find the path
-# os.chdir(<absolute path>)
 database_name = "miracle_cure_biotech"
 
 
