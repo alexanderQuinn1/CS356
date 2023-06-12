@@ -5,6 +5,7 @@ import models.maintenance_operation as maintenance
 import models.passage_qa as qa
 import models.batch as batch
 import models.passage_monitor as passage_monitor
+import models.flask_monitor as flask_monitor
 
 app = Flask(__name__)
 
@@ -64,17 +65,28 @@ def run_batch_schedule_entry():
         return render_template('batch-schedule-entry.html', heading=heading, response=response)
 
 
-@app.route('/update_passage_monitor/<prod_line>/<batch_no>/<current_stage_id>', methods=['GET', 'POST'])
-def run_passage_monitor_entry(prod_line, batch_no, current_stage_id):
+@app.route('/update_passage_monitor/<prod_line>/<batch_no>/<monitor_id>', methods=['GET', 'POST'])
+def run_passage_monitor_entry(prod_line, batch_no, monitor_id):
     if request.method == 'GET':
-        return render_template('passage-monitor-entry.html', heading='Enter Passage Monitoring Data')
+        return render_template('passage-monitor-entry.html', heading='Enter Passage Monitoring Data', prod_line=prod_line, batch_no=batch_no, monitor_id=monitor_id)
     if request.method == 'POST':
-        validation = passage_monitor.update('test', 'test', 'test', 'test')
+        validation = passage_monitor.update(monitor_id, request.form['peristaltic_pump'], request.form['cell_count'])
         if validation is not None:
-            return render_template('passage-monitor-entry.html', heading='Enter Passage Monitoring Data', form_validation=validation)
+            return render_template('passage-monitor-entry.html', heading='Enter Passage Monitoring Data', prod_line=prod_line, batch_no=batch_no, monitor_id=monitor_id, form_validation=validation)
         else:
             return redirect('/prod-line-monitor/{line}'.format(line=prod_line))
 
+
+@app.route('/update_expansion_monitor/<prod_line>/<batch_no>/<flask_monitor_id>', methods=['GET', 'POST'])
+def run_expansion_monitor_entry(prod_line, batch_no, flask_monitor_id):
+    if request.method == 'GET':
+        return render_template('expansion-monitor-entry.html', heading='Enter Flask Monitoring Data', prod_line=prod_line, batch_no=batch_no, monitor_id=flask_monitor_id)
+    if request.method == 'POST':
+        validation = flask_monitor.update(flask_monitor_id, request.form['temperature'], request.form['ph'], request.form['osmolality'])
+        if validation is not None:
+            return render_template('expansion-monitor-entry.html', heading='Enter Flask Monitoring Data', prod_line=prod_line, batch_no=batch_no, monitor_id=flask_monitor_id, form_validation=validation)
+        else:
+            return redirect('/prod-line-monitor/{line}'.format(line=prod_line))
 
 
 @app.route('/move_to_next_stage/<prod_line>/<batch_no>/<current_stage_id>')
