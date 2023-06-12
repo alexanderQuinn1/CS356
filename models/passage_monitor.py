@@ -13,3 +13,7 @@ def get_passage_monitor(batch_no, stage_id):
                 'peristaltic_pump': p[1],
                 'cell_count': p[2]
     }
+
+
+def update(batch_no, stage_id, peristaltic_pump, cell_count):
+    return None
