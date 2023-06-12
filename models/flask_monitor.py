@@ -1,7 +1,7 @@
 import database_connection as db
 
 
-def get_flask_monitor(batch_no, stage_id):
+def get(batch_no, stage_id):
     query = """select flask_monitor.flask_monitor_id, flask_monitor.temp, flask_monitor.ph, flask_monitor.osmoality
     from flask_monitor
     join expansion on flask_monitor.expansion_id = expansion.expansion_id
@@ -37,3 +37,11 @@ def get_flask_monitor(batch_no, stage_id):
             }
         ]
     }
+
+
+def update(flask_monitor_id, temp, ph, osmolality):
+    query = """update flask_monitor 
+    set flask_monitor.temp = %s, flask_monitor.ph = %s, flask_monitor.osmoality = %s
+    where flask_monitor.flask_monitor_id = %s
+    """
+    db.execute_update(query, (temp, ph, osmolality, flask_monitor_id))

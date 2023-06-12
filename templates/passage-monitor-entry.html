@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form action="/update_passage_monitor" method="post">
+    <h4>Update Passage Monitor for {{batch_no}} - (stage_name)</h4>
+    <form action="/update_passage_monitor/{{prod_line}}/{{batch_no}}/{{monitor_id}}" method="post">
         <div class="form-group">
             <label for="peristaltic_pump">Enter flow rate of peristaltic pump:*</label><br/>
             <select name="peristaltic_pump" id="peristaltic_pump">

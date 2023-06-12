@@ -28,7 +28,7 @@ def render_batch_manufacture(heading, prod_line, prod_activity):
     stage_type = prod_stage_lookup.get_stage_type(b['current_stage'])
 
     if stage_type == 'expansion':
-        f = flask_monitor.get_flask_monitor(b['batch_no'], b['current_stage'])
+        f = flask_monitor.get(b['batch_no'], b['current_stage'])
         return render_template('prod-line-monitor.html', heading=heading, prod_line=prod_line, stages=stages,
                                batch=b, expansion_monitor=f, product=product)
     elif stage_type == 'passage':
