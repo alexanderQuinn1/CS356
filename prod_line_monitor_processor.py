@@ -6,7 +6,7 @@ import models.passage_qa as passage_qa
 import models.prod_schedule as prod_schedule
 import models.batch as batch
 import models.prod_stage_lookup as prod_stage_lookup
-import SQLQueries as sql
+
 
 def render_prod_activity(heading, prod_line):
     prod_activity = prod_schedule.get_current_prod_activity(prod_line)
@@ -29,7 +29,7 @@ def render_batch_manufacture(heading, prod_line, prod_activity):
     stage_type = prod_stage_lookup.get_stage_type(b['current_stage'])
 
     if stage_type == 'expansion':
-        f = flask_monitor.get_flask_monitor(batch['batch_no'], batch['current_stage'])
+        f = flask_monitor.get_flask_monitor(b['batch_no'], b['current_stage'])
         return render_template('prod-line-monitor.html', heading=heading, prod_line=prod_line, stages=stages,
                                batch=batch, expansion_monitor=f, product=product)
     elif stage_type == 'passage':
