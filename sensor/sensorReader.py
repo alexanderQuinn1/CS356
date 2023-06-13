@@ -42,7 +42,7 @@ channel.basic_consume(queue='fill_room_vat_monitor', on_message_callback=callbac
 
 print("Waiting for sensor data. Press Ctrl+C to exit.")
 
-# Infinite loop to continuously consume messages
+# Loop to continuously consume messages
 try:
     channel.start_consuming()
 except KeyboardInterrupt:
