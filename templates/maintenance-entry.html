@@ -1,71 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Maintenance Entry</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/stylesheet.css') }}">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Enter Maintenance Activity</h1>
-        </header>
-        <form action="/maintenanceEntry" method="post">
-            <div class="form-group">
-                <label for="customer_name">Enter date:*</label><br/>
-                <input type="date" name="date" id="date" required>
-            </div>
-            <div class="form-group">
-                <label for="start_time">Enter start time of maintenance:*</label><br/>
-                <input type="time" name="start_time" id="start_time" required>
-            </div>
-            <div class="form-group">
-                <label for="man_hours">Enter estimated duration (hours):*</label><br/>
-                <input type="number" name="man_hours" id="man_hours" required min="0" max="24">
-            </div>
-            <div class="form-group">
-                <label for="plant">Select Plant needing maintenance:</label><br/>
-                <select name="plant" id="plant">
-                  <option value="IRV123456">example plant1 (IRV123456)</option>
-                  <option value="IRV123457">example plant2 (IRV123457)</option>
-                  <option value="IRV123458">example plant3 (IRV123458)</option>
-                  <option value="IRV123459">example plant4 (IRV123459)</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="description">Enter description of work:*</label><br/>
-                <textarea id="description" name="description" rows="6" cols="30" required maxLength="2000"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="parts_replaced">Enter a list of parts to be replaced:*</label><br/>
-                <textarea id="parts_replaced" name="parts_replaced" rows="6" cols="30" required maxLength="2000"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="cost">Enter cost of work (£):*</label><br/>
-                <input type="number" name="cost" id="cost" required min="0.01" step="0.01">
-            </div>
-            <div class="form-group">
-                <label for="shutdown_required">Shutdown required:*</label><br/>
-                <input type="radio" name="shutdown_required" value="true">
-                <span>Yes</span>
-                <input type="radio" name="shutdown_required" value="false">
-                <span>No</span><br>
-            </div>
-            <div class="form-group">
-                <label for="planned_activity">Planned Activity:*</label><br/>
-                <input type="radio" name="planned_activity" value="true">
-                <span>Yes</span>
-                <input type="radio" name="planned_activity" value="false">
-                <span>No</span>
-            </div>
-            <br/>
-            <div>
-                <button type="submit">Submit Maintenance Activity</button>
-            </div>
-        </form>
-        {% if response %}
+<div>
+    <h3>Batch Maintenance Entry</h3>
+    <div class="form">
+        <label for="monitor-date">Date (ddmmyy format)</label>
+        <input type="date" id="monitor-date" name="date" required>
+
+        <label for="monitor-start-time">Start Time (24-hour format)</label>
+        <input type="time" id="monitor-start-time" name="time" required>
+
+        <!--    <label for="monitor-end-time">End Time (24-hour format)</label>-->
+        <!--    <input type="time" id="monitor-end-time" name="time" required>-->
+
+        <label for="prod-duration">Maintenance Duration (Hours)</label>
+        <input type="number" id="main-duration" name="Maintenance Duration" required>
+
+
+        <label for="plant-ID">Plant ID # (numeric)</label>
+        <select id="plant-ID" name="plant-ID" required>
+            <option value="IRV123456">example plant1 (IRV123456)</option>
+            <option value="IRV123457">example plant2 (IRV123457)</option>
+            <option value="IRV123458">example plant3 (IRV123458)</option>
+            <option value="IRV123459">example plant4 (IRV123459)</option>
+        </select>
+
+        <label for="work-description">Description of Work</label>
+        <input type="text" id="work-description" name="work-description" required>
+
+        <label for="man-hours">Man Hours:</label>
+        <input type="number" id="man-hours" name="man-hours" required>
+
+        <label for="operators">Operator(s)</label>
+        <select id="operators" class="js-example-basic-multiple" multiple="multiple">
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+            <option value="4">Four</option>
+            <option value="5">Five</option>
+        </select>
+
+        <label for="parts-replaced">Parts to be Replaced</label>
+        <input type="text" id="parts-replaced" name="parts-replaced" required>
+
+        <label for="parts-cost">Parts Cost (£)</label>
+        <input type="number" id="parts-cost" name="parts-cost" required>
+
+        <label for="osmolality">Osmolality</label>
+        <input type="checkbox" id="osmolality" name="osmolality" value="osmolality">
+
+        <label for="sterility">Sterility</label>
+        <input type="checkbox" id="sterility" name="sterility" value="sterility">
+
+
+        <label for="shutdown-needed">Shutdown Required</label>
+        <input type="checkbox" id="shutdown-needed" name="osmolality" value="osmolality">
+
+        <label for="planned-activity">Shutdown required</label>
+        <input type="checkbox" id="planned-activity" name="sterility" value="sterility">
+
+        <label for="submit-maintenance-schedule"></label>
+        <input type="submit" id="submit-maintenance-schedule" value="Submit">
+    </div>
+            {% if response %}
             <div>{{ response }}</div>
         {% endif %}
-    </div>
-</body>
-</html>
+</div>

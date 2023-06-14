@@ -1,48 +1,65 @@
-<div class="bm-monitor-group__header">
-    <h5 class="bm-monitor-group__heading">Fill Room Monitor</h5>
-    <a class="bm-monitor-update-button"
-       href="/update_passage_monitor/{{prod_line}}/{{batch.batch_no}}/{{batch.current_stage}}">
-        <i class="fas fa-edit bm-monitor-update-button__icon"></i>
-        Update Monitor
-    </a>
-</div>
-<div class="row g-2">
-    <div class="col-md-4">
-        <div class="bm-monitor-info-block" value="{{fill_room.temp}}" min="{{product.min_temp}}"
-             max="{{product.max_temp}}" unit="°C">
-            <h6 class="bm-monitor-info-block__title">Temperature</h6>
-            <div class="bm-monitor-dial__wrapper"></div>
+<div id="fillroom" class="container-fluid bm-prod-line-fillroom__content">
+    <div class="bm-monitor-group__header">
+        <h5 class="bm-monitor-group__heading">{{ batch.batch_no }} - {{ batch.prod_type }}</h5><br>
+        <a class="bm-monitor-update-button"
+           href="/update_passage_monitor/{{prod_line}}/{{batch.batch_no}}/{{batch.current_stage}}">
+            <i class="fas fa-edit bm-monitor-update-button__icon"></i>
+            Update Monitor
+        </a>
+    </div>
+    <div class="row g-2">
+        <div class="col-md-4-fill">
+            <div class="bm-monitor-info-block bm-monitor-info-block-fill" value="1" min="0"
+                 max="100" unit="°C">
+                <h6 class="bm-monitor-info-block__title">Temperature</h6>
+                <div class="bm-monitor-dial__wrapper"></div>
+            </div>
+        </div>
+        <div class="col-md-4-fill">
+            <div class="bm-monitor-info-block bm-monitor-info-block-fill" value="2" min="0"
+                 max="100" unit="%">
+                <h6 class="bm-monitor-info-block__title">Humidity</h6>
+                <div class="bm-monitor-dial__wrapper"></div>
+            </div>
+        </div>
+        <div class="col-md-4-fill">
+            <div class="bm-monitor-info-block bm-monitor-info-block-fill">
+                <h6 class="bm-monitor-info-block__title">Last Stir Delta</h6>
+                <span class="bm-monitor-info-block-fill__title">4</span>
+            </div>
+        </div>
+
+        <div class="col-md-4-fill">
+            <div onclick="addQA()"
+                 class="bm-monitor-info-block bm-monitor-info-block--blue bm-monitor-info-block--clickable bm-monitor-info-block-fill">
+                <h6 class="bm-monitor-info-block__title">Add QA</h6>
+                <i class="fa-xl fa-solid fa-plus bm-monitor-info-block--fill__button"></i>
+            </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="bm-monitor-info-block" value="{{fill_room.humidity}}" min="{{product.min_temp}}"
-             max="{{product.max_temp}}" unit="%">
-            <h6 class="bm-monitor-info-block__title">Humidity</h6>
-            <div class="bm-monitor-dial__wrapper"></div>
+    <!--    IF QA ADDED -->
+    <div class="row g-2">
+        <div class="col-md-4-fill-qa">
+            <div class="bm-monitor-info-block bm-monitor-info-block-fill">
+                <h6 class="bm-monitor-info-block__title bm-monitor-info-block__title-fill">Fill Room QA</h6>
+                <table>
+                    <tr>
+                        <th>Mycoplasma</th>
+                        <th>Virus Testing</th>
+                        <th>Amino Acids</th>
+                        <th>Trace Element</th>
+                    </tr>
+                    <tr>
+<!--                        Paramters of QA added in TD here-->
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="bm-fillroom-info-block">
-            <h6 class="bm-monitor-info-block__title">Humidity</h6>
-            <span class="bm-monitor-info-block__text">{{ fill_room.humidity }}</span>
-        </div>
-    </div>
-    {% if qa %}
-    <div class="col-md-4">
-        <div class="bm-monitor-info-block bm-monitor-info-block--{{qa.colour}}">
-            <h6 class="bm-monitor-info-block__title">QA Results</h6>
-            <span class="bm-monitor-info-block__text">{{ fill_room.status }}</span>
-        </div>
-    </div>
-    {% else %}
-    <div class="col-md-4">
-        <div onclick="addQA()"
-             class="bm-monitor-info-block bm-monitor-info-block--blue bm-monitor-info-block--clickable">
-            <h6 class="bm-monitor-info-block__title">Add QA</h6>
-            <i class="fa-xl fa-solid fa-plus bm-monitor-info-block__button"></i>
-        </div>
-    </div>
-    {% endif %}
 </div>
 
 <script>

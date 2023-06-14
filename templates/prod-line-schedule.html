@@ -2,8 +2,34 @@
 
 {% block head %}
 <!--stylesheet linkrel-->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+  let calendarEl = document.getElementById('production-calendar');
+
+  let calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth',
+    initialDate: '2023-05-07',
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay'
+    },
+    events: []  });
+
+  calendar.events.add()
+
+  calendar.render();
+});
+
+
+</script>
 {% endblock %}
 
 {% block content %}
-    production schedule
+   <h3>Production Schedule</h3>
+
+    <div class="production-calendar" id='production-calendar'></div>
+
 {% endblock %}

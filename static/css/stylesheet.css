@@ -12,6 +12,7 @@
   --bm-grey: #888;
   --bm-grey--light: #bebebe;
   --bm-grey--lighter: #dee2e6;
+    --bm-grey--lightest: #f9f9f9;
 }
 
 header {
@@ -22,7 +23,6 @@ header {
 table {
   border-collapse: collapse;
   width: 100%;
-  max-width: 800px;
   margin: 0 auto;
   font-size: 14px;
 }
@@ -35,15 +35,15 @@ th, td {
 
 th {
   font-weight: bold;
-  background-color: #f2f2f2;
+  background-color: var(--bm-grey--light);
 }
 
 tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: var(--bm-grey--lightest);
 }
 
 tr:hover {
-  background-color: #e6e6e6;
+  background-color: var(--bm-grey--lighter);
 }
 
 nav {
@@ -75,4 +75,32 @@ nav a:hover {
 
 .form-group {
   margin-bottom: 10px;
+}
+
+
+input, select {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+}
+
+input[type=submit]:hover {
+  background-color: var(--bm-grey);
+}
+
+div.form {
+    display:grid;
+    grid-template-columns: max-content 1fr;
+    grid-gap:5px;
+}
+div.form label       { text-align:right; }
+
+div.form label:after { content: ":"; }
+
+.production-calendar a {
+  color: black;
 }
