@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<!--stylesheet linkrel-->
+{% endblock %}
+
+{% block content %}
+    <h4>{{ batch.batch_no }} - {{ batch.prod_type }}</h4>
+
+{% if entry_type in 'batch' %}
+<form>
+    <label for="prod-line">Production Line</label>
+    <select id="prod-line" name="Production Line" required>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+    </select>
+
+    <label for="prod-type">Product Type</label>
+    <select id="prod-type" name="Product Type" required>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+    </select>
+
+    <label for="batch-date">Date (ddmmyy format):</label>
+    <input type="date" id="batch-date" name="date" required>
+
+    <label for="batch-start-time">Time (24-hour format):</label>
+    <input type="time" id="batch-start-time" name="time" required><br><br>
+
+<!--    <label for="batch-end-time">Time (24-hour format):</label>-->
+<!--    <input type="time" id="batch-end-time" name="time" required><br><br>-->
+
+    <label for="prod-duration">Production Duration (Hours)</label>
+    <input type="number" id="prod-duration" name="Production Duration" required><br><br>
+
+    <input type="submit" value="Submit">
+</form>
+{% endif %}
+
+{% if entry_type in 'main' %}
+
+<form>
+    <label for="monitor-date">Date (ddmmyy format):</label>
+    <input type="date" id="monitor-date" name="date" required>
+
+    <label for="monitor-start-time">Start Time (24-hour format):</label>
+    <input type="time" id="monitor-start-time" name="time" required><br><br>
+
+    <label for="monitor-end-time">End Time (24-hour format):</label>
+    <input type="time" id="monitor-end-time" name="time" required><br><br>
+
+    <label for="plant-ID">Plant ID # (numeric):</label>
+    <input type="number" id="plant-ID" name="plant-ID" required><br><br>
+
+
+    <label for="work-description">Work Description:</label>
+    <input type="text" id="work-description" name="work-description" required><br><br>
+
+    <label for="man-hours">Man Hours:</label>
+    <input type="number" id="man-hours" name="man-hours" required><br><br>
+
+    <label for="operators">Operator(s):</label>
+    <input type="checkbox"  name="operators" value="Aayza">Aayza
+    <input type="checkbox" name="operators" value="Test">Test
+    <input type="checkbox" name="operators" value="Anna" id="operators">Anna
+
+    <label for="parts-replaced">Work Description:</label>
+    <input type="text" id="parts-replaced" name="parts-replaced" required><br><br>
+
+    <label for="parts-cost">Parts Cost (£): </label>
+    <input type="number" id="parts-cost" name="parts-cost" required><br><br>
+
+    <label for="osmolality">Osmolality: </label>
+    <input type="checkbox" id="osmolality" name="osmolality" value="osmolality">
+
+
+    <label for="sterility">Sterility: </label>
+    <input type="checkbox" id="sterility" name="sterility" value="sterility">
+
+    <input type="submit" value="Submit">
+</form>
+{% endif %}
+
+{% endblock %}

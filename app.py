@@ -64,6 +64,22 @@ def run_batch_schedule_entry():
         return render_template('batch-schedule-entry.html', heading=heading, response=response)
 
 
+@app.route('/maintenance-batch-entry', methods=['GET', 'POST'])
+def run_main_batch_entry():
+    heading = 'schedule a batch'
+    if request.method == 'GET':
+        return render_template('maintenance-batch-entry.html', heading=heading)
+    else:
+        response = batch.schedule_batch(request.form)
+        return render_template('maintenance-batch-entry.html', heading=heading, response=response)
+
+
+@app.route('/maintenance-batch-entry/<entry_type>/<batch_no>', methods=['GET', 'POST'])
+def run_main_entry(entry_type, batch_no):
+    heading = 'Main'
+    return plm.render_batch_monitor_entry(heading, batch_no, entry_type)
+
+
 @app.route('/update_passage_monitor/<prod_line>/<batch_no>/<current_stage_id>', methods=['GET', 'POST'])
 def run_passage_monitor_entry(prod_line, batch_no, current_stage_id):
     if request.method == 'GET':
@@ -71,10 +87,10 @@ def run_passage_monitor_entry(prod_line, batch_no, current_stage_id):
     if request.method == 'POST':
         validation = passage_monitor.update('test', 'test', 'test', 'test')
         if validation is not None:
-            return render_template('passage-monitor-entry.html', heading='Enter Passage Monitoring Data', form_validation=validation)
+            return render_template('passage-monitor-entry.html', heading='Enter Passage Monitoring Data',
+                                   form_validation=validation)
         else:
             return redirect('/prod-line-monitor/{line}'.format(line=prod_line))
-
 
 
 @app.route('/move_to_next_stage/<prod_line>/<batch_no>/<current_stage_id>')

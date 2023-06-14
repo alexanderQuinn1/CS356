@@ -41,6 +41,12 @@ def render_batch_manufacture(heading, prod_line, prod_activity):
                                batch=b)
 
 
+def render_batch_monitor_entry(heading, batch_no, entry_type):
+    b = batch.get_batch_by_batch_id(batch_no)
+    return render_template('maintenance-batch-entry.html', heading=heading, entry_type=entry_type,
+                           batch=b)
+
+
 def update_batch_stage(batch_no, current_stage_id):
     stage_id = int(current_stage_id) + 1
     batch.update_batch_stage(batch_no, stage_id)
