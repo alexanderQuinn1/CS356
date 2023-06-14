@@ -1,9 +1,3 @@
-import os
-import sys
-
-import pika
-import json
-
 
 def save_maintenance_activity(form):
     print(form)
