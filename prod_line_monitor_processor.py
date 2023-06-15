@@ -6,6 +6,7 @@ import models.passage_qa as passage_qa
 import models.prod_schedule as prod_schedule
 import models.batch as batch
 import models.prod_stage_lookup as prod_stage_lookup
+import models.prod_schedule as prod_sched
 
 
 def render_prod_activity(heading, prod_line):
@@ -50,3 +51,7 @@ def render_batch_monitor_entry(heading, batch_no, entry_type):
 def update_batch_stage(batch_no, current_stage_id):
     stage_id = int(current_stage_id) + 1
     batch.update_batch_stage(batch_no, stage_id)
+
+def render_prod_schedule_calender(heading):
+    p = prod_sched.get_prod_activities()
+    return render_template('prod-line-schedule.html', heading=heading, prod_activity=p)

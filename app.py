@@ -22,7 +22,8 @@ def run_production_line(prod_line):
 
 @app.route('/prod-schedule')
 def run_production_schedule():
-    return render_template('prod-line-schedule.html', heading="Production Schedule")
+    heading = 'Production Schedule'
+    return plm.render_prod_schedule_calender(heading)
 
 
 @app.route('/qa-log')

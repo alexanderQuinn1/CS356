@@ -2,34 +2,51 @@
 
 {% block head %}
 <!--stylesheet linkrel-->
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
 <script>
 
-document.addEventListener('DOMContentLoaded', function() {
-  let calendarEl = document.getElementById('production-calendar');
+    let eventA = '{{ prod_activity }}'
+    console.log(eventA);
 
-  let calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth',
-    initialDate: '2023-05-07',
-    headerToolbar: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay'
-    },
-    events: []  });
+    for
 
-  calendar.events.add()
+    let eventB = {
+      title  : '{{ prod_activity.title }}',
+      start  : '{{ prod_activity.start }}',
+        end  : '{{ prod_activity.end }}'
+    };
 
-  calendar.render();
-});
+    console.log(eventB);
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        let calendarEl = document.getElementById('production-calendar');
+
+        let calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            initialDate: '2023-05-07',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            events: [
+                eventB
+            ]
+        });
+
+        calendar.render();
+
+        calendar.addEventSource('source');
+    });
 
 
 </script>
 {% endblock %}
 
 {% block content %}
-   <h3>Production Schedule</h3>
-
-    <div class="production-calendar" id='production-calendar'></div>
+<h3>{{ heading }}</h3>
+{{ prod_activity }}
+<div class="production-calendar" id='production-calendar'></div>
 
 {% endblock %}
