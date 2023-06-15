@@ -23,9 +23,9 @@ def send_data(queue_name, data):
 
 
 # Generate sample data for flask_expansion_monitor
-def generate_flask_expansion_monitor_data():
+def generate_flask_expansion_monitor_data(sensor_id):
     data = {
-        'sensor_id': 'flask_expansion_sensor_1',
+        'sensor_id': sensor_id,
         'type': 'flask_expansion_monitor',
         'temp': 25.5,
         'ph': 7.2,
@@ -35,9 +35,9 @@ def generate_flask_expansion_monitor_data():
 
 
 # Generate sample data for passage_monitor
-def generate_passage_monitor_data():
+def generate_passage_monitor_data(sensor_id):
     data = {
-        'sensor_id': 'passage_sensor_1',
+        'sensor_id': sensor_id,
         'type': 'passage_monitor',
         'cell_count': 5000
     }
@@ -45,9 +45,9 @@ def generate_passage_monitor_data():
 
 
 # Generate sample data for fill_room_vat_monitor
-def generate_fill_room_vat_monitor_data():
+def generate_fill_room_vat_monitor_data(sensor_id):
     data = {
-        'sensor_id': 'fill_room_sensor_1',
+        'sensor_id': sensor_id,
         'type': 'fill_room_vat_monitor',
         'room_temp': 23.5,
         'humidity': 60
@@ -57,13 +57,23 @@ def generate_fill_room_vat_monitor_data():
 
 # Send data every 5 seconds
 while True:
-    flask_expansion_data = generate_flask_expansion_monitor_data()
-    passage_data = generate_passage_monitor_data()
-    fill_room_data = generate_fill_room_vat_monitor_data()
+    # Generate and send data for flask_expansion_monitor
+    for i in range(1, 5):
+        sensor_id = f"flask_expansion_sensor_{i}"
+        data = generate_flask_expansion_monitor_data(sensor_id)
+        send_data('flask_expansion_monitor', data)
 
-    send_data('flask_expansion_monitor', flask_expansion_data)
-    send_data('passage_monitor', passage_data)
-    send_data('fill_room_vat_monitor', fill_room_data)
+    # Generate and send data for passage_monitor
+    for i in range(1, 4):
+        sensor_id = f"passage_sensor_{i}"
+        data = generate_passage_monitor_data(sensor_id)
+        send_data('passage_monitor', data)
+
+    # Generate and send data for fill_room_vat_monitor
+    for i in range(1, 4):
+        sensor_id = f"fill_room_sensor_{i}"
+        data = generate_fill_room_vat_monitor_data(sensor_id)
+        send_data('fill_room_vat_monitor', data)
 
     time.sleep(5)
 
