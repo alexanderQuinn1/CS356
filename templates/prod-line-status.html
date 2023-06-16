@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/prod_line.css') }}"
+      xmlns="http://www.w3.org/1999/html">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/monitor.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/stepper.css') }}">
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/pureknob.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/expansion_dials.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/stages.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<ul class="bm-prod-line-tab nav nav-tabs">
+    <li class="nav-item">
+        <a id="a" class="bm-prod-line-tab__link nav-link {% if prod_line== 'A' %} active {% endif %}"
+           href="/prod-line-monitor/A">Line A</a>
+    </li>
+    <li class="nav-item">
+        <a id="b" class="bm-prod-line-tab__link nav-link {% if prod_line== 'B' %} active {% endif %}"
+           href="/prod-line-monitor/B">Line B</a>
+    </li>
+    <li class="nav-item">
+        <a id="c" class="bm-prod-line-tab__link nav-link {% if prod_line== 'C' %} active {% endif %}"
+           href="/prod-line-monitor/C">Line C</a>
+    </li>
+    <li class="nav-item">
+        <a id="fill room" class="bm-prod-line-tab__link nav-link {% if prod_line== 'fill-room' %} active {% endif %}"
+           href="/prod-line-monitor/fill-room">Fill room</a>
+    </li>
+</ul>
+
+<div id="line" class="container-fluid bm-prod-line-tab__content">
+    {% block prod_line_activity %}
+    {% endblock %}
+</div>
+{% endblock %}

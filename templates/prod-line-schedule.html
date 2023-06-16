@@ -40,7 +40,11 @@
 
 {% block content %}
 <h3>{{ heading }}</h3>
-{{ prod_activity }}
+        <a class="bm-monitor-update-button" href="/maintenance-batch-entry/select">
+            <i class="fas fa-edit bm-monitor-update-button__icon"></i>
+            Add To Schedule
+        </a>
+<!--{{ prod_activity }}-->
 <div class="production-calendar" id='production-calendar'></div>
 
 {% endblock %}
