@@ -6,8 +6,10 @@ import models.passage_qa as qa
 import models.batch as batch
 import models.passage_monitor as passage_monitor
 import models.flask_monitor as flask_monitor
+import processors.passage as passage
 
 app = Flask(__name__)
+
 
 # Main Navigation #
 @app.route('/')
@@ -37,14 +39,17 @@ def run_maintenance_log():
 
 
 # Data Entry End-Points #
-@app.route('/passage-qa-entry', methods=['GET', 'POST'])
-def render_passage_qa_entry_screen():
+@app.route('/passage-qa-entry/<passage_id>', methods=['GET', 'POST'])
+def render_passage_qa_entry_screen(passage_id):
     heading = 'Passage QA Entry'
     if request.method == 'GET':
         return render_template('passage-qa-entry.html', heading=heading)
     else:
-        # TODO response = passage_qa.add(request.form)
-        return render_template('passageqa-entry.html', heading=heading)
+        form_validation = passage.save_qa(passage_id, request.form)
+        if form_validation is None:
+            return redirect('/prod-line-monitor/{line}'.format(line=prod_line))
+        else:
+            return render_template('passage-qa-entry.html', heading=heading, form_validation=form_validation)
 
 
 @app.route('/maintenance-entry', methods=['GET', 'POST'])

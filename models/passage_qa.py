@@ -1,10 +1,10 @@
-def save_qa(form):
-    print(form)
-    return 'Quality Assurance Saved'
+import database_connection as db
 
 
-def get_qa_outcome(passage_id):
-    return {
-        'status': 'pass',
-        'colour': 'green'
-    }
+def insert(passage_id, date_time, cell_count, ph, osmolality, sterility, passed):
+    query = """ 
+        INSERT INTO passage_qa(passage_d, date_time, cell_count, ph, osmolality, sterility, passed)
+        VALUES(%s, %s, %s, %s, %s, %s, %s);
+        """
+
+    db.commit(query, (passage_id, date_time, cell_count, ph, osmolality, sterility, passed))

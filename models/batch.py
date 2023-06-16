@@ -13,7 +13,7 @@ def get_batch_by_prod_schedule(prod_schedule_id):
     query = """SELECT * FROM miracle_cure_biotech.batch  
         WHERE prod_schedule_id = %s ;"""
 
-    results = db.execute_fetch(query, (prod_schedule_id,))
+    results = db.fetch(query, (prod_schedule_id,))
     result = results[0]
     return {
         'batch_no': result[0],
@@ -27,4 +27,4 @@ def update_batch_stage(batch_no, stage_id):
     SET current_stage = %s    
     WHERE batch_no= %s ;"""
 
-    db.execute_update(query, (stage_id, batch_no))
+    db.commit(query, (stage_id, batch_no))

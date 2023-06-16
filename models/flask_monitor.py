@@ -2,13 +2,12 @@ import database_connection as db
 
 
 def get(batch_no, stage_id):
-    query = """select flask_monitor.flask_monitor_id, flask_monitor.temp, flask_monitor.ph, flask_monitor.osmoality
-    from flask_monitor
-    join expansion on flask_monitor.expansion_id = expansion.expansion_id
-    where expansion.stage = %s and batch_id = %s
+    query = """SELECT flask_monitor.flask_monitor_id, flask_monitor.temp, flask_monitor.ph, flask_monitor.osmoality
+    FROM flask_monitor
+    JOIN expansion ON flask_monitor.expansion_id = expansion.expansion_id
+    WHERE expansion.stage = %s AND batch_id = %s
     """
-    e = db.execute_fetch(query, (stage_id, batch_no))
-    print(e)
+    e = db.fetch(query, (stage_id, batch_no))
     return {
         'flasks': [
             {
@@ -40,8 +39,8 @@ def get(batch_no, stage_id):
 
 
 def update(flask_monitor_id, temp, ph, osmolality):
-    query = """update flask_monitor 
-    set flask_monitor.temp = %s, flask_monitor.ph = %s, flask_monitor.osmoality = %s
-    where flask_monitor.flask_monitor_id = %s
+    query = """UPDATE flask_monitor 
+    SET flask_monitor.temp = %s, flask_monitor.ph = %s, flask_monitor.osmoality = %s
+    WHERE flask_monitor.flask_monitor_id = %s
     """
-    db.execute_update(query, (temp, ph, osmolality, flask_monitor_id))
+    db.commit(query, (temp, ph, osmolality, flask_monitor_id))

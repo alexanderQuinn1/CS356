@@ -9,10 +9,10 @@ PASSWORD = "512451245124j@D"
 
 def connect_database():
     return mysql.connector.connect(
-            host=HOST,
-            user=USER,
-            password=PASSWORD,
-            database=DB_NAME
+        host=HOST,
+        user=USER,
+        password=PASSWORD,
+        database=DB_NAME
     )
 
 
@@ -54,7 +54,7 @@ def create():
     create_tables()
 
 
-def execute_update(query_string, params):
+def commit(query_string, params):
     db = connect_database()
     cursor = db.cursor()
 
@@ -65,7 +65,7 @@ def execute_update(query_string, params):
     db.close()
 
 
-def execute_fetch(query_string, params = None):
+def fetch(query_string, params=None):
     db = connect_database()
     cursor = db.cursor()
 

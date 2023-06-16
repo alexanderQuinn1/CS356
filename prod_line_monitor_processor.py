@@ -7,6 +7,7 @@ import models.prod_schedule as prod_schedule
 import models.batch as batch
 import models.prod_stage_lookup as prod_stage_lookup
 import models.maintenance_operation as maintenance_operation
+import processors.passage as passage_processor
 
 
 def render_prod_activity(heading, prod_line):
@@ -17,7 +18,6 @@ def render_prod_activity(heading, prod_line):
         return render_batch_manufacture(heading, prod_line, prod_activity)
     elif prod_activity['type'] == 'maintenance':
         m = maintenance_operation.get_maintenance_activity(prod_activity['id'])
-        print(m)
         return render_template('prod-line-maintenance.html', heading=heading, prod_line=prod_line, maintenance=m)
 
 
@@ -34,7 +34,7 @@ def render_batch_manufacture(heading, prod_line, prod_activity):
                                batch=b, expansion_monitor=f, product=product)
     elif stage_type == 'passage':
         p = passage_monitor.get(b['batch_no'], b['current_stage'])
-        qa = passage_qa.get_qa_outcome(p['id'])
+        qa = passage_processor.get_qa_results(p['id'])
         return render_template('prod-line-batch-monitor.html', heading=heading, prod_line=prod_line, stages=stages,
                                batch=b, passage_monitor=p, passage_qa=qa, product=product)
     else:

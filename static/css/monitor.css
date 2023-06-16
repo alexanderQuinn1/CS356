@@ -6,7 +6,7 @@
 }
 
 .bm-monitor-group__header {
-    display:flex;
+    display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 8px
@@ -31,12 +31,6 @@
     background-color: var(--bm-blue--lightest);
 }
 
-.bm-monitor-info-block--blue.bm-monitor-info-block--clickable:hover {
-    color: var(--bm-blue--dark);
-    border-color: var(--bm-blue--dark);
-    background-color: var(--bm-blue--lighter);
-}
-
 .bm-monitor-info-block--green {
     color: var(--bm-green);
     border-color: var(--bm-green);
@@ -49,7 +43,17 @@
     background-color: var(--bm-red--light);
 }
 
-.bm-monitor-info-block--clickable {
+.bm-monitor-info-block-link {
+    text-decoration: none;
+}
+
+.bm-monitor-info-block-link .bm-monitor-info-block--blue:hover {
+    color: var(--bm-blue--dark);
+    border-color: var(--bm-blue--dark);
+    background-color: var(--bm-blue--lighter);
+}
+
+.bm-monitor-info-block-link .bm-monitor-info-block {
     cursor: pointer;
 }
 
@@ -70,6 +74,7 @@
     width: fit-content;
     margin-bottom: 8px;
 }
+
 .bm-monitor-update-button:hover {
     background-color: var(--bm-blue--dark);
     color: white;

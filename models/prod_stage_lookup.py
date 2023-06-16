@@ -3,7 +3,7 @@ import database_connection as db
 
 def get_all_stages_based_on_step(current_stage_id):
     query = """ SELECT * FROM miracle_cure_biotech.stage_lookup"""
-    results = db.execute_fetch(query)
+    results = db.fetch(query)
     stages = []
     for result in results:
         stage_id = result[0]
