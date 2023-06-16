@@ -9,7 +9,7 @@ import models.flask_monitor as flask_monitor
 
 app = Flask(__name__)
 
-
+# Main Navigation #
 @app.route('/')
 def run_app():
     return redirect('/prod-line-monitor/A')
@@ -36,14 +36,15 @@ def run_maintenance_log():
     return render_template('maintenance-log.html', heading="Maintenance Log")
 
 
-@app.route('/qa-entry', methods=['GET', 'POST'])
-def run_quality_assurance_entry():
-    heading = 'Enter QA Test Data'
+# Data Entry End-Points #
+@app.route('/passage-qa-entry', methods=['GET', 'POST'])
+def render_passage_qa_entry_screen():
+    heading = 'Passage QA Entry'
     if request.method == 'GET':
-        return render_template('qa-entry.html', heading=heading)
+        return render_template('passage-qa-entry.html', heading=heading)
     else:
-        response = qa.save_qa(request.form)
-        return render_template('qa-entry.html', heading=heading, response=response)
+        # TODO response = passage_qa.add(request.form)
+        return render_template('passageqa-entry.html', heading=heading)
 
 
 @app.route('/maintenance-entry', methods=['GET', 'POST'])

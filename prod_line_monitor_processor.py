@@ -21,7 +21,6 @@ def render_prod_activity(heading, prod_line):
         return render_template('prod-line-maintenance.html', heading=heading, prod_line=prod_line, maintenance=m)
 
 
-
 def render_batch_manufacture(heading, prod_line, prod_activity):
     b = batch.get_batch_by_prod_schedule(prod_activity['id'])
     product = product_type.get_product(b['prod_type'])
@@ -31,7 +30,7 @@ def render_batch_manufacture(heading, prod_line, prod_activity):
 
     if stage_type == 'expansion':
         f = flask_monitor.get(b['batch_no'], b['current_stage'])
-        return render_template('prod-line-monitor.html', heading=heading, prod_line=prod_line, stages=stages,
+        return render_template('prod-line-batch-monitor.html', heading=heading, prod_line=prod_line, stages=stages,
                                batch=b, expansion_monitor=f, product=product)
     elif stage_type == 'passage':
         p = passage_monitor.get(b['batch_no'], b['current_stage'])
