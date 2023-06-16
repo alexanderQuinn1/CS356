@@ -1,9 +1,3 @@
-import os
-import sys
-
-import pika
-import json
-
 
 def save_maintenance_activity(form):
     print(form)
@@ -11,5 +5,9 @@ def save_maintenance_activity(form):
     return 'maintenance saved'
 
 
-def get_maintenance_activity(prod_line):
-    return
+def get_maintenance_activity(prod_schedule_id):
+    return {
+        'id': 2,
+        'description': 'replacement of peristaltic pump'
+    }
+

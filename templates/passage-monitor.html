@@ -1,0 +1,44 @@
+<div class="bm-monitor-group__header">
+    <h5 class="bm-monitor-group__heading">Passage Monitor</h5>
+    <a class="bm-monitor-update-button" href="/update_passage_monitor/{{prod_line}}/{{batch.batch_no}}/{{passage_monitor.id}}">
+        <i class="fas fa-edit bm-monitor-update-button__icon"></i>
+        Update Monitor
+    </a>
+</div>
+<div class="row g-2">
+    <div class="col-md-4">
+        <div class="bm-monitor-info-block">
+            <h6 class="bm-monitor-info-block__title">Peristaltic Pump</h6>
+            <span class="bm-monitor-info-block__text">{{ passage_monitor.peristaltic_pump }}</span>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="bm-monitor-info-block">
+            <h6 class="bm-monitor-info-block__title">Cell Count</h6>
+            <span class="bm-monitor-info-block__text">{{ passage_monitor.cell_count }}</span>
+        </div>
+    </div>
+
+    {% if qa %}
+    <div class="col-md-4">
+        <div class="bm-monitor-info-block bm-monitor-info-block--{{qa.colour}}">
+            <h6 class="bm-monitor-info-block__title">QA Results</h6>
+            <span class="bm-monitor-info-block__text">{{ passage_qa.status }}</span>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-md-4">
+        <div onclick="addQA()"
+             class="bm-monitor-info-block bm-monitor-info-block--blue bm-monitor-info-block--clickable">
+            <h6 class="bm-monitor-info-block__title">Add QA</h6>
+            <i class="fa-xl fa-solid fa-plus bm-monitor-info-block__button"></i>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    function addQA() {
+        window.location.href = '/passage-qa-entry'
+    }
+</script>

@@ -1,6 +1,5 @@
 import sys
 from random import random
-
 import pika
 import json
 import time
@@ -32,6 +31,7 @@ def generate_flask_expansion_monitor_data(sensor_id):
         'temp': round(random.uniform(30, 45), 1),
         'ph': round(random.uniform(5, 9), 1),
         'osmolality': round(random.uniform(280, 420), 1),
+
     }
     return data
 
@@ -81,3 +81,4 @@ while True:
 
 # Close the connection
 connection.close()
+

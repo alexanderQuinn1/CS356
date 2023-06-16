@@ -1,0 +1,33 @@
+{% for flask in expansion_monitor.flasks %}
+<div class="bm-monitor-group">
+    <div class="bm-monitor-group__header">
+        <h5 class="bm-monitor-group__heading">Flask Monitor (ID: {{flask.id}})</h5>
+        <a class="bm-monitor-update-button" href="/update_expansion_monitor/{{ prod_line }}/{{ batch.batch_no }}/{{ flask.id }}">
+            <i class="fas fa-edit bm-monitor-update-button__icon"></i>
+            Update Monitor
+        </a>
+    </div>
+    <div class="row g-2">
+        <div class="col-md-4">
+            <div class="bm-monitor-info-block" value="{{flask.temp}}" min="{{product.min_temp}}"
+                 max="{{product.max_temp}}" unit="°C">
+                <h6 class="bm-monitor-info-block__title">Temperature</h6>
+                <div class="bm-monitor-dial__wrapper"></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="bm-monitor-info-block" value="{{flask.ph}}" min="{{product.min_ph}}" max="{{product.max_ph}}">
+                <h6 class="bm-monitor-info-block__title">Ph</h6>
+                <div class="bm-monitor-dial__wrapper"></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="bm-monitor-info-block" value="{{flask.osmolality}}" min="{{product.min_osmolality}}"
+                 max="{{product.max_osmolality}}">
+                <h6 class="bm-monitor-info-block__title">Osmoality (mOsmol/kg)</h6>
+                <div class="bm-monitor-dial__wrapper"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
