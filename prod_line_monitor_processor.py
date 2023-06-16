@@ -7,6 +7,8 @@ import models.prod_schedule as prod_schedule
 import models.batch as batch
 import models.prod_stage_lookup as prod_stage_lookup
 import models.prod_schedule as prod_sched
+from flask import json
+
 
 
 def render_prod_activity(heading, prod_line):
@@ -42,10 +44,8 @@ def render_batch_manufacture(heading, prod_line, prod_activity):
                                batch=b)
 
 
-def render_batch_monitor_entry(heading, batch_no, entry_type):
-    b = batch.get_batch_by_batch_id(batch_no)
-    return render_template('maintenance-batch-entry.html', heading=heading, entry_type=entry_type,
-                           batch=b)
+def render_batch_monitor_entry(heading, entry_type):
+    return render_template('maintenance-batch-entry.html', heading=heading, entry_type=entry_type)
 
 
 def update_batch_stage(batch_no, current_stage_id):
@@ -54,4 +54,4 @@ def update_batch_stage(batch_no, current_stage_id):
 
 def render_prod_schedule_calender(heading):
     p = prod_sched.get_prod_activities()
-    return render_template('prod-line-schedule.html', heading=heading, prod_activity=p)
+    return render_template('prod-line-schedule.html', heading=heading, prod_activity=json.dumps(p))

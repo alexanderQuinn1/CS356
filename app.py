@@ -75,10 +75,10 @@ def run_main_batch_entry():
         return render_template('maintenance-batch-entry.html', heading=heading, response=response)
 
 
-@app.route('/maintenance-batch-entry/<entry_type>/<batch_no>', methods=['GET', 'POST'])
-def run_main_entry(entry_type, batch_no):
-    heading = 'Main'
-    return plm.render_batch_monitor_entry(heading, batch_no, entry_type)
+@app.route('/maintenance-batch-entry/<entry_type>/', methods=['GET', 'POST'])
+def run_main_entry(entry_type):
+    heading = 'Add to Schedule'
+    return plm.render_batch_monitor_entry(heading, entry_type)
 
 
 @app.route('/update_passage_monitor/<prod_line>/<batch_no>/<current_stage_id>', methods=['GET', 'POST'])

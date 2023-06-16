@@ -57,9 +57,17 @@
         <input type="checkbox" id="planned-activity" name="sterility" value="sterility">
 
         <label for="submit-maintenance-schedule"></label>
-        <input type="submit" id="submit-maintenance-schedule" value="Submit">
+        <input type="submit" id="submit-maintenance-schedule" onclick="addMaintenanceEntry()" value="Submit">
     </div>
             {% if response %}
             <div>{{ response }}</div>
         {% endif %}
 </div>
+
+<script>
+    function addMaintenanceEntry() {
+
+    }
+
+
+</script>

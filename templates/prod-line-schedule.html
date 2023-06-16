@@ -5,18 +5,14 @@
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
 <script>
 
-    let eventA = '{{ prod_activity }}'
-    console.log(eventA);
+    let eventA = '{{ prod_activity|tojson }}'
 
-    for
+    eventB = eventA.toString();
+    // let pattern = "\[", re = new RegExp(pattern, "g");
+    // eventB.replace(re, "")
+    const eventsArray = eventB.split(',');
+    console.log(eventsArray)
 
-    let eventB = {
-      title  : '{{ prod_activity.title }}',
-      start  : '{{ prod_activity.start }}',
-        end  : '{{ prod_activity.end }}'
-    };
-
-    console.log(eventB);
 
     document.addEventListener('DOMContentLoaded', function () {
 
@@ -30,14 +26,12 @@
                 center: 'title',
                 right: 'dayGridMonth,timeGridWeek,timeGridDay'
             },
-            events: [
-                eventB
-            ]
+            events:
+            eventA
         });
 
         calendar.render();
 
-        calendar.addEventSource('source');
     });
 
 

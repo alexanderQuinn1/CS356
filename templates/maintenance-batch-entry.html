@@ -17,138 +17,55 @@
     });
 
     function addBatchSchedule() {
-        window.location.href = '/maintenance-batch-entry/batch/{{ batch.batch_no }}'
+        window.location.href = '/maintenance-batch-entry/batch'
     }
 
     function addBatchMaintenance() {
-        window.location.href = '/maintenance-batch-entry/main/{{ batch.batch_no }}'
+        window.location.href = '/maintenance-batch-entry/main'
     }
+
 
 </script>
 {% endblock %}
 
 {% block content %}
-<h4>{{ batch.batch_no }} - {{ batch.prod_type }}</h4>
 
 {% if entry_type in 'select' %}
 <div class="row g-2">
     <div class="col-md-4">
-        <div onclick="addBatchSchedule()"
-             class="bm-monitor-info-block bm-monitor-info-block--blue bm-monitor-info-block--clickable bm-monitor-info-block-fill">
-            <h6 class="bm-monitor-info-block__title">Add Batch Schedule Entry</h6>
-            <i class="fa-xl fa-solid fa-plus bm-monitor-info-block--fill__button"></i>
+        <!--        <select class="entry-type" id="entry-type" name="entry-type" required>-->
+        <!--            <option value="Batch">Batch Schedule Entry</option>-->
+        <!--            <option value="Maintenance">Maintenance Schedule Entry</option>-->
+        <div class="entry-type">
+            <input id="bt1" type="radio" name="type" value="Batch">
+            <label for="bt1"> Batch Schedule Entry</label>
+            <input id="bt2" type="radio" name="type" value="Maintenance">
+            <label for="bt2"> Maintenance Schedule Entry</label>
+            <!--        </select>-->
         </div>
+        <!--    <div class="col-md-4">-->
+        <!--        <div onclick="addBatchSchedule()"-->
+        <!--             class="bm-monitor-update-button">-->
+        <!--            <h6 class="bm-monitor-info-block__title">Add Batch Schedule Entry</h6>-->
+        <!--        </div>-->
+        <!--    </div>-->
+        <!--    <div class="col-md-4">-->
+        <!--        <div onclick="addBatchMaintenance()"-->
+        <!--             class="bm-monitor-update-button">-->
+        <!--            <h6 class="bm-monitor-info-block__title">Add Batch Maintenance Entry</h6>-->
+        <!--        </div>-->
+        <!--    </div>-->
     </div>
-    <div class="col-md-4">
-        <div onclick="addBatchMaintenance()"
-             class="bm-monitor-info-block bm-monitor-info-block--blue bm-monitor-info-block--clickable bm-monitor-info-block-fill">
-            <h6 class="bm-monitor-info-block__title">Add Batch Maintenance Entry</h6>
-            <i class="fa-xl fa-solid fa-plus bm-monitor-info-block--fill__button"></i>
-        </div>
+
+
+    {% endif %}
+
+    <div class="batch-form">
+        {% include 'batch-schedule-entry.html' %}
     </div>
-</div>
-{% endif %}
 
-{% if entry_type in 'batch' %}
-{% include 'batch-schedule-entry.html' %}
+    <div class="maintenance-form">
+        {% include 'maintenance-entry.html' %}
+    </div>
 
-<!--<h3>Batch Schedule Entry</h3>-->
-
-<!--<div class="form">-->
-
-<!--    <label for="prod-line">Production Line</label>-->
-<!--    <select id="prod-line" name="Production Line" required>-->
-<!--        <option value="A">A</option>-->
-<!--        <option value="B">B</option>-->
-<!--        <option value="C">C</option>-->
-<!--    </select>-->
-
-<!--    <label for="prod-type">Product Type</label>-->
-<!--    <select id="prod-type" name="Product Type" required>-->
-<!--        <option value="12345">cell culture 1</option>-->
-<!--        <option value="12346">cell culture 2</option>-->
-<!--        <option value="12347">cell culture 3</option>-->
-<!--    </select>-->
-
-<!--    <label for="batch-date">Date (ddmmyy format):</label>-->
-<!--    <input type="date" id="batch-date" name="date" required>-->
-
-<!--    <label for="batch-start-time">Time (24-hour format):</label>-->
-<!--    <input type="time" id="batch-start-time" name="time" required>-->
-
-<!--    &lt;!&ndash;    <label for="batch-end-time">Time (24-hour format):</label>&ndash;&gt;-->
-<!--    &lt;!&ndash;    <input type="time" id="batch-end-time" name="time" required><br><br>&ndash;&gt;-->
-
-<!--    <label for="prod-duration">Production Duration (Hours)</label>-->
-<!--    <input type="number" id="prod-duration" name="Production Duration" required>-->
-
-<!--    <label for="submit-batch-schedule"></label>-->
-<!--    <input type="submit" id="submit-batch-schedule" value="Submit">-->
-<!--</div>-->
-{% endif %}
-
-{% if entry_type in 'main' %}
-{% include 'maintenance-entry.html' %}
-<!--<h3>Batch Maintenance Entry</h3>-->
-<!--<div class="form">-->
-<!--    <label for="monitor-date">Date (ddmmyy format)</label>-->
-<!--    <input type="date" id="monitor-date" name="date" required>-->
-
-<!--    <label for="monitor-start-time">Start Time (24-hour format)</label>-->
-<!--    <input type="time" id="monitor-start-time" name="time" required>-->
-
-<!--&lt;!&ndash;    <label for="monitor-end-time">End Time (24-hour format)</label>&ndash;&gt;-->
-<!--&lt;!&ndash;    <input type="time" id="monitor-end-time" name="time" required>&ndash;&gt;-->
-
-<!--    <label for="prod-duration">Maintenance Duration (Hours)</label>-->
-<!--    <input type="number" id="main-duration" name="Maintenance Duration" required>-->
-
-
-<!--    <label for="plant-ID">Plant ID # (numeric)</label>-->
-<!--    <select id="plant-ID" name="plant-ID" required>-->
-<!--        <option value="IRV123456">example plant1 (IRV123456)</option>-->
-<!--        <option value="IRV123457">example plant2 (IRV123457)</option>-->
-<!--        <option value="IRV123458">example plant3 (IRV123458)</option>-->
-<!--        <option value="IRV123459">example plant4 (IRV123459)</option>-->
-<!--    </select>-->
-
-<!--    <label for="work-description">Description of Work</label>-->
-<!--    <input type="text" id="work-description" name="work-description" required>-->
-
-<!--    <label for="man-hours">Man Hours:</label>-->
-<!--    <input type="number" id="man-hours" name="man-hours" required>-->
-
-<!--    <label for="operators">Operator(s)</label>-->
-<!--    <select id="operators" class="js-example-basic-multiple" multiple="multiple">-->
-<!--        <option value="1">One</option>-->
-<!--        <option value="2">Two</option>-->
-<!--        <option value="3">Three</option>-->
-<!--        <option value="4">Four</option>-->
-<!--        <option value="5">Five</option>-->
-<!--    </select>-->
-
-<!--    <label for="parts-replaced">Parts to be Replaced</label>-->
-<!--    <input type="text" id="parts-replaced" name="parts-replaced" required>-->
-
-<!--    <label for="parts-cost">Parts Cost (£)</label>-->
-<!--    <input type="number" id="parts-cost" name="parts-cost" required>-->
-
-<!--    <label for="osmolality">Osmolality</label>-->
-<!--    <input type="checkbox" id="osmolality" name="osmolality" value="osmolality">-->
-
-<!--    <label for="sterility">Sterility</label>-->
-<!--    <input type="checkbox" id="sterility" name="sterility" value="sterility">-->
-
-
-<!--    <label for="shutdown-needed">Shutdown Required</label>-->
-<!--    <input type="checkbox" id="shutdown-needed" name="osmolality" value="osmolality">-->
-
-<!--    <label for="planned-activity">Shutdown required</label>-->
-<!--    <input type="checkbox" id="planned-activity" name="sterility" value="sterility">-->
-
-<!--    <label for="submit-maintenance-schedule"></label>-->
-<!--    <input type="submit" id="submit-maintenance-schedule" value="Submit">-->
-<!--</div>-->
-{% endif %}
-
-{% endblock %}
+    {% endblock %}
