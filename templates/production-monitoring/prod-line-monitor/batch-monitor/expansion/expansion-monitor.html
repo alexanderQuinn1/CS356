@@ -1,3 +1,9 @@
+{% block head %}
+{{super}}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/pureknob.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/expansion_dials.js') }}"></script>
+{% endblock %}
+
 {% for flask in expansion_monitor.flasks %}
 <div class="bm-monitor-group">
     <div class="bm-monitor-group__header">

@@ -907,7 +907,6 @@
             updatePixelRatio();
             return knob;
         };
-
     }
 
     return new PureKnob();

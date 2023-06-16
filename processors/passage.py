@@ -15,4 +15,5 @@ def get_qa_results(passage_id):
 
 
 def __has_passed(ph, osmolality, sterility):
+    #TODO
     return True

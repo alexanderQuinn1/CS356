@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/prod_tab.css') }}"
+          xmlns="http://www.w3.org/1999/html">
+{% endblock %}
+
+{% block content %}
+<ul class="bm-prod-line-tab nav nav-tabs">
+    <li class="nav-item">
+        <a class="bm-prod-line-tab__link nav-link {% if production_facility== 'A' %} active {% endif %}"
+           href="/production-monitor/A">Line A</a>
+    </li>
+    <li class="nav-item">
+        <a class="bm-prod-line-tab__link nav-link {% if production_facility== 'B' %} active {% endif %}"
+           href="/production-monitor/B">Line B</a>
+    </li>
+    <li class="nav-item">
+        <a class="bm-prod-line-tab__link nav-link {% if production_facility== 'C' %} active {% endif %}"
+           href="/production-monitor/C">Line C</a>
+    </li>
+    <li class="nav-item">
+        <a class="bm-prod-line-tab__link nav-link {% if production_facility== 'fill room' %} active {% endif %}"
+           href="/production-monitor/fill-room">Fill Room</a>
+    </li>
+</ul>
+
+<div id="line" class="container-fluid bm-prod-line-tab__content">
+    {% block production_activity %}
+    {% endblock %}
+</div>
+{% endblock %}

@@ -1,13 +1,18 @@
 
-def save_maintenance_activity(form):
-    print(form)
-    # end_time = start_time + man_hours
-    return 'maintenance saved'
+def insert(form):
+    # TODO
+    # validate prod line doesnt have another activity scheduled simultaneously
+    return
 
 
-def get_maintenance_activity(prod_schedule_id):
+def get_by_prod_schedule(prod_schedule_id):
     return {
         'id': 2,
         'description': 'replacement of peristaltic pump'
     }
+
+
+def get_by_id(maintenance_id):
+    #TODO
+    return
 

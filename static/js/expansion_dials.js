@@ -16,7 +16,6 @@ function drawDials() {
             drawDial(dialElm, value, min, max, colour, unit)
         }
     }
-
 }
 
 function drawDial(element, value, min, max, colour, unit) {

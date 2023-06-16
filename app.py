@@ -1,12 +1,8 @@
 from flask import Flask, render_template, request, redirect
 import database_connection as db
-import prod_line_monitor_processor as plm
-import models.maintenance_operation as maintenance
-import models.passage_qa as qa
-import models.batch as batch
-import models.passage_monitor as passage_monitor
-import models.flask_monitor as flask_monitor
-import processors.passage as passage
+
+import controllers.production_monitor as production_monitor_controller
+import controllers.passage as passage_controller
 
 app = Flask(__name__)
 
@@ -14,13 +10,12 @@ app = Flask(__name__)
 # Main Navigation #
 @app.route('/')
 def run_app():
-    return redirect('/prod-line-monitor/A')
+    return redirect('/production-monitoring/A')
 
 
-@app.route('/prod-line-monitor/<prod_line>')
-def run_production_line(prod_line):
-    heading = 'Production Line Monitor'
-    return plm.render_prod_activity(heading, prod_line)
+@app.route('/production-monitoring/<production_facility>')
+def run_production_line(production_facility):
+    return production_monitor_controller.render_activity('Production Monitoring', production_facility)
 
 
 @app.route('/prod-schedule')
@@ -39,72 +34,30 @@ def run_maintenance_log():
 
 
 # Data Entry End-Points #
-@app.route('/passage-qa-entry/<passage_id>', methods=['GET', 'POST'])
-def render_passage_qa_entry_screen(passage_id):
-    heading = 'Passage QA Entry'
-    if request.method == 'GET':
-        return render_template('passage-qa-entry.html', heading=heading)
-    else:
-        form_validation = passage.save_qa(passage_id, request.form)
-        if form_validation is None:
-            return redirect('/prod-line-monitor/{line}'.format(line=prod_line))
-        else:
-            return render_template('passage-qa-entry.html', heading=heading, form_validation=form_validation)
+@app.route('/add-passage-qa/<prod_line>/<batch_no>/', methods=['GET', 'POST'])
+def run_add_passage_qa(prod_line, batch_no):
+    return passgae_controller.render_add_qa(heading, request, prod_line, batch)
 
 
-@app.route('/maintenance-entry', methods=['GET', 'POST'])
-def run_maintenance_entry():
-    if request.method == 'GET':
-        return render_template('maintenance-entry.html')
-    else:
-        response = maintenance.save_maintenance_activity(request.form)
-        return render_template('maintenance-entry.html', response=response)
-
-
-@app.route('/batch-schedule-entry', methods=['GET', 'POST'])
-def run_batch_schedule_entry():
-    heading = 'schedule a batch'
-    if request.method == 'GET':
-        return render_template('batch-schedule-entry.html', heading=heading)
-    else:
-        response = batch.schedule_batch(request.form)
-        return render_template('batch-schedule-entry.html', heading=heading, response=response)
-
-
-@app.route('/update_passage_monitor/<prod_line>/<batch_no>/<monitor_id>', methods=['GET', 'POST'])
-def run_passage_monitor_entry(prod_line, batch_no, monitor_id):
-    if request.method == 'GET':
-        return render_template('passage-monitor-entry.html', heading='Enter Passage Monitoring Data', prod_line=prod_line, batch_no=batch_no, monitor_id=monitor_id)
-    if request.method == 'POST':
-        validation = passage_monitor.update(monitor_id, request.form['peristaltic_pump'], request.form['cell_count'])
-        if validation is not None:
-            return render_template('passage-monitor-entry.html', heading='Enter Passage Monitoring Data', prod_line=prod_line, batch_no=batch_no, monitor_id=monitor_id, form_validation=validation)
-        else:
-            return redirect('/prod-line-monitor/{line}'.format(line=prod_line))
+@app.route('/update_passage_monitor/<prod_line>/<batch_no>', methods=['GET', 'POST'])
+def run_update_passage_monitor(prod_line, batch_no):
+    return passage_controller.render_update_monitor(heading, request, prod_line, batch)
 
 
 @app.route('/update_expansion_monitor/<prod_line>/<batch_no>/<flask_monitor_id>', methods=['GET', 'POST'])
-def run_expansion_monitor_entry(prod_line, batch_no, flask_monitor_id):
-    if request.method == 'GET':
-        return render_template('expansion-monitor-entry.html', heading='Enter Flask Monitoring Data', prod_line=prod_line, batch_no=batch_no, monitor_id=flask_monitor_id)
-    if request.method == 'POST':
-        validation = flask_monitor.update(flask_monitor_id, request.form['temperature'], request.form['ph'], request.form['osmolality'])
-        if validation is not None:
-            return render_template('expansion-monitor-entry.html', heading='Enter Flask Monitoring Data', prod_line=prod_line, batch_no=batch_no, monitor_id=flask_monitor_id, form_validation=validation)
-        else:
-            return redirect('/prod-line-monitor/{line}'.format(line=prod_line))
+def run_update_expansion_monitor(prod_line, batch_no, flask_monitor_id):
+    return expansion_controller.render_update_flask_monitor(heading, request, prod_line, batch, flask_monitor_id)
 
 
-@app.route('/move_to_next_stage/<prod_line>/<batch_no>/<current_stage_id>')
-def move_batch_to_next_stage(prod_line, batch_no, current_stage_id):
-    plm.update_batch_stage(batch_no, current_stage_id)
+@app.route('/move_batch_next_stage/<prod_line>/<batch_no>/<current_stage_id>')
+def run_move_batch_next_stage(prod_line, batch_no, current_stage_id):
+    batch_processor.update_stage(batch_no, current_stage_id)
     return redirect('/prod-line-monitor/{line}'.format(line=prod_line))
 
 
-@app.route('/maintenance-details/<maintenance_id>')
-def run_maintenance_details(maintenance_id):
-    heading = 'Maintenance Operation Details'
-    return render_template('maintenance-operation-details.html', heading=heading)
+@app.route('/maintenance-activity-details/<maintenance_id>')
+def run_maintenance_activity_details(maintenance_id):
+    return render_template('maintenance-operation-details.html', heading='Maintenance Activity Details')
 
 
 if __name__ == '__main__':
