@@ -95,6 +95,12 @@ def move_batch_to_next_stage(prod_line, batch_no, current_stage_id):
     return redirect('/prod-line-monitor/{line}'.format(line=prod_line))
 
 
+@app.route('/maintenance-details/<maintenance_id>')
+def run_maintenance_details(maintenance_id):
+    heading = 'Maintenance Operation Details'
+    return render_template('maintenance-operation-details.html', heading=heading)
+
+
 if __name__ == '__main__':
     db.create()
     app.run(debug=True, port=5001)

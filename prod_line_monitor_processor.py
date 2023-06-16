@@ -6,18 +6,20 @@ import models.passage_qa as passage_qa
 import models.prod_schedule as prod_schedule
 import models.batch as batch
 import models.prod_stage_lookup as prod_stage_lookup
+import models.maintenance_operation as maintenance_operation
 
 
 def render_prod_activity(heading, prod_line):
     prod_activity = prod_schedule.get_current_prod_activity(prod_line)
-    if prod_activity['type'] == 'batch_manufacture':
+    if prod_activity is None:
+        return render_template('prod-line-idle.html', heading=heading, prod_line=prod_line)
+    elif prod_activity['type'] == 'batch_manufacture':
         return render_batch_manufacture(heading, prod_line, prod_activity)
     elif prod_activity['type'] == 'maintenance':
-        # TODO
-        return None
-    else:
-        # TODO
-        return None
+        m = maintenance_operation.get_maintenance_activity(prod_activity['id'])
+        print(m)
+        return render_template('prod-line-maintenance.html', heading=heading, prod_line=prod_line, maintenance=m)
+
 
 
 def render_batch_manufacture(heading, prod_line, prod_activity):
