@@ -9,7 +9,7 @@ import models.flask_monitor as flask_monitor
 
 app = Flask(__name__)
 
-
+# Main Navigation #
 @app.route('/')
 def run_app():
     return redirect('/prod-line-monitor/A')
@@ -36,14 +36,15 @@ def run_maintenance_log():
     return render_template('maintenance-log.html', heading="Maintenance Log")
 
 
-@app.route('/qa-entry', methods=['GET', 'POST'])
-def run_quality_assurance_entry():
-    heading = 'Enter QA Test Data'
+# Data Entry End-Points #
+@app.route('/passage-qa-entry', methods=['GET', 'POST'])
+def render_passage_qa_entry_screen():
+    heading = 'Passage QA Entry'
     if request.method == 'GET':
-        return render_template('qa-entry.html', heading=heading)
+        return render_template('passage-qa-entry.html', heading=heading)
     else:
-        response = qa.save_qa(request.form)
-        return render_template('qa-entry.html', heading=heading, response=response)
+        # TODO response = passage_qa.add(request.form)
+        return render_template('passageqa-entry.html', heading=heading)
 
 
 @app.route('/maintenance-entry', methods=['GET', 'POST'])
@@ -93,6 +94,12 @@ def run_expansion_monitor_entry(prod_line, batch_no, flask_monitor_id):
 def move_batch_to_next_stage(prod_line, batch_no, current_stage_id):
     plm.update_batch_stage(batch_no, current_stage_id)
     return redirect('/prod-line-monitor/{line}'.format(line=prod_line))
+
+
+@app.route('/maintenance-details/<maintenance_id>')
+def run_maintenance_details(maintenance_id):
+    heading = 'Maintenance Operation Details'
+    return render_template('maintenance-operation-details.html', heading=heading)
 
 
 if __name__ == '__main__':
