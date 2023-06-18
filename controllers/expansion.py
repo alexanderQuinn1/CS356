@@ -1,16 +1,16 @@
+from flask import render_template, request, redirect
+import processors.batch as batch_processor
+import processors.expansion as expansion_processor
 
-def render_update_expansion_monitor(heading, request, prod_line, batch, flask_monitor_id):
+UPDATE_EXPANSION_MONITOR_HTML = 'production-monitoring/prod-line-monitor/batch-monitor/expansion/expansion-monitor-entry.html'
+
+
+def render_update_expansion_monitor(request, prod_line, batch_no, flask_monitor_id):
     heading = 'Update Flask Monitoring Data'
-    batch = {}
     if request.method == 'GET':
-        return render_template('expansion-monitor-entry.html', heading=heading, prod_line=prod_line, batch=batch,
-                               flask_monitor_id=flask_monitor_id)
+        batch = batch_processor.get_batch(batch_no)
+        return render_template(UPDATE_EXPANSION_MONITOR_HTML, heading=heading, production_facility=prod_line,
+                               batch=batch, flask_monitor_id=flask_monitor_id)
     if request.method == 'POST':
-        validation = flask_monitor.update(flask_monitor_id, request.form['temperature'], request.form['ph'],
-                                          request.form['osmolality'])
-        if validation is not None:
-            return render_template('expansion-monitor-entry.html', heading='Enter Flask Monitoring Data',
-                                   prod_line=prod_line, batch=batch, monitor_id=flask_monitor_id,
-                                   form_validation=validation)
-        else:
-            return redirect('/production-monitoring/{line}'.format(line=prod_line))
+        form_validation = expansion_processor.update_flask_monitor(request.form, flask_monitor_id)
+        return redirect('/production-monitoring/{line}'.format(line=prod_line))

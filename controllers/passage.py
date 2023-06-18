@@ -1,29 +1,26 @@
-import models.passage_qa as passage_qa_repo
+from flask import render_template, request, redirect
+import processors.batch as batch_processor
+import processors.passage as passage_processor
+
+ADD_PASSAGE_QA_HTML = 'production-monitoring/prod-line-monitor/batch-monitor/passage/passage-qa-entry.html'
+UPDATE_PASSAGE_MONITOR_HTML = 'production-monitoring/prod-line-monitor/batch-monitor/passage/passage-monitor-entry.html'
 
 
-def render_add_qa(heading, request, prod_line, batch):
+def render_add_qa(request, prod_line, batch_no):
     heading = 'Add Passage QA Data'
-    batch = {}
+    batch = batch_processor.get_batch(batch_no)
     if request.method == 'GET':
-        return render_template('passage-qa-entry.html', heading=heading)
+        return render_template(ADD_PASSAGE_QA_HTML, heading=heading, production_facility=prod_line, batch=batch)
     elif request.method == 'POST':
-        form_validation = passage_qa_repo.insert(passage_id, request.form)
-        if form_validation is not None:
-            return render_template('passage-qa-entry.html', heading=heading, form_validation=form_validation)
-        else:
-            return redirect('/production-monitoring/{line}'.format(line=prod_line))
+        passage_processor.add_qa(request.form, batch)
+        return redirect('/production-monitoring/{line}'.format(line=prod_line))
 
 
-def render_update_monitor(heading, request, prod_line, batch):
+def render_update_monitor(request, prod_line, batch_no):
     heading = 'Update Passage Monitoring Data'
-    batch = {}
+    batch = batch_processor.get_batch(batch_no)
     if request.method == 'GET':
-        return render_template('passage-monitor-entry.html', heading=heading, prod_line=prod_line, batch=batch)
+        return render_template(UPDATE_PASSAGE_MONITOR_HTML, heading=heading, production_facility=prod_line, batch=batch)
     if request.method == 'POST':
-        form_validation = passage_monitor.update(monitor_id, request.form['peristaltic_pump'], request.form['cell_count'])
-        if validation is not None:
-            return render_template('production-monitoring.html', heading='Enter Passage Monitoring Data',
-                                   prod_line=prod_line, batch_no=batch_no, monitor_id=monitor_id,
-                                   form_validation=validation)
-        else:
-            return redirect('/production-monitoring/{line}'.format(line=prod_line))
+        form_validation = passage_processor.update_monitor(request.form, batch)
+        return redirect('/production-monitoring/{line}'.format(line=prod_line))

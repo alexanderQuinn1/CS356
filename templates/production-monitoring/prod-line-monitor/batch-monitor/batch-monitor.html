@@ -1,29 +1,32 @@
-{% extends 'production-monitoring.html' %}
+{% extends 'production-monitoring/production-monitoring.html' %}
 
 {% block head %}
-{{super}}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/monitor.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/stepper.css') }}">
+{{super()}}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/monitor.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/stepper.css') }}">
 <script type="text/javascript" src="{{ url_for('static', filename='js/stages.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/pureknob.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/expansion_dials.js') }}"></script>
 {% endblock %}
 
-{% block prod_line_activity %}
-<h4>{{ batch.batch_no }} - {{ batch.prod_type }}</h4>
+{% block production_activity %}
+<h4>{{ batch.batch_no }} - {{ batch.product.product_code }}</h4>
+<h5> Quantity: {{ batch.quantity }}</h5>
 
 <div class="bm-stepper" id="stepper">
     {% for stage in stages %}
     <div class="bm-stepper__step">
         <span class="bm-stepper__step__circle bm-stepper__step__circle--{{ stage.status }}"
-          {% if stage.status=='next' %}
-          onClick="moveToNextStage('{{ prod_line }}', '{{ batch.batch_no }}', '{{ batch.current_stage }}')"
-          {% endif %}
+              {% if stage.status=='next' %}
+              onClick="moveToNextStage('{{ production_facility }}', '{{ batch.batch_no }}')"
+              {% endif %}
         >
         {% if stage.status == 'next' %}
-        <i class="fa-solid fa-arrow-right"></i>
+            <i class="fa-solid fa-arrow-right"></i>
         {% elif stage.status == 'complete' %}
-        <i class="fa-solid fa-check"></i>
+            <i class="fa-solid fa-check"></i>
         {% else %}
-        {{ stage.id }}
+            {{ stage.id }}
         {% endif %}
         </span>
         <span class="bm-stepper__step__text">  {{ stage.name }} </span>
@@ -32,10 +35,10 @@
 </div>
 
 
-{% if expansion_monitor %}
-{% include 'expansion-monitor.html' %}
-{% elif passage_monitor %}
-{% include 'passage-monitor.html' %}
+{% if batch.active_stage.type == 'expansion' %}
+{% include 'production-monitoring/prod-line-monitor/batch-monitor/expansion/expansion-monitor.html' %}
+{% elif batch.active_stage.type == 'passage' %}
+{% include 'production-monitoring/prod-line-monitor/batch-monitor/passage/passage-monitor.html' %}
 {% else %}
 <div>start of production - no data</div>
 {% endif %}

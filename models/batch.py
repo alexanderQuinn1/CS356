@@ -15,12 +15,14 @@ def get(batch_no):
         WHERE batch_no = %s ;
     """
 
-    results = db.fetch(query, (prod_schedule_id,))
+    results = db.fetch(query, (batch_no,))
     result = results[0]
     return {
         'batch_no': batch_no,
+        'quantity': result[1],
         'prod_type': result[2],
-        'current_stage': result[4],
+        'active_stage_id': result[4],
+        'prod_schedule_id': result[5]
     }
 
 
@@ -34,8 +36,10 @@ def get_by_prod_schedule(prod_schedule_id):
     result = results[0]
     return {
         'batch_no': result[0],
+        'quantity': result[1],
         'prod_type': result[2],
-        'current_stage': result[4],
+        'active_stage_id': result[4],
+        'prod_schedule_id': prod_schedule_id
     }
 
 

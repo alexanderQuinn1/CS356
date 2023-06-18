@@ -3,6 +3,8 @@ import database_connection as db
 
 import controllers.production_monitor as production_monitor_controller
 import controllers.passage as passage_controller
+import controllers.expansion as expansion_controller
+import processors.batch as batch_processor
 
 app = Flask(__name__)
 
@@ -36,23 +38,23 @@ def run_maintenance_log():
 # Data Entry End-Points #
 @app.route('/add-passage-qa/<prod_line>/<batch_no>/', methods=['GET', 'POST'])
 def run_add_passage_qa(prod_line, batch_no):
-    return passgae_controller.render_add_qa(heading, request, prod_line, batch)
+    return passage_controller.render_add_qa(request, prod_line, batch_no)
 
 
 @app.route('/update_passage_monitor/<prod_line>/<batch_no>', methods=['GET', 'POST'])
 def run_update_passage_monitor(prod_line, batch_no):
-    return passage_controller.render_update_monitor(heading, request, prod_line, batch)
+    return passage_controller.render_update_monitor(request, prod_line, batch_no)
 
 
 @app.route('/update_expansion_monitor/<prod_line>/<batch_no>/<flask_monitor_id>', methods=['GET', 'POST'])
 def run_update_expansion_monitor(prod_line, batch_no, flask_monitor_id):
-    return expansion_controller.render_update_flask_monitor(heading, request, prod_line, batch, flask_monitor_id)
+    return expansion_controller.render_update_expansion_monitor(request, prod_line, batch_no, flask_monitor_id)
 
 
-@app.route('/move_batch_next_stage/<prod_line>/<batch_no>/<current_stage_id>')
-def run_move_batch_next_stage(prod_line, batch_no, current_stage_id):
-    batch_processor.update_stage(batch_no, current_stage_id)
-    return redirect('/prod-line-monitor/{line}'.format(line=prod_line))
+@app.route('/move_batch_next_stage/<prod_line>/<batch_no>')
+def run_move_batch_next_stage(prod_line, batch_no):
+    batch_processor.update_stage(batch_no)
+    return redirect('/production-monitoring/{line}'.format(line=prod_line))
 
 
 @app.route('/maintenance-activity-details/<maintenance_id>')

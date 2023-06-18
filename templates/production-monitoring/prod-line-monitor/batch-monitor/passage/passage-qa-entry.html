@@ -1,31 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
-<form action="/update_passage_qa/{{prod_line}}/{{batch_no}}/{{passage_id}}" method="post">
+<form action="/add-passage-qa/{{production_facility}}/{{batch.batch_no}}" method="post">
     <div class="form-group">
-        <label for="cell_count">Cell Count *:</label>
-        <input type="number" id="cell_count" name="cell_count" required><br><br>
+        <label for="cell_count">Cell Count *:</label><br>
+        <input type="number" id="cell_count" name="cell_count" required>
     </div>
 
     <div class="form-group">
-        <label for="ph">pH *:</label>
-        <input type="number" id="ph" name="ph" required><br><br>
+        <label for="ph">pH *:</label><br/>
+        <input type="number" id="ph" name="ph" required>
     </div>
 
     <div class="form-group">
-        <label for="osmolality">Osmolality *:</label>
-        <input type="number" id="osmolality" name="osmolality" required><br><br>
+        <label for="osmolality">Osmolality *:</label><br>
+        <input type="number" id="osmolality" name="osmolality" required>
     </div>
 
     <div class="form-group">
-        <label for="sterility">Sterility *:</label>
-        <input type="number" id="sterility" name="sterility" required><br><br>
+        <label for="sterility">Sterility *:</label><br>
+        <input type="number" id="sterility" name="sterility" required>
     </div>
 
     <div class="form-group">
         <button type="submit">Submit</button>
     </div>
 </form>
-{% if form_validation %}
-<div>{{ form_validation }}</div>
-{% endif %}
 {% endblock %}

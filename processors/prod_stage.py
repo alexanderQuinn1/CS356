@@ -1,10 +1,10 @@
 import models.prod_stage_lookup as prod_stage_lookup_repo
 
 
-def get_all_stages_based_on_step(current_stage_id):
-    stages = prod_stage_lookup_model.get_all()
+def get_display_stages(active_stage_id):
+    stages = prod_stage_lookup_repo.get_all()
     for stage in stages:
-        stage['status'] = __get_status(stage_id, name, current_stage_id)
+        stage['status'] = __get_status(stage['id'], stage['name'], active_stage_id)
     return stages
 
 
@@ -21,13 +21,13 @@ def get_stage_type(stage_id):
         return 'complete'
 
 
-def __get_status(stage_id, name, current_stage_id):
-    if stage_id == current_stage_id:
+def __get_status(stage_id, name, active_stage_id):
+    if stage_id == active_stage_id:
         return 'active'
-    elif stage_id < current_stage_id:
+    elif stage_id < active_stage_id:
         return 'complete'
-    elif stage_id == current_stage_id + 1:
+    elif stage_id == active_stage_id + 1:
         return 'next'
-    elif stage_id > current_stage_id:
+    elif stage_id > active_stage_id:
         return 'disabled'
 
