@@ -8,7 +8,6 @@ def get_product(prod_code):
 
     results = db.fetch(query, (prod_code,))
     result = results[0]
-
     return {
         'product_code': prod_code,
         'product_name': result[1],

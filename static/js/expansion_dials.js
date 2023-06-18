@@ -3,10 +3,10 @@ function drawDials() {
 
     for (let block of blocks) {
 
-        let value = block.getAttribute('value')
+        let value = parseInt(block.getAttribute('value'))
         if (value) {
-            let min = block.getAttribute('min')
-            let max = block.getAttribute('max')
+            let min = parseInt(block.getAttribute('min'))
+            let max = parseInt(block.getAttribute('max'))
             let unit = block.getAttribute('unit')
             let colour = getDialColour(value, min, max)
             let dialElm = block.getElementsByClassName('bm-monitor-dial__wrapper')[0]

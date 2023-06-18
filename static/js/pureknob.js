@@ -359,6 +359,7 @@
                     /*
                      * Clamp the actual value into the [valMin; valMax] range.
                      */
+                    console.log(value < valMin)
                     if (value < valMin) {
                         value = valMin;
                     } else if (value > valMax) {

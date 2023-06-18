@@ -39,7 +39,6 @@ def __create_batch_obj(batch):
         }
     }
 
-
 def __get_stage_data(stage_type, batch):
     if stage_type == 'expansion':
         data = flask_monitor_repo.get_all(batch['batch_no'], batch['active_stage_id'])
