@@ -5,14 +5,14 @@ import processors.batch as batch_processor
 import processors.prod_stage as prod_stage_processor
 
 BATCH_MONITOR_HTML = 'production-monitoring/prod-line-monitor/batch-monitor/batch-monitor.html'
+FILL_ROOM_MONOTOR_HTML = 'production-monitoring/fill-room/fill-room-monitor.html'
 MAINTENANCE_HTML = 'production-monitoring/prod-line-monitor/prod-line-maintenance.html'
 IDLE_HTML = 'production-monitoring/prod-line-monitor/prod-line-idle.html'
 
 
 def render_activity(heading, production_facility):
-    if production_facility == 'fill room':
-        # TODO
-        return None
+    if production_facility == 'fill-room':
+        return render_template(FILL_ROOM_MONOTOR_HTML, heading=heading, production_facility=production_facility)
     prod_activity = prod_schedule_repo.get_by_prod_line(production_facility)
     if prod_activity is None:
         return render_template(IDLE_HTML, heading=heading, production_facility=production_facility)

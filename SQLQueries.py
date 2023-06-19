@@ -144,6 +144,27 @@ def get_batch_stage(batch):
     cursor.execute(prod_batch)
     print(cursor.fetchall())
 
+def get_maintenance_operations(plant):
+    cursor = db.get_cursor()
+    main_plant = """SELECT * FROM miracle_cure_biotech.maintenance_operation WHERE plant_id = plant;"""
+    cursor.execute(main_plant)
+    print(cursor.fetchall())
+#     start time not in DB??
+
+def add_maintenance_operations(plant):
+    cursor = db.get_cursor()
+    main_plant = """SELECT * FROM miracle_cure_biotech.maintenance_operation WHERE plant_id = plant;"""
+    cursor.execute(main_plant)
+    print(cursor.fetchall())
+#     start time not in DB??
+
+def get_prod_schedules():
+    cursor = db.get_cursor()
+    prod_schedule = """SELECT * FROM miracle_cure_biotech.production_schedule;"""
+    cursor.execute(prod_schedule)
+    print(cursor.fetchall())
+#     start time not in DB??
+
 
 def test():
     with db.get_cursor() as cursor:

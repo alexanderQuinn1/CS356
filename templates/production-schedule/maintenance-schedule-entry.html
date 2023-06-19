@@ -1,0 +1,39 @@
+<div>
+    <h6>Maintenance Activity Details</h6>
+    <div class="form-group">
+        <label for="plant_id">Plant ID #</label>
+        <select id="plant_id" name="plant_id" required>
+            <option value="IRV123456">example plant1 (IRV123456)</option>
+            <option value="IRV123457">example plant2 (IRV123457)</option>
+            <option value="IRV123458">example plant3 (IRV123458)</option>
+            <option value="IRV123459">example plant4 (IRV123459)</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="work_description">Description of Work</label>
+        <input type="text" id="work_description" name="work_description" required>
+    </div>
+    <div class="form-group">
+        <label for="operators">Operator(s)</label>
+        <select id="operators" multiple="multiple">
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+            <option value="4">Four</option>
+            <option value="5">Five</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="parts_replaced">Parts to be Replaced</label>
+        <input type="text" id="parts_replaced" name="parts_replaced" required>
+    </div>
+    <div class="form-group">
+        <label for="parts_cost">Parts Cost (£)</label>
+        <input type="number" id="parts_cost" name="parts_cost" required>
+    </div>
+    <div class="form-group">
+        <label for="shutdown_required">Shutdown Required</label>
+        <input type="checkbox" id="shutdown_required" name="shutdown_required" value="shutdown_required">
+    </div>
+</div>
+

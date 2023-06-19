@@ -58,8 +58,11 @@ def commit(query_string, params):
     db = connect_database()
     cursor = db.cursor()
 
-    cursor.execute(query_string, params)
-    db.commit()
+    try:
+        cursor.execute(query_string)
+        db.commit()
+    except:
+        conn.rollback()
 
     cursor.close()
     db.close()

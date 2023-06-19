@@ -42,6 +42,18 @@ def get_by_prod_schedule(prod_schedule_id):
         'prod_schedule_id': prod_schedule_id
     }
 
+def get_batch_by_batch_id(batch_id):
+    query = """SELECT * FROM miracle_cure_biotech.batch  
+        WHERE batch_no = %s ;"""
+
+    results = db.execute_fetch(query, (batch_id,))
+    result = results[0]
+    return {
+        'batch_no': result[0],
+        'prod_type': result[2],
+        'current_stage': result[4],
+    }
+
 
 def update_stage(batch_no, stage_id):
     query = """

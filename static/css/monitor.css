@@ -88,3 +88,45 @@
     width: 100%;
     margin-bottom: -48px
 }
+
+.row{
+    padding-bottom: 25px;
+}
+
+.col-md-4-fill {
+    width: 25%;
+}
+
+.bm-monitor-info-block-fill__title {
+    padding: 30px;
+    font-size: 30px;
+    display: block;
+}
+
+.bm-monitor-info-block__title-fill{
+        font-size: 20px;
+}
+
+.bm-monitor-info-block-fill {
+    height: 200px;
+}
+.bm-monitor-info-block--fill__button{
+    padding: 50px;
+    font-size: 2em;
+    display: block;
+}
+.col-md-4-fill-qa{
+    width: 100%;
+}
+
+.batch-form .maintenance-form {
+	display: none;
+}
+
+.entry-type input[value="Batch"]:checked ~ .batch-form {
+	display: block;
+}
+
+.entry-type input[value="Maintenance"]:checked ~ .maintenance-form {
+	display: block;
+}
