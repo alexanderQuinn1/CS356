@@ -6,6 +6,8 @@ import models.passage_qa as passage_qa
 import models.prod_schedule as prod_schedule
 import models.batch as batch
 import models.prod_stage_lookup as prod_stage_lookup
+import models.prod_schedule as prod_sched
+from flask import json
 import models.maintenance_operation as maintenance_operation
 
 
@@ -17,7 +19,6 @@ def render_prod_activity(heading, prod_line):
         return render_batch_manufacture(heading, prod_line, prod_activity)
     elif prod_activity['type'] == 'maintenance':
         m = maintenance_operation.get_maintenance_activity(prod_activity['id'])
-        print(m)
         return render_template('prod-line-maintenance.html', heading=heading, prod_line=prod_line, maintenance=m)
 
 
@@ -40,6 +41,10 @@ def render_batch_manufacture(heading, prod_line, prod_activity):
     else:
         return render_template('prod-line-batch-monitor.html', heading=heading, prod_line=prod_line, stages=stages,
                                batch=b)
+
+
+def render_batch_monitor_entry(heading, entry_type):
+    return render_template('maintenance-batch-entry.html', heading=heading, entry_type=entry_type)
 
 
 def update_batch_stage(batch_no, current_stage_id):

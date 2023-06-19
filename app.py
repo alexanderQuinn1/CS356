@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import database_connection as db
 import prod_line_monitor_processor as plm
+import fill_room_processor as frm
 import models.maintenance_operation as maintenance
 import models.passage_qa as qa
 import models.batch as batch
@@ -15,15 +16,19 @@ def run_app():
     return redirect('/prod-line-monitor/A')
 
 
-@app.route('/prod-line-monitor/<prod_line>')
-def run_production_line(prod_line):
+@app.route('/prod-line-monitor/<tab>')
+def run_production_line(tab):
     heading = 'Production Line Monitor'
-    return plm.render_prod_activity(heading, prod_line)
+    if tab == 'fill-room':
+        return frm.render_fill_room(heading, tab)
+    else:
+        return plm.render_prod_activity(heading, tab)
 
 
 @app.route('/prod-schedule')
 def run_production_schedule():
-    return render_template('prod-line-schedule.html', heading="Production Schedule")
+    heading = 'Production Schedule'
+    return plm.render_prod_schedule_calender(heading)
 
 
 @app.route('/qa-log')
@@ -76,6 +81,22 @@ def run_passage_monitor_entry(prod_line, batch_no, monitor_id):
             return render_template('passage-monitor-entry.html', heading='Enter Passage Monitoring Data', prod_line=prod_line, batch_no=batch_no, monitor_id=monitor_id, form_validation=validation)
         else:
             return redirect('/prod-line-monitor/{line}'.format(line=prod_line))
+
+
+@app.route('/maintenance-batch-entry', methods=['GET', 'POST'])
+def run_main_batch_entry():
+    heading = 'schedule a batch'
+    if request.method == 'GET':
+        return render_template('maintenance-batch-entry.html', heading=heading)
+    else:
+        response = batch.schedule_batch(request.form)
+        return render_template('maintenance-batch-entry.html', heading=heading, response=response)
+
+
+@app.route('/maintenance-batch-entry/<entry_type>/', methods=['GET', 'POST'])
+def run_main_entry(entry_type):
+    heading = 'Add to Schedule'
+    return plm.render_batch_monitor_entry(heading, entry_type)
 
 
 @app.route('/update_expansion_monitor/<prod_line>/<batch_no>/<flask_monitor_id>', methods=['GET', 'POST'])
