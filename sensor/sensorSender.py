@@ -1,4 +1,5 @@
 import sys
+from random import random
 import pika
 import json
 import time
@@ -27,9 +28,10 @@ def generate_flask_expansion_monitor_data(sensor_id):
     data = {
         'sensor_id': sensor_id,
         'type': 'flask_expansion_monitor',
-        'temp': 25.5,
-        'ph': 7.2,
-        'osmolality': 350
+        'temp': round(random.uniform(30, 45), 1),
+        'ph': round(random.uniform(5, 9), 1),
+        'osmolality': round(random.uniform(280, 420), 1),
+
     }
     return data
 
@@ -39,7 +41,7 @@ def generate_passage_monitor_data(sensor_id):
     data = {
         'sensor_id': sensor_id,
         'type': 'passage_monitor',
-        'cell_count': 5000
+        'cell_count': round(random.uniform(2500, 4000), 1),
     }
     return data
 
@@ -49,8 +51,8 @@ def generate_fill_room_vat_monitor_data(sensor_id):
     data = {
         'sensor_id': sensor_id,
         'type': 'fill_room_vat_monitor',
-        'room_temp': 23.5,
-        'humidity': 60
+        'room_temp': round(random.uniform(30, 45), 1),
+        'humidity': round(random.uniform(55, 70), 1),
     }
     return data
 
@@ -79,3 +81,4 @@ while True:
 
 # Close the connection
 connection.close()
+
