@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import database_connection as db
 import prod_line_monitor_processor as plm
+import fill_room_processor as frm
 import models.maintenance_operation as maintenance
 import models.passage_qa as qa
 import models.batch as batch
@@ -19,9 +20,9 @@ def run_app():
 def run_production_line(tab):
     heading = 'Production Line Monitor'
     if tab == 'fill-room':
-        return frm.render_fill_room()
+        return frm.render_fill_room(heading, tab)
     else:
-        return plm.render_prod_activity(heading, prod_line)
+        return plm.render_prod_activity(heading, tab)
 
 
 @app.route('/prod-schedule')
