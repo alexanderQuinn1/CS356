@@ -54,15 +54,16 @@ def create():
     create_tables()
 
 
-def commit(query_string, params):
+def commit(query_string, params=None):
     db = connect_database()
     cursor = db.cursor()
 
     try:
-        cursor.execute(query_string)
+        cursor.execute(query_string, params)
         db.commit()
-    except:
-        conn.rollback()
+    except Exception as e:
+        db.rollback()
+        print(e)
 
     cursor.close()
     db.close()

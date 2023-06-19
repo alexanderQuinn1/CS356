@@ -12,7 +12,8 @@
 
 .bm-prod-line-tab__content {
   padding: 20px 16px;
-  border: 1px solid var(--bm-grey--light);
+  border: 1px solid var(--bm-grey--lighter);
   border-top: none;
+  border-radius: 0 0 4px 4px ;
 }
 

@@ -1,5 +1,6 @@
 import database_connection as db
 
+
 def get_product(prod_code):
     query = """
         SELECT * FROM product_type

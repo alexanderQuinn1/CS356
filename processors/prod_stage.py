@@ -8,6 +8,12 @@ def get_display_stages(active_stage_id):
     return stages
 
 
+def get_stage_name(stage_id):
+    stage = prod_stage_lookup_repo.get(stage_id)
+    if stage:
+        return stage['name']
+
+
 def get_stage_type(stage_id):
     if stage_id == 1:
         return 'start'

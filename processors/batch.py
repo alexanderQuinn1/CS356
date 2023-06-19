@@ -34,10 +34,11 @@ def __create_batch_obj(batch):
         'active_stage': {
             'id': batch['active_stage_id'],
             'type': stage_type,
-            'name': 'name',
+            'name': prod_stage_processor.get_stage_name(batch['active_stage_id']),
             'data': __get_stage_data(stage_type, batch)
         }
     }
+
 
 def __get_stage_data(stage_type, batch):
     if stage_type == 'expansion':
