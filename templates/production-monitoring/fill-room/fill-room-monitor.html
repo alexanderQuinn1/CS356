@@ -1,6 +1,13 @@
-{% extends 'prod-line-status.html' %}
+{% extends 'production-monitoring/production-monitoring.html' %}
 
-{% block prod_line_activity %}
+{% block head %}
+{{super()}}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/monitor.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='js/pureknob.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/expansion_dials.js') }}"></script>
+{% endblock %}
+
+{% block production_activity %}
 <div id="fillroom" class="container-fluid bm-prod-line-fillroom__content">
     <div class="bm-monitor-group__header">
     </div>
@@ -27,8 +34,8 @@
         </div>
 
         <div class="col-md-4-fill">
-            <div onclick="addQA()"
-                 class="bm-monitor-info-block bm-monitor-info-block--blue bm-monitor-info-block--clickable bm-monitor-info-block-fill">
+            <div
+                    class="bm-monitor-info-block bm-monitor-info-block--blue bm-monitor-info-block--clickable bm-monitor-info-block-fill">
                 <h6 class="bm-monitor-info-block__title">Add QA</h6>
                 <i class="fa-xl fa-solid fa-plus bm-monitor-info-block--fill__button"></i>
             </div>
@@ -47,7 +54,6 @@
                         <th>Trace Element</th>
                     </tr>
                     <tr>
-<!--                        Paramters of QA added in TD here-->
                         <td>1</td>
                         <td>2</td>
                         <td>3</td>
@@ -58,10 +64,4 @@
         </div>
     </div>
 </div>
-
-<script>
-    function addQA() {
-        window.location.href = '/qa-entry'
-    }
-</script>
 {% endblock %}

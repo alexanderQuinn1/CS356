@@ -7,7 +7,7 @@
     -webkit-box-pack: justify;
     justify-content: space-between;
     position: relative;
-    margin: 0.5rem 0;
+    margin: 26px 0;
 }
 
 .bm-stepper__step{

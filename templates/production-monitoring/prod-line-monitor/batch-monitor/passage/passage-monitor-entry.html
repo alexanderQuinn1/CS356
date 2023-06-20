@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h4>Update Passage Monitor for {{batch_no}} - (stage_name)</h4>
-    <form action="/update_passage_monitor/{{prod_line}}/{{batch_no}}/{{monitor_id}}" method="post">
+    <h4>Update Passage Monitor for {{batch.batch_no}} - {{batch.active_stage.name}}</h4>
+    <form action="/update_passage_monitor/{{production_facility}}/{{batch.batch_no}}" method="post">
         <div class="form-group">
             <label for="peristaltic_pump">Enter flow rate of peristaltic pump:*</label><br/>
-            <select name="peristaltic_pump" id="peristaltic_pump">
-                 <option value="off">Off</option>
+            <select name="peristaltic_pump" id="peristaltic_pump" required>
+                <option value="off">Off</option>
                 <option value="low">Low</option>
                 <option value="high">High</option>
             </select>
@@ -19,7 +19,4 @@
             <button type="submit">Submit</button>
         </div>
     </form>
-    {% if form_validation %}
-        <div>{{ form_validation }}</div>
-    {% endif %}
 {% endblock %}

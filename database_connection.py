@@ -54,18 +54,22 @@ def create():
     create_tables()
 
 
-def execute_update(query_string, params):
+def commit(query_string, params=None):
     db = connect_database()
     cursor = db.cursor()
 
-    cursor.execute(query_string, params)
-    db.commit()
+    try:
+        cursor.execute(query_string, params)
+        db.commit()
+    except Exception as e:
+        db.rollback()
+        print(e)
 
     cursor.close()
     db.close()
 
 
-def execute_fetch(query_string, params=None):
+def fetch(query_string, params=None):
     db = connect_database()
     cursor = db.cursor()
 
@@ -75,16 +79,3 @@ def execute_fetch(query_string, params=None):
     cursor.close()
     db.close()
     return results
-
-
-def execute_insert(query_string):
-    db = connect_database()
-    cursor = db.cursor()
-    try:
-        cursor.execute(query_string)
-        db.commit()
-    except:
-        conn.rollback()
-
-    cursor.close()
-    db.close()

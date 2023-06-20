@@ -1,5 +1,4 @@
 
-function moveToNextStage(prodLine, batchNo, currentStage) {
-    window.location = `/move_to_next_stage/${prodLine}/${batchNo}/${currentStage}`;
-
+function moveToNextStage(prodLine, batchNo) {
+    window.location = `/move_batch_next_stage/${prodLine}/${batchNo}`;
 }
