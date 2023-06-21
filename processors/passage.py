@@ -36,13 +36,3 @@ def get_qa(batch_no, stage_id):
     return qa
 
 
-def __analyse_results(product, ph, osmolality, sterility):
-    # TODO
-    failures = []
-    if ph < product['min_ph']:
-        failures.append('sample is too acidic')
-    return failures
-
-
-def __has_passed(failures):
-    return len(failures) == 0

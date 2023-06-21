@@ -17,5 +17,6 @@ def get_product(prod_code):
         'max_temp': result[4],
         'min_temp': result[5],
         'max_osmolality': result[6],
-        'min_osmolality': result[7]
+        'min_osmolality': result[7],
+        'min_sterility': result[8]
     }
