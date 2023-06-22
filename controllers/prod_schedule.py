@@ -13,3 +13,4 @@ def render_add_prod_activity(request):
             return render_template(ADD_PROD_ACTIVITY_HTML, heading=heading, form_validation=form_validation)
         else:
             return redirect('/production-schedule')
+

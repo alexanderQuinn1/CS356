@@ -3,6 +3,8 @@ import models.prod_schedule as prod_schedule_repo
 import models.maintenance_operation as maintenance_operation_repo
 import processors.batch as batch_processor
 import processors.prod_stage as prod_stage_processor
+import processors.fill_room as fill_room_processor
+
 
 BATCH_MONITOR_HTML = 'production-monitoring/prod-line-monitor/batch-monitor/batch-monitor.html'
 FILL_ROOM_MONOTOR_HTML = 'production-monitoring/fill-room/fill-room-monitor.html'
@@ -12,7 +14,8 @@ IDLE_HTML = 'production-monitoring/prod-line-monitor/prod-line-idle.html'
 
 def render_activity(heading, production_facility):
     if production_facility == 'fill-room':
-        return render_template(FILL_ROOM_MONOTOR_HTML, heading=heading, production_facility=production_facility)
+        fill_room_activity = fill_room_processor.get_batchs_in_fillroom()
+        return render_template(FILL_ROOM_MONOTOR_HTML, heading=heading, production_facility=production_facility, fill_room_data=fill_room_activity)
     prod_activity = prod_schedule_repo.get_by_prod_line(production_facility)
     if prod_activity is None:
         return render_template(IDLE_HTML, heading=heading, production_facility=production_facility)

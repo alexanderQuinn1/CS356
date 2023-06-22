@@ -1,67 +1,77 @@
 {% extends 'production-monitoring/production-monitoring.html' %}
 
 {% block head %}
-{{super()}}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/monitor.css') }}">
-<script type="text/javascript" src="{{ url_for('static', filename='js/pureknob.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/expansion_dials.js') }}"></script>
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/monitor.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/pureknob.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/expansion_dials.js') }}"></script>
 {% endblock %}
 
 {% block production_activity %}
-<div id="fillroom" class="container-fluid bm-prod-line-fillroom__content">
-    <div class="bm-monitor-group__header">
-    </div>
-    <div class="row g-2">
-        <div class="col-md-4-fill">
-            <div class="bm-monitor-info-block bm-monitor-info-block-fill" value="1" min="0"
-                 max="100" unit="°C">
-                <h6 class="bm-monitor-info-block__title">Temperature</h6>
-                <div class="bm-monitor-dial__wrapper"></div>
+    {% for vat_data in fill_room_data %}
+        <div class="bm-monitor-group">
+        <h4> VAT {{ vat_data['id'] }} - {{ vat_data['batch'] }}</h4>
+        <div id="fillroom" class="container-fluid bm-prod-line-fillroom__content">
+            <div class="bm-monitor-group__header">
             </div>
-        </div>
-        <div class="col-md-4-fill">
-            <div class="bm-monitor-info-block bm-monitor-info-block-fill" value="2" min="0"
-                 max="100" unit="%">
-                <h6 class="bm-monitor-info-block__title">Humidity</h6>
-                <div class="bm-monitor-dial__wrapper"></div>
-            </div>
-        </div>
-        <div class="col-md-4-fill">
-            <div class="bm-monitor-info-block bm-monitor-info-block-fill">
-                <h6 class="bm-monitor-info-block__title">Last Stir Delta</h6>
-                <span class="bm-monitor-info-block-fill__title">4</span>
-            </div>
-        </div>
+            <div class="row g-2">
+                <div class="col-md-4-fill">
+                    <div class="bm-monitor-info-block bm-monitor-info-block-fill" value={{ vat_data['temp'] }} min="0"
+                         max="100" unit="°C">
+                        <h6 class="bm-monitor-info-block__title">Temperature</h6>
+                        <div class="bm-monitor-dial__wrapper"></div>
+                    </div>
+                </div>
+                <div class="col-md-4-fill">
+                    <div class="bm-monitor-info-block bm-monitor-info-block-fill"
+                         value={{ vat_data['humidity'] }} min="0"
+                         max="100" unit="%">
+                        <h6 class="bm-monitor-info-block__title">Humidity</h6>
+                        <div class="bm-monitor-dial__wrapper"></div>
+                    </div>
+                </div>
+                <div class="col-md-4-fill">
+                    <div class="bm-monitor-info-block bm-monitor-info-block-fill">
+                        <h6 class="bm-monitor-info-block__title">Last Stir Delta</h6>
+                        <span class="bm-monitor-info-block-fill__title">{{ vat_data['last_stir_delta'] }}</span>
+                    </div>
+                </div>
 
-        <div class="col-md-4-fill">
-            <div
-                    class="bm-monitor-info-block bm-monitor-info-block--blue bm-monitor-info-block--clickable bm-monitor-info-block-fill">
-                <h6 class="bm-monitor-info-block__title">Add QA</h6>
-                <i class="fa-xl fa-solid fa-plus bm-monitor-info-block--fill__button"></i>
+                <div class="col-md-4-fill">
+                    <div class="bm-monitor-info-block bm-monitor-info-block--blue bm-monitor-info-block--clickable bm-monitor-info-block-fill">
+                        <h6 class="bm-monitor-info-block__title"
+                            onClick="add_fillroom_qa({{ vat_data['batch'] }}, {{ vat_data['id'] }})">Add QA</h6>
+                        <i class="fa-xl fa-solid fa-plus bm-monitor-info-block--fill__button"></i>
+                    </div>
+                </div>
+            </div>
+            <!--    IF QA ADDED -->
+            {#    {% if vat_data[qa] %}#}
+
+            <div class="row g-2">
+                <div class="col-md-4-fill-qa">
+                    <div class="bm-monitor-info-block bm-monitor-info-block-fill">
+                        <h6 class="bm-monitor-info-block__title bm-monitor-info-block__title-fill">Fill Room QA</h6>
+                        <table>
+                            <tr>
+                                <th>Mycoplasma</th>
+                                <th>Virus Testing</th>
+                                <th>Amino Acids</th>
+                                <th>Trace Element</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>4</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <!--    IF QA ADDED -->
-    <div class="row g-2">
-        <div class="col-md-4-fill-qa">
-            <div class="bm-monitor-info-block bm-monitor-info-block-fill">
-                <h6 class="bm-monitor-info-block__title bm-monitor-info-block__title-fill">Fill Room QA</h6>
-                <table>
-                    <tr>
-                        <th>Mycoplasma</th>
-                        <th>Virus Testing</th>
-                        <th>Amino Acids</th>
-                        <th>Trace Element</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                    </tr>
-                </table>
-            </div>
         </div>
-    </div>
-</div>
+    {% endfor %}
+
+
 {% endblock %}

@@ -2,6 +2,7 @@ import models.batch as batch_repo
 import models.product_type as product_type_repo
 import models.flask_monitor as flask_monitor_repo
 import models.passage_monitor as passage_monitor_repo
+import models.fill_room_monitor as fillroom_monitor_repo
 import processors.passage as passage_processor
 import processors.prod_stage as prod_stage_processor
 
@@ -51,6 +52,11 @@ def __get_stage_data(stage_type, batch):
             'passage': passage,
             'qa': qa
         }
-    elif stgage_type == 'fill_room':
+    elif stage_type == 'fill_room':
         # TODO
-        return None
+        fillroom = fillroom_monitor_repo.get_batchs_in_fillroom()
+        return {
+            'fillroom': fillroom
+        }
+        # get passage & qa from repo
+
