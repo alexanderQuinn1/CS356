@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect
+from flask import render_template, redirect
 import processors.batch as batch_processor
 import processors.passage as passage_processor
 
