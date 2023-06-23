@@ -16,7 +16,7 @@ def get(batch_no, stage_id):
     result = results[0]
     return {
         'passage_qa_id': result[0],
-        'passgage_id': result[1],
+        'passage_id': result[1],
         'datetime': result[2],
         'cell_count': result[3],
         'ph': result[4],

@@ -4,6 +4,7 @@ import controllers.production_monitor as production_monitor_controller
 import controllers.passage as passage_controller
 import controllers.expansion as expansion_controller
 import controllers.prod_schedule as prod_schedule_controller
+import controllers.fill_room as fill_room_controller
 import processors.batch as batch_processor
 
 app = Flask(__name__)
@@ -56,9 +57,19 @@ def run_move_batch_next_stage(prod_line, batch_no):
     return redirect('/production-monitoring/{line}'.format(line=prod_line))
 
 
+@app.route('/add-fill-room-qa/<prod_line>/<batch_no>/', methods=['GET', 'POST'])
+def run_add_fill_room_qa(prod_line, batch_no):
+    return fill_room_controller.render_add_qa(request, prod_line, batch_no)
+
+
+@app.route('/update-fill-room-monitor/<prod_line>/<batch_no>/', methods=['GET', 'POST'])
+def run_update_fill_room_monitor(prod_line, batch_no):
+    return fill_room_controller.render_update_monitor(request, prod_line, batch_no)
+
+
 @app.route('/maintenance-activity-details/<maintenance_id>')
 def run_maintenance_activity_details(maintenance_id):
-    return render_template('maintenance-operation-details.html', heading='Maintenance Activity Details')
+    return render_template('maintenance-log/maintenance-activity-details.html', heading='Maintenance Activity Details')
 
 
 @app.route('/add-prod-activity', methods=['GET', 'POST'])
