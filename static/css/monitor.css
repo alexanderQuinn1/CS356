@@ -107,3 +107,11 @@
     font-size: 2em;
     display: block;
 }
+
+.fill-room-qa__info{
+    text-align: left;
+}
+
+.fill-room-qa{
+    width: 95%;
+}
