@@ -26,6 +26,7 @@ def get(batch_no, stage_id):
         'osmolality': result[8],
         'sterility': result[9],
         'passed': result[10],
+        'analysis': result[11]
     }
 
 

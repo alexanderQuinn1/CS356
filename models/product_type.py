@@ -11,12 +11,11 @@ def get_product(prod_code):
     result = results[0]
     return {
         'product_code': prod_code,
-        'product_name': result[1],
-        'max_ph': result[2],
-        'min_ph': result[3],
-        'max_temp': result[4],
-        'min_temp': result[5],
-        'max_osmolality': result[6],
-        'min_osmolality': result[7],
-        'min_sterility': result[8]
+        'max_ph': result[1],
+        'min_ph': result[2],
+        'max_temp': result[3],
+        'min_temp': result[4],
+        'max_osmolality': result[5],
+        'min_osmolality': result[6],
+        'min_sterility': result[7]
     }

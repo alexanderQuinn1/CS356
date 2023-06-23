@@ -16,13 +16,15 @@ def get(batch_no):
     """
 
     results = db.fetch(query, (batch_no,))
+
     result = results[0]
+    print(result)
     return {
         'batch_no': batch_no,
         'quantity': result[1],
         'prod_type': result[2],
-        'active_stage_id': result[4],
-        'prod_schedule_id': result[5]
+        'active_stage_id': result[3],
+        'prod_schedule_id': result[4],
     }
 
 
@@ -38,8 +40,9 @@ def get_by_prod_schedule(prod_schedule_id):
         'batch_no': result[0],
         'quantity': result[1],
         'prod_type': result[2],
-        'active_stage_id': result[4],
-        'prod_schedule_id': prod_schedule_id
+        'active_stage_id': result[3],
+        'prod_schedule_id': prod_schedule_id,
+
     }
 
 
@@ -58,7 +61,7 @@ def get_batch_by_batch_id(batch_id):
 
 def update_stage(batch_no, stage_id):
     query = """
-        UPDATE miracle_cure_biotech.batch
+        UPDATE batch
         SET current_stage = %s
         WHERE batch_no = %s;
     """

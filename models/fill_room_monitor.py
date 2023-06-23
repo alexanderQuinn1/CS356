@@ -16,7 +16,8 @@ def get(batch_no, stage_id):
         'fill_room_id': p[1],
         'humidity': p[2],
         'last_stir_delta': p[3],
-        'temp': p[4]
+        'temp': p[4],
+        'asset_id': p[5]
     }
 
 

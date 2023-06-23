@@ -3,7 +3,7 @@ import database_connection as db
 
 def get(batch_no, stage_id):
     query = """
-        SELECT passage.passage_id, passage_monitor.passage_id, passage_monitor.peristaltic_pump,  passage_monitor.cell_count 
+        SELECT * 
         FROM passage_monitor
         JOIN passage ON passage_monitor.passage_id = passage.passage_id
         WHERE passage.stage = %s AND passage.batch_id = %s
