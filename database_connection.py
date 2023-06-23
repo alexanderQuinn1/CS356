@@ -80,7 +80,7 @@ def insert_commit(query_string, params=None):
         db.rollback()
         print(e)
 
-    new_id = db.insert_id()
+    new_id = cursor.lastrowid
     cursor.close()
     db.close()
     return new_id

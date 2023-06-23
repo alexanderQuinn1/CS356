@@ -38,7 +38,7 @@
                 </div>
                 <div class="row g-2">
                     {% if not batch.active_stage.data.qa %}
-                        <a href="/add-fill-room-qa/{{ production_facility }}/IRV2305001"
+                        <a href="/add-fill-room-qa/{{ production_facility }}/{{ batch.batch_no }}"
                            class="col-12 bm-monitor-info-block-link">
                             <h6 class="bm-monitor-info-block__title-fill">Fill Room QA</h6>
                             <div class="bm-monitor-info-block bm-monitor-info-block--blue bm-monitor-info-block--clickable bm-monitor-info-block-fill">
@@ -66,14 +66,9 @@
                                 </table>
                             </div>
                         </div>
-
                     {% endif %}
                 </div>
             </div>
-
-        </div>
         </div>
     {% endfor %}
-
-
 {% endblock %}
