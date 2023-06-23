@@ -89,14 +89,6 @@
     margin-bottom: -48px
 }
 
-.row{
-    padding-bottom: 25px;
-}
-
-.col-md-4-fill {
-    width: 25%;
-}
-
 .bm-monitor-info-block-fill__title {
     padding: 30px;
     font-size: 30px;
@@ -114,19 +106,4 @@
     padding: 50px;
     font-size: 2em;
     display: block;
-}
-.col-md-4-fill-qa{
-    width: 100%;
-}
-
-.batch-form .maintenance-form {
-	display: none;
-}
-
-.entry-type input[value="Batch"]:checked ~ .batch-form {
-	display: block;
-}
-
-.entry-type input[value="Maintenance"]:checked ~ .maintenance-form {
-	display: block;
 }

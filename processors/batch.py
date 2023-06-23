@@ -2,7 +2,7 @@ import models.batch as batch_repo
 import models.product_type as product_type_repo
 import models.flask_monitor as flask_monitor_repo
 import models.passage_monitor as passage_monitor_repo
-import models.fill_room_monitor as fillroom_monitor_repo
+import models.fill_room_monitor as fill_room_monitor_repo
 import processors.passage as passage_processor
 import processors.prod_stage as prod_stage_processor
 import processors.fill_room as fill_room_processor

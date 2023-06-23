@@ -4,9 +4,13 @@ import models.fill_room_monitor as fill_room_repo
 # for each get batch
 
 
-def get_batchs_in_fillroom():
-    fill_rooms = fill_room_repo.get()
-    return fill_rooms
+def get_batches_in_fillroom():
+    batch_numbers = batch_repo.get_in_fill_room()
+    batches = []
+    for batch_no in batch_numbers:
+        batches.append(batch_processor.get_batch(batch_no))
+    return batches
+
 
 
 if __name__ == '__main__':

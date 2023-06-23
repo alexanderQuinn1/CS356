@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block production_activity %}
-    {% for vat_data in fill_room_data %}
+    {% for batch in batches %}
         <div class="bm-monitor-group">
         <h4> VAT {{ vat_data['id'] }} - {{ vat_data['batch'] }}</h4>
         <div id="fillroom" class="container-fluid bm-prod-line-fillroom__content">
