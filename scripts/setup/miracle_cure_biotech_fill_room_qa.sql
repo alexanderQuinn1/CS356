@@ -32,9 +32,10 @@ CREATE TABLE `fill_room_qa` (
   `trace_elements` varchar(15) DEFAULT NULL,
   `cell_count` int DEFAULT NULL,
   `ph` int DEFAULT NULL,
-  `osmoality` int DEFAULT NULL,
+  `osmolality` int DEFAULT NULL,
   `sterility` int DEFAULT NULL,
   `passed` tinyint DEFAULT NULL,
+  `analysis` VARCHAR(3000) DEFAULT NULL,
   PRIMARY KEY (`fill_room_qa_id`),
   KEY `fill_room_qa_fill_room_FK_idx` (`fill_room_id`),
   CONSTRAINT `fill_room_qa_fill_room_FK` FOREIGN KEY (`fill_room_id`) REFERENCES `fill_room` (`fill_room_id`)
@@ -47,7 +48,7 @@ CREATE TABLE `fill_room_qa` (
 
 LOCK TABLES `fill_room_qa` WRITE;
 /*!40000 ALTER TABLE `fill_room_qa` DISABLE KEYS */;
-INSERT INTO `fill_room_qa` VALUES (1,1,'2023-05-16 16:00:00','favourable','intermediate','favourable','non-favourable',120,6,280,100,0),(2,2,'2023-05-17 16:00:00','favourable','favourable','favourable','favourable',145,8,250,122,1),(3,3,'2023-05-18 21:00:00','intermediate','non-favourable','favourable','favourable',180,12,180,123,0);
+INSERT INTO `fill_room_qa` VALUES (1,1,'2023-05-16 16:00:00','favourable','intermediate','favourable','non-favourable',120,6,280,100,0,''),(2,2,'2023-05-17 16:00:00','favourable','favourable','favourable','favourable',145,8,250,122,1),(3,3,'2023-05-18 21:00:00','intermediate','non-favourable','favourable','favourable',180,12,180,123,0,'');
 /*!40000 ALTER TABLE `fill_room_qa` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

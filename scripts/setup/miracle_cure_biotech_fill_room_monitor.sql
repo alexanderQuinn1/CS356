@@ -28,6 +28,7 @@ CREATE TABLE `fill_room_monitor` (
   `humidity` int DEFAULT NULL,
   `last_stir_delta` int DEFAULT NULL,
   `temp` int DEFAULT NULL,
+  `asset_id` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`fill_room_monitor_id`),
   KEY `fill_room_monitor_fill_room_FK_idx` (`fill_room_id`),
   CONSTRAINT `fill_room_monitor_fill_room_FK` FOREIGN KEY (`fill_room_id`) REFERENCES `fill_room` (`fill_room_id`)
@@ -40,7 +41,7 @@ CREATE TABLE `fill_room_monitor` (
 
 LOCK TABLES `fill_room_monitor` WRITE;
 /*!40000 ALTER TABLE `fill_room_monitor` DISABLE KEYS */;
-INSERT INTO `fill_room_monitor` VALUES (1,1,40,79,38),(2,2,60,82,35),(3,3,70,90,37),(4,4,60,75,38),(5,5,90,60,36);
+INSERT INTO `fill_room_monitor` VALUES (1,1,40,79,38,'VAT001'),(2,2,60,82,35,'VAT002'),(3,3,70,90,37,'VAT003'),(4,4,60,75,38,'VAT001'),(5,5,90,60,36,,'VAT002');
 /*!40000 ALTER TABLE `fill_room_monitor` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
