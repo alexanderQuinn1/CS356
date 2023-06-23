@@ -45,11 +45,6 @@ def run_update_passage_monitor(prod_line, batch_no):
     return passage_controller.render_update_monitor(request, prod_line, batch_no)
 
 
-# @app.route('/maintenance-batch-entry/<entry_type>/', methods=['GET', 'POST'])
-# def run_main_entry(entry_type):
-#     heading = 'Add to Schedule'
-#     return prod_schedule_controller.render_add_prod_activity(heading)
-#
 
 @app.route('/update_expansion_monitor/<prod_line>/<batch_no>/<flask_monitor_id>', methods=['GET', 'POST'])
 def run_update_expansion_monitor(prod_line, batch_no, flask_monitor_id):

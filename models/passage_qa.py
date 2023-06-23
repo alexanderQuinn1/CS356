@@ -32,4 +32,4 @@ def insert(passage_id, date_time, cell_count, ph, osmolality, sterility, passed)
         VALUES(%s, %s, %s, %s, %s, %s, %s);
         """
 
-    db.commit(query, (passage_id, date_time, cell_count, ph, osmolality, sterility, passed))
+    db.insert_commit(query, (passage_id, date_time, cell_count, ph, osmolality, sterility, passed))

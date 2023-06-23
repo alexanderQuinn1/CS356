@@ -5,6 +5,7 @@ import models.passage_monitor as passage_monitor_repo
 import models.fill_room_monitor as fillroom_monitor_repo
 import processors.passage as passage_processor
 import processors.prod_stage as prod_stage_processor
+import processors.fill_room as fill_room_processor
 
 
 def get_batch(batch_no):

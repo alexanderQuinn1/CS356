@@ -7,35 +7,6 @@ def get_by_prod_line(line):
         'type': 'batch_manufacture'
     }
 
-def add_batch_schedule():
-    query = """
-    """
-    db.execute_insert(query)
-def add_maintenance_schedule():
-    query = """INSERT INTO `miracle_cure_biotech`.`maintenance_operation`
-(`maintenance_id`,
-`date`,
-`plant_id`,
-`description`,
-`man_hours`,
-`parts_replaced`,
-`cost`,
-`shutdown_required`,
-`planned_activity`,
-`prod_schedule_id`)
-VALUES
-(<{maintenance_id: }>,
-<{date: }>,
-<{plant_id: }>,
-<{description: }>,
-<{man_hours: }>,
-<{parts_replaced: }>,
-<{cost: }>,
-<{shutdown_required: }>,
-<{planned_activity: }>,
-<{prod_schedule_id: }>);
-"""
-    db.execute_insert(query)
 
 def add_prod_activity():
     query = """INSERT INTO `miracle_cure_biotech`.`production_schedule`
@@ -45,18 +16,16 @@ def add_prod_activity():
     `prod_line`,
     `activity_type`)
     VALUES
-    (<{prod_schedule_id: }>,
-    <{start: }>,
-    <{end: }>,
-    <{prod_line: }>,
-    <{activity_type: }>);
-    ;"""
-    db.execute_insert(query)
+    (%s, %s, %s, %s);
+    """
+    new_id = db.insert_commit(query, (start, end, prod_line, activity_type))
+    return new_id
 
-def get_prod_activities():
+
+def get_all_prod_activities():
     query = """SELECT * FROM miracle_cure_biotech.production_schedule;"""
 
-    results = db.execute_fetch(query)
+    results = db.commit(query)
     print(results)
     thislist = []
     for x in results:
@@ -69,3 +38,4 @@ def get_prod_activities():
         }
         thislist.append(activities)
     return thislist
+
