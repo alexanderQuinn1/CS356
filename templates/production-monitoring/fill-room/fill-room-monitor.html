@@ -49,18 +49,18 @@
                     {% else %}
                         <div class="col-12">
                             <div class="bm-monitor-info-block bm-monitor-info-block-fill">
-                                <table>
-                                    <tr class="row">
-                                        <th class="col-3">Mycoplasma</th>
-                                        <th class="col-3">Virus Testing</th>
-                                        <th class="col-3">Amino Acids</th>
-                                        <th class="col-3">Trace Element</th>
+                                <table class="fill-room-qa">
+                                    <tr class="row g-2">
+                                        <th class="fill-room-qa__info col-3">Mycoplasma</th>
+                                        <th class="fill-room-qa__info col-3">Virus Testing</th>
+                                        <th class="fill-room-qa__info col-3">Amino Acids</th>
+                                        <th class="fill-room-qa__info col-3">Trace Element</th>
                                     </tr>
-                                    <tr class="row">
-                                        <td class="col-3">{{ batch.active_stage.data.qa.mycoplasma }}</td>
-                                        <td class="col-3">{{ batch.active_stage.data.qa.virus_testing }}</td>
-                                        <td class="col-3">{{ batch.active_stage.data.qa.amino_acids }}</td>
-                                        <td class="col-3">{{ batch.active_stage.data.qa.trace_elements }}</td>
+                                    <tr class="row g-2">
+                                        <td class="fill-room-qa__info col-3">{{ batch.active_stage.data.qa.mycoplasma }}</td>
+                                        <td class="fill-room-qa__info col-3">{{ batch.active_stage.data.qa.virus_testing }}</td>
+                                        <td class="fill-room-qa__info col-3">{{ batch.active_stage.data.qa.amino_acids }}</td>
+                                        <td class="fill-room-qa__info col-3">{{ batch.active_stage.data.qa.trace_elements }}</td>
                                     </tr>
                                 </table>
                             </div>
