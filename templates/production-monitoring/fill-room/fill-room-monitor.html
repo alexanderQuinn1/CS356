@@ -10,65 +10,66 @@
 {% block production_activity %}
     {% for batch in batches %}
         <div class="bm-monitor-group">
-        <h4> VAT {{ vat_data['id'] }} - {{ vat_data['batch'] }}</h4>
-        <div id="fillroom" class="container-fluid bm-prod-line-fillroom__content">
-            <div class="bm-monitor-group__header">
-            </div>
-            <div class="row g-2">
-                <div class="col-md-4-fill">
-                    <div class="bm-monitor-info-block bm-monitor-info-block-fill" value={{ vat_data['temp'] }} min="0"
-                         max="100" unit="°C">
-                        <h6 class="bm-monitor-info-block__title">Temperature</h6>
-                        <div class="bm-monitor-dial__wrapper"></div>
+            <h4> VAT {{ batch.active_stage.data.fill_room.id }} - {{ batch.batch_no }}</h4>
+            <div id="fillroom" class="bm-prod-line-fillroom__content">
+                <div class="row g-2">
+                    <div class="col-12 col-md-4">
+                        <div class="bm-monitor-info-block bm-monitor-info-block-fill"
+                             value={{ batch.active_stage.data.fill_room.temp }} min="0"
+                             max="100" unit="°C">
+                            <h6 class="bm-monitor-info-block__title">Temperature</h6>
+                            <div class="bm-monitor-dial__wrapper"></div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="bm-monitor-info-block bm-monitor-info-block-fill"
+                             value={{ batch.active_stage.data.fill_room.humidity }} min="0"
+                             max="100" unit="%">
+                            <h6 class="bm-monitor-info-block__title">Humidity</h6>
+                            <div class="bm-monitor-dial__wrapper"></div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="bm-monitor-info-block bm-monitor-info-block-fill">
+                            <h6 class="bm-monitor-info-block__title">Last Stir Delta</h6>
+                            <span class="bm-monitor-info-block-fill__title">{{ batch.active_stage.data.fill_room.last_stir_delta }}</span>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4-fill">
-                    <div class="bm-monitor-info-block bm-monitor-info-block-fill"
-                         value={{ vat_data['humidity'] }} min="0"
-                         max="100" unit="%">
-                        <h6 class="bm-monitor-info-block__title">Humidity</h6>
-                        <div class="bm-monitor-dial__wrapper"></div>
-                    </div>
-                </div>
-                <div class="col-md-4-fill">
-                    <div class="bm-monitor-info-block bm-monitor-info-block-fill">
-                        <h6 class="bm-monitor-info-block__title">Last Stir Delta</h6>
-                        <span class="bm-monitor-info-block-fill__title">{{ vat_data['last_stir_delta'] }}</span>
-                    </div>
-                </div>
+                <div class="row g-2">
+                    <h6 class="bm-monitor-info-block__title-fill">Fill Room QA</h6>
+                    {% if not batch.active_stage.data.qa %}
+                        <a href="/add-fill-room-qa/{{ production_facility }}/IRV2305001"
+                           class="col-12 bm-monitor-info-block-link">
+                            <div class="bm-monitor-info-block bm-monitor-info-block--blue bm-monitor-info-block--clickable bm-monitor-info-block-fill">
+                                <h6 class="bm-monitor-info-block__title">Add QA</h6>
+                                <i class="fa-xl fa-solid fa-plus bm-monitor-info-block--fill__button"></i>
+                            </div>
+                        </a>
+                    {% else %}
+                        <div class="col-12">
+                            <div class="bm-monitor-info-block bm-monitor-info-block-fill">
+                                <table>
+                                    <tr class="row">
+                                        <th class="col-3">Mycoplasma</th>
+                                        <th class="col-3">Virus Testing</th>
+                                        <th class="col-3">Amino Acids</th>
+                                        <th class="col-3">Trace Element</th>
+                                    </tr>
+                                    <tr class="row">
+                                        <td class="col-3">{{ batch.active_stage.data.qa.mycoplasma }}</td>
+                                        <td class="col-3">{{ batch.active_stage.data.qa.virus_testing }}</td>
+                                        <td class="col-3">{{ batch.active_stage.data.qa.amino_acids }}</td>
+                                        <td class="col-3">{{ batch.active_stage.data.qa.trace_elements }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
 
-                <div class="col-md-4-fill">
-                    <div class="bm-monitor-info-block bm-monitor-info-block--blue bm-monitor-info-block--clickable bm-monitor-info-block-fill">
-                        <h6 class="bm-monitor-info-block__title"
-                            onClick="add_fillroom_qa({{ vat_data['batch'] }}, {{ vat_data['id'] }})">Add QA</h6>
-                        <i class="fa-xl fa-solid fa-plus bm-monitor-info-block--fill__button"></i>
-                    </div>
+                    {% endif %}
                 </div>
             </div>
-            <!--    IF QA ADDED -->
-            {#    {% if vat_data[qa] %}#}
 
-            <div class="row g-2">
-                <div class="col-md-4-fill-qa">
-                    <div class="bm-monitor-info-block bm-monitor-info-block-fill">
-                        <h6 class="bm-monitor-info-block__title bm-monitor-info-block__title-fill">Fill Room QA</h6>
-                        <table>
-                            <tr>
-                                <th>Mycoplasma</th>
-                                <th>Virus Testing</th>
-                                <th>Amino Acids</th>
-                                <th>Trace Element</th>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
         </div>
         </div>
     {% endfor %}

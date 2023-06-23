@@ -45,7 +45,6 @@ def run_update_passage_monitor(prod_line, batch_no):
     return passage_controller.render_update_monitor(request, prod_line, batch_no)
 
 
-
 @app.route('/update_expansion_monitor/<prod_line>/<batch_no>/<flask_monitor_id>', methods=['GET', 'POST'])
 def run_update_expansion_monitor(prod_line, batch_no, flask_monitor_id):
     return expansion_controller.render_update_expansion_monitor(request, prod_line, batch_no, flask_monitor_id)

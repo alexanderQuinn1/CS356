@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `production_schedule`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `production_schedule` (
-  `prod_schedule_id` int NOT NULL,
+  `prod_schedule_id` int NOT NULL AUTO_INCREMENT,
   `start` datetime DEFAULT NULL,
   `end` datetime DEFAULT NULL,
   `prod_line` char(1) DEFAULT NULL,

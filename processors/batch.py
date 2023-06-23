@@ -54,10 +54,9 @@ def __get_stage_data(stage_type, batch):
             'qa': qa
         }
     elif stage_type == 'fill_room':
-        # TODO
-        fillroom = fillroom_monitor_repo.get_batchs_in_fillroom()
+        fill_room = fill_room_monitor_repo.get(batch['batch_no'])
+        qa = fill_room_processor.get_qa(batch['batch_no'])
         return {
-            'fillroom': fillroom
+            'fill_room': fill_room,
+            'qa': qa
         }
-        # get passage & qa from repo
-

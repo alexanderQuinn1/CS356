@@ -8,13 +8,13 @@ def get_by_prod_line(line):
     }
 
 
-def add_prod_activity():
-    query = """INSERT INTO `miracle_cure_biotech`.`production_schedule`
-    (`prod_schedule_id`,
-    `start`,
-    `end`,
-    `prod_line`,
-    `activity_type`)
+def insert(start, end, prod_line, activity_type):
+    query = """
+    INSERT INTO production_schedule (
+    start,
+    end,
+    prod_line,
+    activity_type)
     VALUES
     (%s, %s, %s, %s);
     """

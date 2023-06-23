@@ -1,7 +1,6 @@
-import database_connection as db
-import models.fill_room_monitor as fill_room_repo
-# func to get all batches where stage is fillroom (get from controller)
-# for each get batch
+import models.batch as batch_repo
+import models.fill_room_qa as fill_room_qa_repo
+import processors.batch as batch_processor
 
 
 def get_batches_in_fillroom():
@@ -12,6 +11,11 @@ def get_batches_in_fillroom():
     return batches
 
 
+def get_qa(batch_no):
+    qa = fill_room_qa_repo.get(batch_no)
+    if not qa:
+        return None
 
-if __name__ == '__main__':
-    print(get_batchs_in_fillroom())
+    qa['result'] = 'passed' if qa['passed'] else 'failed'
+    qa['colour'] = 'green' if qa['passed'] else 'red'
+    return qa
