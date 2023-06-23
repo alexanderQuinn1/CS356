@@ -2,6 +2,7 @@ from datetime import datetime,timedelta
 import models.prod_schedule as prod_schedule_repo
 import models.batch as batch_repo
 import models.maintenance_operation as maintenance_operation_repo
+import arrow
 
 
 def schedule_activity(form):
@@ -25,5 +26,6 @@ def schedule_activity(form):
 
 
 def calculate_end_time(start, duration):
-    return start + timedelta(hours=duration)
+    end_time = start + timedelta(hours=duration)
+    return end_time
 

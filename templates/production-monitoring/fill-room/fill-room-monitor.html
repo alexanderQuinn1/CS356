@@ -37,10 +37,10 @@
                     </div>
                 </div>
                 <div class="row g-2">
-                    <h6 class="bm-monitor-info-block__title-fill">Fill Room QA</h6>
                     {% if not batch.active_stage.data.qa %}
                         <a href="/add-fill-room-qa/{{ production_facility }}/IRV2305001"
                            class="col-12 bm-monitor-info-block-link">
+                            <h6 class="bm-monitor-info-block__title-fill">Fill Room QA</h6>
                             <div class="bm-monitor-info-block bm-monitor-info-block--blue bm-monitor-info-block--clickable bm-monitor-info-block-fill">
                                 <h6 class="bm-monitor-info-block__title">Add QA</h6>
                                 <i class="fa-xl fa-solid fa-plus bm-monitor-info-block--fill__button"></i>
@@ -48,8 +48,9 @@
                         </a>
                     {% else %}
                         <div class="col-12">
-                            <div class="bm-monitor-info-block bm-monitor-info-block-fill">
-                                <table class="fill-room-qa">
+                            <div class="bm-monitor-info-block bm-monitor-info-block-fill-qa">
+                                <h6 class="bm-monitor-info-block__title-fill">Fill Room QA</h6>
+                                <table class="table table-striped bm-fill-room-qa-table">
                                     <tr class="row g-2">
                                         <th class="fill-room-qa__info col-3">Mycoplasma</th>
                                         <th class="fill-room-qa__info col-3">Virus Testing</th>

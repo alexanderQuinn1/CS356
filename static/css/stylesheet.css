@@ -21,31 +21,6 @@ header {
     background-color: #ccc;
 }
 
-table {
-    border-collapse: collapse;
-    width: 100%;
-    margin: 0 auto;
-    font-size: 14px;
-}
-
-th, td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: left;
-}
-
-th {
-    font-weight: bold;
-    background-color: var(--bm-grey--light);
-}
-
-tr:nth-child(even) {
-    background-color: var(--bm-grey--lightest);
-}
-
-tr:hover {
-    background-color: var(--bm-grey--lighter);
-}
 
 nav {
     background-color: var(--bm-grey--dark);

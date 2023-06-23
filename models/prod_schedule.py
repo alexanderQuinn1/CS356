@@ -25,7 +25,7 @@ def insert(start, end, prod_line, activity_type):
 def get_all_prod_activities():
     query = """SELECT * FROM miracle_cure_biotech.production_schedule;"""
 
-    results = db.commit(query)
+    results = db.fetch(query)
     print(results)
     thislist = []
     for x in results:
@@ -37,5 +37,7 @@ def get_all_prod_activities():
             'end': str(x[2]),
         }
         thislist.append(activities)
+        print(activities)
     return thislist
 
+# get_all_prod_activities()
