@@ -26,7 +26,6 @@ CREATE TABLE `batch` (
   `batch_no` varchar(11) NOT NULL,
   `quantity` int DEFAULT NULL,
   `prod_type_code` varchar(6) DEFAULT NULL,
-  `over_runs` varchar(1000) DEFAULT NULL,
   `current_stage` int DEFAULT NULL,
   `prod_schedule_id` int DEFAULT NULL,
   PRIMARY KEY (`batch_no`),
@@ -45,7 +44,7 @@ CREATE TABLE `batch` (
 
 LOCK TABLES `batch` WRITE;
 /*!40000 ALTER TABLE `batch` DISABLE KEYS */;
-INSERT INTO `batch` VALUES ('IRV2305001',0,'XXX10','yes',3,4),('IRV2305003',0,'XXX11','yes',2,5),('IRV2305004',0,'XXX12','yes',8,6);
+INSERT INTO `batch` VALUES ('IRV2305001',100,'XXX10',4,4),('IRV2305003',100,'XXX11',2,5),('IRV2305004',100,'XXX12',8,6),('IRV2306001',100,'XXX11',1,7),('IRV2306002',100,'XXX12',1,8);
 /*!40000 ALTER TABLE `batch` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-01 14:58:59
+-- Dump completed on 2023-06-23 14:34:03

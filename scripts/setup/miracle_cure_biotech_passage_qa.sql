@@ -23,16 +23,16 @@ DROP TABLE IF EXISTS `passage_qa`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `passage_qa` (
-  `passage_qa_id` int NOT NULL AUTO_INCREMENT,
+  `passage_qa_id` int NOT NULL,
   `passage_id` int DEFAULT NULL,
   `date_time` datetime DEFAULT NULL,
   `cell_count` int DEFAULT NULL,
   `ph` int DEFAULT NULL,
-  `osmolality` int DEFAULT NULL,
+  `osmoality` int DEFAULT NULL,
   `sterility` int DEFAULT NULL,
   `passed` tinyint DEFAULT NULL,
   PRIMARY KEY (`passage_qa_id`),
-  CONSTRAINT `passage_qa_passage_FK` FOREIGN KEY (`passage_id`) REFERENCES `passage` (`passage_id`)
+  CONSTRAINT `phase_qa_passage_FK` FOREIGN KEY (`passage_qa_id`) REFERENCES `passage` (`passage_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-01 14:58:58
+-- Dump completed on 2023-06-23 14:34:03

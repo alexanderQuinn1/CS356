@@ -40,7 +40,7 @@ CREATE TABLE `fill_room_monitor` (
 
 LOCK TABLES `fill_room_monitor` WRITE;
 /*!40000 ALTER TABLE `fill_room_monitor` DISABLE KEYS */;
-INSERT INTO `fill_room_monitor` VALUES (1,1,40,79,70),(2,2,60,82,80),(3,3,70,90,90);
+INSERT INTO `fill_room_monitor` VALUES (1,1,40,79,38),(2,2,60,82,35),(3,3,70,90,37),(4,4,60,75,38),(5,5,90,60,36);
 /*!40000 ALTER TABLE `fill_room_monitor` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-01 14:59:03
+-- Dump completed on 2023-06-23 14:34:02

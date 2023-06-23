@@ -24,7 +24,6 @@ DROP TABLE IF EXISTS `product_type`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product_type` (
   `prod_type_code` varchar(6) NOT NULL,
-  `type_name` varchar(50) DEFAULT NULL,
   `max_ph` int DEFAULT NULL,
   `min_ph` int DEFAULT NULL,
   `max_temp` int DEFAULT NULL,
@@ -42,7 +41,7 @@ CREATE TABLE `product_type` (
 
 LOCK TABLES `product_type` WRITE;
 /*!40000 ALTER TABLE `product_type` DISABLE KEYS */;
-INSERT INTO `product_type` VALUES ('XXX10','Test1',8,5,100,75,295,275,10),('XXX11','test2',14,4,80,65,280,250,8),('XXX12','test3',12,8,150,125,200,100,12);
+INSERT INTO `product_type` VALUES ('XXX10',8,5,40,32,295,275,10),('XXX11',14,4,39,32,280,250,8),('XXX12',12,8,38,34,200,100,12);
 /*!40000 ALTER TABLE `product_type` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-01 14:59:02
+-- Dump completed on 2023-06-23 14:34:02
