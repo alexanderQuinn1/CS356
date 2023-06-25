@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `passage_monitor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `passage_monitor` (
-  `passage_monitor_id` int NOT NULL,
+  `passage_monitor_id` int NOT NULL AUTO_INCREMENT,
   `passage_id` int DEFAULT NULL,
   `cell_count` int DEFAULT NULL,
   `peristaltic_pump` varchar(10) DEFAULT NULL,

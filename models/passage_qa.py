@@ -13,6 +13,7 @@ def get(batch_no, stage_id):
     if len(results) == 0:
         return None
 
+
     result = results[0]
     return {
         'passage_qa_id': result[0],
@@ -23,14 +24,14 @@ def get(batch_no, stage_id):
         'osmolality': result[5],
         'sterility': result[6],
         'passed': result[7],
-        'analysis': result[11]
+        'analysis': result[8]
     }
 
 
-def insert(passage_id, date_time, cell_count, ph, osmolality, sterility, passed):
+def insert(passage_id, date_time, cell_count, ph, osmolality, sterility, passed, analysis):
     query = """ 
-        INSERT INTO passage_qa (passage_id, date_time, cell_count, ph, osmolality, sterility, passed)
-        VALUES(%s, %s, %s, %s, %s, %s, %s);
+        INSERT INTO passage_qa (passage_id, date_time, cell_count, ph, osmolality, sterility, passed, analysis)
+        VALUES(%s, %s, %s, %s, %s, %s, %s, %s);
         """
 
-    db.commit(query, (passage_id, date_time, cell_count, ph, osmolality, sterility, passed))
+    db.commit(query, (passage_id, date_time, cell_count, ph, osmolality, sterility, passed, analysis))

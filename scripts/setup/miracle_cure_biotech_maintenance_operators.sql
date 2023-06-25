@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `maintenance_operators`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `maintenance_operators` (
-  `maintenance_operator_id` int NOT NULL,
+  `maintenance_operator_id` int NOT NULL AUTO_INCREMENT,
   `maintenance_id` int DEFAULT NULL,
   `operatore_id` int DEFAULT NULL,
   PRIMARY KEY (`maintenance_operator_id`),

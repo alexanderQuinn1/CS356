@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `flask_monitor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `flask_monitor` (
-  `flask_monitor_id` int NOT NULL,
+  `flask_monitor_id` int NOT NULL AUTO_INCREMENT,
   `expansion_id` int NOT NULL,
   `temp` int DEFAULT NULL,
   `ph` int DEFAULT NULL,

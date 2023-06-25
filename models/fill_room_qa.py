@@ -30,11 +30,15 @@ def get(batch_no, stage_id):
     }
 
 
-def insert(fill_room_id, date_time, mycoplasma, virus_testing, amino_acids, trace_elements, cell_count, ph, osmolality, sterility, passed):
+def insert(fill_room_id, date_time, mycoplasma, virus_testing, amino_acids, trace_elements, cell_count, ph, osmolality,
+           sterility, passed, analysis):
     query = """ 
         INSERT INTO fill_room_qa 
-        (fill_room_id, date_time, mycoplasma, virus_testing, amino_acids, trace_elements, cell_count, ph, osmolality, sterility, passed)
-        VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+        (fill_room_id, date_time, mycoplasma, virus_testing, amino_acids, trace_elements, cell_count, ph, osmolality, 
+        sterility, passed, analysis)
+        VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
         """
 
-    db.commit(query, (fill_room_id, date_time, mycoplasma, virus_testing, amino_acids, trace_elements, cell_count, ph, osmolality, sterility, passed))
+    db.commit(query, (
+        fill_room_id, date_time, mycoplasma, virus_testing, amino_acids, trace_elements, cell_count, ph, osmolality,
+        sterility, passed, analysis))

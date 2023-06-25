@@ -12,10 +12,11 @@ def add_qa(form, batch):
     passage_id = batch['active_stage']['data']['passage']['passage_id']
 
     failures = qa_processor.analyse_results(batch['product'], ph, osmolality, sterility)
+    analysis = qa_processor.analysis_to_string(failures)
     passed = qa_processor.has_passed(failures)
 
     passage_qa_repo.insert(passage_id, datetime.now(), cell_count, ph, osmolality,
-                           sterility, passed)
+                           sterility, passed, analysis)
 
 
 def update_monitor(form, batch):
@@ -28,10 +29,6 @@ def update_monitor(form, batch):
 
 def get_qa(batch_no, stage_id):
     qa = passage_qa_repo.get(batch_no, stage_id)
-    if not qa:
-        return None
-
-    qa['result'] = 'passed' if qa['passed'] else 'failed'
-    qa['colour'] = 'green' if qa['passed'] else 'red'
+    qa_processor.add_qa_details(qa)
     return qa
 

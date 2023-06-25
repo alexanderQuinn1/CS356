@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `fill_room_monitor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `fill_room_monitor` (
-  `fill_room_monitor_id` int NOT NULL,
+  `fill_room_monitor_id` int NOT NULL AUTO_INCREMENT,
   `fill_room_id` int DEFAULT NULL,
   `humidity` int DEFAULT NULL,
   `last_stir_delta` int DEFAULT NULL,

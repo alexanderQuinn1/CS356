@@ -89,14 +89,6 @@
     margin-bottom: -48px
 }
 
-.row{
-    padding-bottom: 25px;
-}
-
-.col-md-4-fill {
-    width: 25%;
-}
-
 .bm-monitor-info-block-fill__title {
     padding: 30px;
     font-size: 30px;
@@ -110,23 +102,25 @@
 .bm-monitor-info-block-fill {
     height: 200px;
 }
+
 .bm-monitor-info-block--fill__button{
     padding: 50px;
     font-size: 2em;
     display: block;
 }
-.col-md-4-fill-qa{
-    width: 100%;
+
+.bm-warning-banner {
+    color: var(--bm-orange);
+    background-color: var(--bm-orange--light);
+    border: solid 2px var(--bm-orange);
+    border-radius: 4px;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    column-gap: 12px;
 }
 
-.batch-form .maintenance-form {
-	display: none;
-}
-
-.entry-type input[value="Batch"]:checked ~ .batch-form {
-	display: block;
-}
-
-.entry-type input[value="Maintenance"]:checked ~ .maintenance-form {
-	display: block;
+.bm-warning-banner__content__list {
+    margin: 0;
 }

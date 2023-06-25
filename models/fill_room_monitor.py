@@ -3,7 +3,7 @@ import database_connection as db
 
 def get(batch_no, stage_id):
     query = """
-        SELECT fill_room.fill_room_id, fill_room_monitor.fill_room_id, fill_room_monitor.humidity,  fill_room_monitor.last_stir_delta, fill_room_monitor.temp 
+        SELECT fill_room.fill_room_id, fill_room_monitor.fill_room_monitor_id, fill_room_monitor.humidity,  fill_room_monitor.last_stir_delta, fill_room_monitor.temp 
         FROM fill_room_monitor
         JOIN fill_room ON fill_room_monitor.fill_room_id = fill_room.fill_room_id
         WHERE fill_room.stage = %s AND fill_room.batch_id = %s

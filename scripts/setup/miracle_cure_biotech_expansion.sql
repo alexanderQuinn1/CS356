@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `expansion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `expansion` (
-  `expansion_id` int NOT NULL,
+  `expansion_id` int NOT NULL AUTO_INCREMENT,
   `batch_id` varchar(11) DEFAULT NULL,
   `stage` int DEFAULT NULL,
   PRIMARY KEY (`expansion_id`),

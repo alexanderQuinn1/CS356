@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `operator`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `operator` (
-  `operator_id` int NOT NULL,
+  `operator_id` int NOT NULL AUTO_INCREMENT,
   `firstname` varchar(50) DEFAULT NULL,
   `surname` varchar(50) DEFAULT NULL,
   `access_code` varchar(10) DEFAULT NULL,

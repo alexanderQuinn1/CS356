@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `fill_room_qa`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `fill_room_qa`
 (
-    `fill_room_qa_id` int NOT NULL,
+    `fill_room_qa_id` int NOT NULL AUTO_INCREMENT,
     `fill_room_id`    int           DEFAULT NULL,
     `date_time`       datetime      DEFAULT NULL,
     `mycoplasma`      varchar(15)   DEFAULT NULL,

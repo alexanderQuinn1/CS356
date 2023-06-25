@@ -1,6 +1,5 @@
-from flask import render_template, request, redirect
+from flask import render_template
 import models.prod_schedule as prod_schedule_repo
-import models.maintenance_operation as maintenance_operation_repo
 import processors.batch as batch_processor
 import processors.prod_stage as prod_stage_processor
 
@@ -24,7 +23,7 @@ def render_activity(heading, production_facility):
 
 def render_batch_manufacture(heading, prod_line, prod_activity):
     batch = batch_processor.get_batch_by_prod_schedule(prod_activity['id'])
-    stages = prod_stage_processor.get_display_stages(batch['active_stage']['id'])
+    stages = prod_stage_processor.get_monitoring_stages(batch['active_stage']['id'])
     return render_template(BATCH_MONITOR_HTML, heading=heading, production_facility=prod_line, stages=stages, batch=batch)
 
 

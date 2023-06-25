@@ -15,11 +15,15 @@ def add_qa(form, batch):
     trace_elements = form['trace_elements']
     fill_room_id = batch['active_stage']['data']['fill_room']['fill_room_id']
 
-    failures = __analyse_results(batch['product'], ph, osmolality, sterility,mycoplasma, virus_testing, amino_acids, trace_elements)
+    failures = __analyse_results(batch['product'], ph, osmolality, sterility, mycoplasma, virus_testing, amino_acids,
+                                 trace_elements)
+    analysis = qa_processor.analysis_to_string(failures)
+
     passed = qa_processor.has_passed(failures)
 
-    fill_room_qa_repo.insert(fill_room_id, datetime.now(), cell_count, ph, osmolality,
-                           sterility, passed)
+    fill_room_qa_repo.insert(fill_room_id, datetime.now(), mycoplasma, virus_testing, amino_acids, trace_elements,
+                             cell_count, ph, osmolality,
+                             sterility, passed, analysis)
 
 
 def update_monitor(form, batch):
@@ -36,12 +40,11 @@ def __analyse_results(product, ph, osmolality, sterility, mycoplasma, virus_test
 
     if mycoplasma != "favourable":
         failures.append('mycoplasma is not favourable: batch should be disposed')
-    elif virus_testing != "favourable":
+    if virus_testing != "favourable":
         failures.append('virus testing is not favourable: batch should be disposed')
-    elif amino_acids != "favourable":
+    if amino_acids != "favourable":
         failures.append('amino acids are not favourable: batch should be disposed')
-    elif trace_elements != "favourable":
+    if trace_elements != "favourable":
         failures.append('trace elements are not favourable: batch should be disposed')
 
     return failures
-
