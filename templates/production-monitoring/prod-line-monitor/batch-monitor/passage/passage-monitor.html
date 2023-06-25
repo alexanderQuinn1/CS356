@@ -43,7 +43,7 @@
         {% endif %}
     </div>
 </div>
-{% if batch.active_stage.data.qa.failures %}
+{% if batch.active_stage.data.qa.failures|length > 0 %}
     <div class="bm-warning-banner">
         <i class="fa-solid fa-5x fa-triangle-exclamation"></i>
         <div>

@@ -23,7 +23,7 @@ def render_activity(heading, production_facility):
 
 def render_batch_manufacture(heading, prod_line, prod_activity):
     batch = batch_processor.get_batch_by_prod_schedule(prod_activity['id'])
-    stages = prod_stage_processor.get_monitoring_stages(batch['active_stage']['id'])
+    stages = prod_stage_processor.get_monitoring_stages(batch)
     return render_template(BATCH_MONITOR_HTML, heading=heading, production_facility=prod_line, stages=stages, batch=batch)
 
 

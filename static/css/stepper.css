@@ -76,6 +76,10 @@
     color: #fff;
 }
 
+.bm-stepper__step__circle--error {
+    background-color: var(--bm-red);
+}
+
 
 
 

@@ -13,8 +13,8 @@ def get(batch_no, stage_id):
     if len(results) == 0:
         return None
 
-
     result = results[0]
+
     return {
         'passage_qa_id': result[0],
         'passage_id': result[1],

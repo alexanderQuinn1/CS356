@@ -13,7 +13,7 @@ def add_qa(form, batch):
 
     failures = qa_processor.analyse_results(batch['product'], ph, osmolality, sterility)
     analysis = qa_processor.analysis_to_string(failures)
-    passed = qa_processor.has_passed(failures)
+    passed = qa_processor.has_failures(failures)
 
     passage_qa_repo.insert(passage_id, datetime.now(), cell_count, ph, osmolality,
                            sterility, passed, analysis)

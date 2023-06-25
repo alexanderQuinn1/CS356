@@ -1,12 +1,12 @@
 import models.prod_stage_lookup as prod_stage_lookup_repo
 
 
-def get_monitoring_stages(active_stage_id):
+def get_monitoring_stages(batch):
     stages = prod_stage_lookup_repo.get_all()
     monitoring_stages = list(filter(__is_monitoring_stage, stages))
 
     for stage in monitoring_stages:
-            stage['status'] = __get_status(stage['id'], active_stage_id)
+        stage['status'] = __get_status(stage['id'], batch)
     return monitoring_stages
 
 
@@ -29,13 +29,17 @@ def get_stage_type(stage_id):
         return 'complete'
 
 
-def __get_status(stage_id, active_stage_id):
+def __get_status(stage_id, batch):
+    active_stage_id = batch['active_stage']['id']
+    has_error = __stage_has_error(batch['active_stage'])
+    can_proceed = __stage_can_proceed(batch['active_stage'])
+
     if stage_id == active_stage_id:
-        return 'active'
+        return 'error' if has_error else 'active'
     elif stage_id < active_stage_id:
         return 'complete'
     elif stage_id == active_stage_id + 1:
-        return 'next'
+        return 'next' if can_proceed else 'disabled'
     elif stage_id > active_stage_id:
         return 'disabled'
 
@@ -47,3 +51,18 @@ def __is_monitoring_stage(x):
     else:
         return True
 
+
+def __stage_can_proceed(stage):
+    stage_type = get_stage_type(stage['id'])
+
+    return stage_type == 'expansion' or (__stage_has_qa(stage) and stage['data']['qa']['passed'])
+
+
+def __stage_has_error(stage):
+    return __stage_has_qa(stage) and \
+           not stage['data']['qa']['passed']
+
+
+def __stage_has_qa(stage):
+    return 'qa' in stage['data'] and \
+           stage['data']['qa'] is not None

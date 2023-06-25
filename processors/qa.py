@@ -2,7 +2,6 @@
 def add_qa_details(qa):
     if not qa:
         return None
-    print(qa)
     qa['result'] = 'passed' if qa['passed'] else 'failed'
     qa['colour'] = 'green' if qa['passed'] else 'red'
     qa['failures'] = analysis_to_list(qa['analysis'])
@@ -24,7 +23,7 @@ def analyse_results(product, ph, osmolality, sterility):
     return failures
 
 
-def has_passed(failures):
+def has_failures(failures):
     return len(failures) == 0
 
 

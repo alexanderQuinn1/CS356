@@ -18,7 +18,6 @@ def get(batch_no):
     results = db.fetch(query, (batch_no,))
 
     result = results[0]
-    print(result)
     return {
         'batch_no': batch_no,
         'quantity': result[1],

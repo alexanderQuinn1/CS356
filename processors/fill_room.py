@@ -19,7 +19,7 @@ def add_qa(form, batch):
                                  trace_elements)
     analysis = qa_processor.analysis_to_string(failures)
 
-    passed = qa_processor.has_passed(failures)
+    passed = qa_processor.has_failures(failures)
 
     fill_room_qa_repo.insert(fill_room_id, datetime.now(), mycoplasma, virus_testing, amino_acids, trace_elements,
                              cell_count, ph, osmolality,

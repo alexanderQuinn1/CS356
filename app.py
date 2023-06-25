@@ -9,6 +9,7 @@ import processors.batch as batch_processor
 
 app = Flask(__name__)
 
+
 # Main Navigation #
 @app.route('/')
 def run_app():
@@ -77,6 +78,5 @@ def run_add_prod_activity():
     return prod_schedule_controller.render_add_prod_activity(request)
 
 
-if __name__ == '__main__':
-    db.create()
-    app.run(debug=True, port=5001)
+db.create()
+app.run()
