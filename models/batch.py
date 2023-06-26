@@ -1,12 +1,13 @@
 import database_connection as db
 
 
-def insert(form):
-    # TODO
-    # validate prod line doesnt have another batch scheduled simultaneously
-    # prod_end = start_time + prod_duration
-    # batch_no = IRVyymm9999
-    return 'batch IRVyymm9999 scheduled'
+def insert(batch_no, prod_type_code, quantity, prod_sched_id):
+    query = """
+            INSERT INTO BATCH VALUES (%s,%s,%s,1,%s)
+        """
+
+    db.insert_commit(query, (batch_no, prod_type_code, quantity, prod_sched_id))
+
 
 def get(batch_no):
     query = """

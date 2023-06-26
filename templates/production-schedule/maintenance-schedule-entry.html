@@ -3,10 +3,9 @@
     <div class="form-group">
         <label for="plant_id">Plant ID #</label>
         <select id="plant_id" name="plant_id" required>
-            <option value="IRV123456">example plant1 (IRV123456)</option>
-            <option value="IRV123457">example plant2 (IRV123457)</option>
-            <option value="IRV123458">example plant3 (IRV123458)</option>
-            <option value="IRV123459">example plant4 (IRV123459)</option>
+            {% for plant in plants %}
+                <option value="{{ plant }}">{{ plant }}</option>
+             {%  endfor %}
         </select>
     </div>
     <div class="form-group">
@@ -16,11 +15,9 @@
     <div class="form-group">
         <label for="operators">Operator(s)</label>
         <select id="operators" multiple="multiple">
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-            <option value="4">Four</option>
-            <option value="5">Five</option>
+             {%  for operator in operators %}
+                <option value="{{ operator }}">{{ operator }}</option>
+             {%  endfor %}
         </select>
     </div>
     <div class="form-group">
@@ -34,6 +31,10 @@
     <div class="form-group">
         <label for="shutdown_required">Shutdown Required</label>
         <input type="checkbox" id="shutdown_required" name="shutdown_required" value="shutdown_required">
+    </div>
+    <div class="form-group">
+        <label for="planned">Is this activity planned:</label>
+        <input type="checkbox" id="planned" name="planned" value="shutdown_required">
     </div>
 </div>
 

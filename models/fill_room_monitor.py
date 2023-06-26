@@ -28,3 +28,22 @@ def update(fill_room_monitor_id, humidity, last_stir_delta, temp):
     """
 
     db.commit(query, (fill_room_monitor_id, humidity, last_stir_delta, temp))
+
+
+def create(batch_no, fill_room_vat):
+    create_fill_room_query = """
+        INSERT INTO fill_room VALUES (%s)
+    """
+
+    fill_room_id = db.insert_commit(create_fill_room_query, (batch_no,))
+    insert(fill_room_id, fill_room_vat)
+
+
+def insert(fill_room_id, fill_room_vat):
+    # TODO insert VAT ID after db update merged
+
+    create_fill_room_monitor_query = """
+                INSERT INTO fill_room_monitor VALUES (%s,0,0,0)
+            """
+
+    db.insert_commit(create_fill_room_monitor_query, (fill_room_id,))

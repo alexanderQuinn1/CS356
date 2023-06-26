@@ -1,11 +1,11 @@
 <div>
     <h6>Batch details</h6>
     <div class="form-group">
-        <label for="prod-type">Product Type</label>
-        <select id="prod-type" name="Product Type" required>
-            <option value="12345">cell culture 1</option>
-            <option value="12346">cell culture 2</option>
-            <option value="12347">cell culture 3</option>
+        <label for="prod_type_code">Product Type</label>
+        <select id="prod_type_code" name="prod_type_code" required>
+            {%  for product_type in product_types %}
+                <option value="{{ product_type }}">{{ product_type }}</option>
+            {%  endfor %}
         </select>
     </div>
     <div class="form-group">
@@ -13,7 +13,7 @@
         <input type="number" id="quantity" name="quantity" required>
     </div>
     <div class="form-group">
-        <label for="prod-type">Fill Room VAT</label>
+        <label for="fill_room_vat_id">Fill Room VAT</label>
         <select id="fill_room_vat_id" name="fill_room_vat_id" required>
             <option value="VAT001">VAT001</option>
             <option value="VAT002">VAT002</option>

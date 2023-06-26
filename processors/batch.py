@@ -25,6 +25,32 @@ def update_stage(batch_no):
     batch_repo.update_stage(batch_no, stage_id)
 
 
+def add_batch_padding(new_batch_digit):
+    length = new_batch_digit
+    length_after = 3
+    new_string = '0' * (length_after - len(str(length))) + str(length)
+    return new_string
+
+
+def generate_batch_number(start_date):
+    lastest_batch_no = batch_repo.get_batch_by_date(start_date.year, start_date.month)
+    if lastest_batch_no is None:
+        batch_string = 'IRV{0}{1}001'.format(str(start_date.year), str(start_date.month))
+    else:
+        last_digits = int(lastest_batch_no[-3])
+        new_batch_digit = last_digits + 1
+        padded_digit = add_batch_padding(new_batch_digit)
+        batch_string = 'IRV{0}{1}{2}'.format(str(start_date.year), str(start_date.month), padded_digit)
+    return batch_string
+
+
+def create_new_batch(batch_no, prod_type, quantity, prod_sched_id, fill_room_vat):
+    batch_repo.insert(batch_no, prod_type, quantity, prod_sched_id)
+    passage_monitor_repo.create(batch_no)
+    flask_monitor_repo.create(batch_no)
+    fill_room_monitor_repo.create(batch_no, fill_room_vat)
+
+
 def __create_batch_obj(batch):
     product = product_type_repo.get_product(batch['prod_type'])
     stage_type = prod_stage_processor.get_stage_type(batch['active_stage_id'])

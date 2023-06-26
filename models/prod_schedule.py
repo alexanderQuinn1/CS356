@@ -10,13 +10,13 @@ def get_by_prod_line(line):
 
 def insert(start, end, prod_line, activity_type):
     query = """
-    INSERT INTO production_schedule (
-    start,
-    end,
-    prod_line,
-    activity_type)
-    VALUES
-    (%s, %s, %s, %s);
+        INSERT INTO production_schedule (
+        start,
+        end,
+        prod_line,
+        activity_type)
+        VALUES
+        (%s, %s, %s, %s);
     """
     new_id = db.insert_commit(query, (start, end, prod_line, activity_type))
     return new_id

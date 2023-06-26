@@ -32,3 +32,28 @@ def update(flask_monitor_id, temp, ph, osmolality):
         WHERE flask_monitor.flask_monitor_id = %s
     """
     db.commit(query, (temp, ph, osmolality, flask_monitor_id))
+
+
+def create(batch_no):
+    create_expansion_query = """
+            INSERT INTO expansion VALUES (%s, %s)
+        """
+
+    expansion1_id = db.insert_commit(create_expansion_query, (batch_no, 2))
+    expansion2_id = db.insert_commit(create_expansion_query, (batch_no, 4))
+    expansion3_id = db.insert_commit(create_expansion_query, (batch_no, 6))
+
+    insert(expansion1_id)
+    insert(expansion2_id)
+    insert(expansion3_id)
+
+
+def insert(expansion_id):
+    create_flask_monitor_query = """
+                    INSERT INTO flask_monitor VALUES (%s,0,0,0))
+                """
+    #TODO insert 4 seperate flask IDs once db changes merged
+    db.insert_commit(create_flask_monitor_query, (expansion_id,))
+    db.insert_commit(create_flask_monitor_query, (expansion_id,))
+    db.insert_commit(create_flask_monitor_query, (expansion_id,))
+    db.insert_commit(create_flask_monitor_query, (expansion_id,))

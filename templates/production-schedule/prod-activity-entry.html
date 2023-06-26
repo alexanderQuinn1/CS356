@@ -8,7 +8,7 @@
         innerHtml = ''
         if (type === 'maintenance') {
             innerHtml = `{% include 'production-schedule/maintenance-schedule-entry.html' %}`
-        } else if (type === 'batch-manufacture') {
+        } else if (type === 'batch') {
             innerHtml = `{% include 'production-schedule/batch-schedule-entry.html' %}`
         }
 
@@ -22,9 +22,9 @@
     <div class="form-group">
         <label for="prod_line">Production Line</label><br/>
         <select id="prod_line" name="prod_line" required>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
+            {%  for prod_line in prod_lines %}
+                <option value="{{ prod_line }}">{{ prod_line }}</option>
+            {%  endfor %}
         </select>
     </div>
     <div class="form-group">
@@ -36,10 +36,10 @@
         <input type="number" id="duration" name="duration" required>
     </div>
     <div class="form-group">
-        <label>Type of Activity:</label><br/>
-        <input onclick="prodActivityChange('batch-manufacture')" type="radio" id="batch_manufacture"
-               name="prod_activity_type" value="batch_manufacture" required>
-        <label for="batch_manufacture">Batch Manufacture</label><br>
+        <label for="prod_activity_type">Type of Activity:</label><br/>
+        <input  onclick="prodActivityChange('batch')" type="radio" id="batch"
+               name="prod_activity_type" value="batch" required>
+        <label for="batch">Batch Manufacture</label><br>
         <input onclick="prodActivityChange('maintenance')" type="radio" id="maintenance" name="prod_activity_type"
                value="maintenance" required>
         <label for="maintenance">Maintenance</label><br>

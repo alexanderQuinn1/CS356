@@ -1,11 +1,10 @@
 import database_connection as db
 
 
-def insert(form):
+def insert(plant_id, description, man_hours, parts_replaced, cost, shutdown_required, planned_activity, prod_schedule_id):
     # TODO
     query = """INSERT INTO `miracle_cure_biotech`.`maintenance_operation`
-    (`maintenance_id`,
-    `date`,
+    (
     `plant_id`,
     `description`,
     `man_hours`,
