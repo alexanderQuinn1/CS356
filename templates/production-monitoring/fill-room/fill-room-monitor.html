@@ -10,7 +10,14 @@
 {% block production_activity %}
     {% for batch in batches %}
         <div class="bm-monitor-group">
-            <h4> VAT {{ batch.active_stage.data.fill_room.id }} - {{ batch.batch_no }}</h4>
+            <div class="bm-monitor-group__header">
+                <h4>{{ batch.active_stage.data.fill_room.asset_id }} - {{ batch.batch_no }}</h4>
+                <a class="bm-monitor-update-button"
+                   href="/update-fill-room-monitor/{{ production_facility }}/{{ batch.batch_no }}">
+                    <i class="fas fa-edit bm-monitor-update-button__icon"></i>
+                    Update Monitor
+                </a>
+            </div>
             <div id="fillroom" class="bm-prod-line-fillroom__content">
                 <div class="row g-2">
                     <div class="col-12 col-md-4">

@@ -25,7 +25,6 @@ def schedule_activity(form):
         cost = float(form['parts_cost'])
         shutdown_required = form['shutdown_required']
         planned = form['planned']
-        print(planned)
 
         maintenance_operation_repo.insert(plant_id, description, duration, parts_replaced, cost, shutdown_required,planned, prod_sched_id)
 

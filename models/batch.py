@@ -6,7 +6,7 @@ def insert(batch_no, prod_type_code, quantity, prod_sched_id):
             INSERT INTO BATCH VALUES (%s,%s,%s,1,%s)
         """
 
-    db.insert_commit(query, (batch_no, prod_type_code, quantity, prod_sched_id))
+    db.insert_commit(query, (batch_no, quantity, prod_type_code, prod_sched_id))
 
 
 def get(batch_no):
@@ -34,6 +34,10 @@ def get_by_prod_schedule(prod_schedule_id):
     """
 
     results = db.fetch(query, (prod_schedule_id,))
+
+    if(len(results) == 0):
+        return None
+
     result = results[0]
     return {
         'batch_no': result[0],
