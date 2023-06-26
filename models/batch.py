@@ -41,7 +41,6 @@ def get_by_prod_schedule(prod_schedule_id):
         'prod_type': result[2],
         'active_stage_id': result[3],
         'prod_schedule_id': prod_schedule_id,
-
     }
 
 
