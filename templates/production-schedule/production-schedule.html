@@ -1,9 +1,48 @@
 {% extends 'base.html' %}
+{% block head %}
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            let calendarEl = document.getElementById('production-calendar');
+
+
+            let calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                initialDate: '2023-05-07',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+
+            });
+
+            {% for event in sched_events %}
+                calendar.addEvent(
+                    {
+                        title: '{{ event.title }}',
+                        start: '{{ event.start }}',
+                        end: '{{ event.end }}'
+                    }
+                )
+            {% endfor %}
+            calendar.render();
+        });
+
+    </script>
+{% endblock %}
+
 
 {% block content %}
-        <a class="bm-monitor-update-button" href="/add-prod-activity">
-            <i class="fas fa-edit bm-monitor-update-button__icon"></i>
-            Add To Schedule
-        </a>
-<!--<div class="production-calendar" id='production-calendar'></div>-->
+    <a class="bm-monitor-update-button" href="/add-prod-activity">
+        <i class="fas fa-edit bm-monitor-update-button__icon"></i>
+        Add To Schedule
+    </a>
+    <div id='calendar'></div>
+    <div class="production-calendar" id='production-calendar'>
+    </div>
+
+
 {% endblock %}

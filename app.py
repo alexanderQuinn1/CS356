@@ -22,7 +22,7 @@ def run_production_line(production_facility):
 
 @app.route('/prod-schedule')
 def run_production_schedule():
-    return render_template('production-schedule/production-schedule.html', heading="Production Schedule")
+    return prod_schedule_controller.render_activity('Production Schedule')
 
 
 @app.route('/qa-log')

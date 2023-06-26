@@ -8,7 +8,6 @@ def insert(form):
     # batch_no = IRVyymm9999
     return 'batch IRVyymm9999 scheduled'
 
-
 def get(batch_no):
     query = """
         SELECT * FROM miracle_cure_biotech.batch  
@@ -65,3 +64,28 @@ def update_stage(batch_no, stage_id):
     """
 
     db.commit(query, (stage_id, batch_no))
+
+
+def get_latest_batch():
+    query = """
+        SELECT * FROM miracle_cure_biotech.batch ORDER BY batch_no DESC;
+    """
+    results = db.fetch(query)
+    result = results[0]
+    return {
+        'batch_no': results[0][0]
+    }
+
+
+def get_batch_by_date(year, month):
+    search_for = "IRV{0}{1}%".format(str(year), str(month))
+    query = """
+        SELECT * FROM miracle_cure_biotech.batch WHERE batch_no LIKE %s ORDER BY batch_no DESC;
+    """
+    results = db.fetch(query, (search_for,))
+    if len(results) == 0:
+        return None
+    else:
+        result = results[0]
+        return result[0]
+

@@ -3,6 +3,8 @@ import processors.prod_sched as prod_sched_processor
 
 ADD_PROD_ACTIVITY_HTML = 'production-schedule/prod-activity-entry.html'
 
+PROD_SCHEDULE_HTML = 'production-schedule/production-schedule.html'
+
 
 def render_add_prod_activity(request):
     heading = 'Schedule a Production Activity'
@@ -13,5 +15,9 @@ def render_add_prod_activity(request):
         if form_validation is not None:
             return render_template(ADD_PROD_ACTIVITY_HTML, heading=heading, form_validation=form_validation)
         else:
-            return redirect('/production-schedule')
+            return redirect('/prod-schedule')
 
+
+def render_activity(heading):
+    events = prod_sched_processor.formatted_events()
+    return render_template(PROD_SCHEDULE_HTML, heading=heading, sched_events=events)

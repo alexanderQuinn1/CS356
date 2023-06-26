@@ -15,6 +15,7 @@ def schedule_activity(form):
 
     # TODO
     # return form validation if there is a production activity going on
+    # if prod_sched has activity that starts after start and before end or has activity that ends after start or before end and prod_line = prod_line
 
     prod_id = prod_schedule_repo.insert(start, end, prod_line, activity_type)
     print(prod_id)
@@ -27,6 +28,11 @@ def schedule_activity(form):
         prod_type = form['prod_type']
         quantity = form['quantity']
         batch_repo.insert()
+
+
+def formatted_events():
+    events = prod_schedule_repo.get_all_prod_activities()
+    return events
 
 
 def calculate_end_time(start, duration):

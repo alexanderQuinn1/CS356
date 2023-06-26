@@ -15,18 +15,18 @@ def insert(form):
     `planned_activity`,
     `prod_schedule_id`)
     VALUES
-    (<{maintenance_id: }>,
-    <{date: }>,
-    <{plant_id: }>,
-    <{description: }>,
-    <{man_hours: }>,
-    <{parts_replaced: }>,
-    <{cost: }>,
-    <{shutdown_required: }>,
-    <{planned_activity: }>,
-    <{prod_schedule_id: }>);
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s;
     """
-    last_id = db.insert_commit(query)
+    last_id = db.insert_commit(query, (plant_id, description, man_hours, parts_replaced, cost, shutdown_required, planned_activity, prod_schedule_id))
     return last_id
 
 
