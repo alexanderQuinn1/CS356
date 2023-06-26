@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `operator`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `operator` (
-  `operator_id` int NOT NULL,
+  `operator_id` int NOT NULL AUTO_INCREMENT,
   `firstname` varchar(50) DEFAULT NULL,
   `surname` varchar(50) DEFAULT NULL,
   `access_code` varchar(10) DEFAULT NULL,
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-01 14:59:00
+-- Dump completed on 2023-06-23 14:34:04

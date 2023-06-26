@@ -1,42 +1,58 @@
-<div class="bm-monitor-group__header">
-    <h5 class="bm-monitor-group__heading">Passage Monitor</h5>
-    {% if not batch.active_stage.data.qa %}
-        <a class="bm-monitor-update-button"
-           href="/update_passage_monitor/{{production_facility}}/{{batch.batch_no}}">
-            <i class="fas fa-edit bm-monitor-update-button__icon"></i>
-            Update Monitor
-        </a>
-    {% endif %}
-</div>
-<div class="row g-2">
-    <div class="col-md-4">
-        <div class="bm-monitor-info-block">
-            <h6 class="bm-monitor-info-block__title">Peristaltic Pump</h6>
-            <span class="bm-monitor-info-block__text">{{ batch.active_stage.data.passage.peristaltic_pump }}</span>
-        </div>
+<div class="bm-monitor-group">
+    <div class="bm-monitor-group__header">
+        <h5 class="bm-monitor-group__heading">Passage Monitor</h5>
+        {% if not batch.active_stage.data.qa %}
+            <a class="bm-monitor-update-button"
+               href="/update_passage_monitor/{{ production_facility }}/{{ batch.batch_no }}">
+                <i class="fas fa-edit bm-monitor-update-button__icon"></i>
+                Update Monitor
+            </a>
+        {% endif %}
     </div>
-    <div class="col-md-4">
-        <div class="bm-monitor-info-block">
-            <h6 class="bm-monitor-info-block__title">Cell Count</h6>
-            <span class="bm-monitor-info-block__text">{{ batch.active_stage.data.passage.cell_count }}</span>
+    <div class="row gx-2">
+        <div class="col-md-4">
+            <div class="bm-monitor-info-block">
+                <h6 class="bm-monitor-info-block__title">Peristaltic Pump</h6>
+                <span class="bm-monitor-info-block__text">{{ batch.active_stage.data.passage.peristaltic_pump }}</span>
+            </div>
         </div>
-    </div>
+        <div class="col-md-4">
+            <div class="bm-monitor-info-block">
+                <h6 class="bm-monitor-info-block__title">Cell Count</h6>
+                <span class="bm-monitor-info-block__text">{{ batch.active_stage.data.passage.cell_count }}</span>
+            </div>
+        </div>
 
-    {% if batch.active_stage.data.qa %}
-    <div class="col-md-4">
-        <div class="bm-monitor-info-block bm-monitor-info-block--{{batch.active_stage.data.qa.colour}}">
-            <h6 class="bm-monitor-info-block__title">QA Results</h6>
-            <span class="bm-monitor-info-block__text">{{ batch.active_stage.data.qa.result }}</span>
-        </div>
+        {% if batch.active_stage.data.qa %}
+            <div class="col-md-4">
+                <div class="bm-monitor-info-block bm-monitor-info-block--{{ batch.active_stage.data.qa.colour }}">
+                    <h6 class="bm-monitor-info-block__title">QA Results</h6>
+                    <span class="bm-monitor-info-block__text">{{ batch.active_stage.data.qa.result }}</span>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-md-4">
+                <a href="/add-passage-qa/{{ production_facility }}/{{ batch.batch_no }}"
+                   class="bm-monitor-info-block-link">
+                    <div class="bm-monitor-info-block bm-monitor-info-block--blue">
+                        <h6 class="bm-monitor-info-block__title">Add QA</h6>
+                        <i class="fa-xl fa-solid fa-plus bm-monitor-info-block__button"></i>
+                    </div>
+                </a>
+            </div>
+        {% endif %}
     </div>
-    {% else %}
-    <div class="col-md-4">
-        <a href="/add-passage-qa/{{production_facility}}/{{batch.batch_no}}" class="bm-monitor-info-block-link">
-        <div class="bm-monitor-info-block bm-monitor-info-block--blue">
-            <h6 class="bm-monitor-info-block__title">Add QA</h6>
-            <i class="fa-xl fa-solid fa-plus bm-monitor-info-block__button"></i>
-        </div>
-        </a>
-    </div>
-    {% endif %}
 </div>
+{% if batch.active_stage.data.qa.failures|length > 0 %}
+    <div class="bm-warning-banner">
+        <i class="fa-solid fa-5x fa-triangle-exclamation"></i>
+        <div>
+            <h5 class=""> Quality assurance testing failed for the following reasons: </h5>
+            <ul class="bm-warning-banner__content__list">
+                {% for failure in batch.active_stage.data.qa.failures %}
+                    <li>{{ failure }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endif %}

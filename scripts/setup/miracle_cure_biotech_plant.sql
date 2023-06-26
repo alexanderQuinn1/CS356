@@ -24,10 +24,8 @@ DROP TABLE IF EXISTS `plant`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `plant` (
   `plant_id` varchar(9) NOT NULL,
-  `prod_line` char(1) NOT NULL,
-  PRIMARY KEY (`plant_id`),
-  KEY `prod_line_fk_idx` (`prod_line`),
-  CONSTRAINT `plant_prod_line_fk` FOREIGN KEY (`prod_line`) REFERENCES `production_line` (`prod_line`)
+  `prod_line` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`plant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -50,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-01 14:59:02
+-- Dump completed on 2023-06-23 14:34:02

@@ -1,7 +1,7 @@
 {% for flask in batch.active_stage.data.expansion.flasks %}
 <div class="bm-monitor-group">
     <div class="bm-monitor-group__header">
-        <h5 class="bm-monitor-group__heading">Flask Monitor (ID: {{flask.id}})</h5>
+        <h5 class="bm-monitor-group__heading">Flask Monitor ID: {{flask.asset_id}}</h5>
         <a class="bm-monitor-update-button" href="/update_expansion_monitor/{{ production_facility }}/{{ batch.batch_no }}/{{ flask.id }}">
             <i class="fas fa-edit bm-monitor-update-button__icon"></i>
             Update Monitor
