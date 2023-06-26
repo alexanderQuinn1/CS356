@@ -28,7 +28,7 @@ def has_failures(failures):
 
 
 def analysis_to_list(analysis):
-    if analysis is None:
+    if analysis is None or analysis is '':
         return None
     return analysis.split("|")
 

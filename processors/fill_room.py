@@ -29,12 +29,12 @@ def add_qa(form, batch):
 
 
 def update_monitor(form, batch):
-    room_temperature = int(form['room_temperature'])
+    room_temp = int(form['room_temp'])
     humidity = int(form['humidity'])
     last_stir_delta = int(form['last_stir_delta'])
-    fill_room_id = batch['active_stage']['data']['fill_room']['monitor_id']
+    fill_room_monitor_id = batch['active_stage']['data']['fill_room']['fill_room_monitor_id']
 
-    fill_room_monitor_repo.update(fill_room_id, room_temperature, humidity, last_stir_delta)
+    fill_room_monitor_repo.update(fill_room_monitor_id, room_temp, humidity, last_stir_delta)
 
 
 def __analyse_results(product, ph, osmolality, sterility, mycoplasma, virus_testing, amino_acids, trace_elements):
@@ -52,8 +52,7 @@ def __analyse_results(product, ph, osmolality, sterility, mycoplasma, virus_test
     return failures
 
 
-
-def get_batches_in_fillroom():
+def get_batches_in_fill_room():
     batch_numbers = batch_repo.get_in_fill_room()
     batches = []
     for batch_no in batch_numbers:
@@ -63,9 +62,5 @@ def get_batches_in_fillroom():
 
 def get_qa(batch_no):
     qa = fill_room_qa_repo.get(batch_no)
-    if not qa:
-        return None
-
-    qa['result'] = 'passed' if qa['passed'] else 'failed'
-    qa['colour'] = 'green' if qa['passed'] else 'red'
+    qa_processor.add_qa_details(qa)
     return qa

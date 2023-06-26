@@ -3,7 +3,7 @@ import database_connection as db
 
 def insert(batch_no, prod_type_code, quantity, prod_sched_id):
     query = """
-            INSERT INTO BATCH VALUES (%s,%s,%s,1,%s)
+            INSERT INTO batch VALUES (%s,%s,%s,1,%s)
         """
 
     db.insert_commit(query, (batch_no, quantity, prod_type_code, prod_sched_id))

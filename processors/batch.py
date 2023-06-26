@@ -10,12 +10,12 @@ import processors.fill_room as fill_room_processor
 
 def get_batch(batch_no):
     batch = batch_repo.get(batch_no)
-    return __create_batch_obj(batch)
+    return __map_batch_obj(batch)
 
 
 def get_batch_by_prod_schedule(prod_schedule_id):
     batch = batch_repo.get_by_prod_schedule(prod_schedule_id)
-    return __create_batch_obj(batch)
+    return __map_batch_obj(batch)
 
 
 def update_stage(batch_no):
@@ -51,7 +51,7 @@ def create_new_batch(batch_no, prod_type, quantity, prod_sched_id, fill_room_vat
     fill_room_monitor_repo.create(batch_no, fill_room_vat)
 
 
-def __create_batch_obj(batch):
+def __map_batch_obj(batch):
     product = product_type_repo.get_product(batch['prod_type'])
     stage_type = prod_stage_processor.get_stage_type(batch['active_stage_id'])
 

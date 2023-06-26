@@ -46,21 +46,18 @@ def __get_status(stage_id, batch):
 
 def __is_monitoring_stage(x):
     stage_type = get_stage_type(x['id'])
-    if stage_type == 'fill_room' or stage_type == 'complete':
+    if stage_type == 'complete':
         return False
     else:
         return True
 
 
 def __stage_can_proceed(stage):
-    stage_type = get_stage_type(stage['id'])
-
-    return stage_type == 'expansion' or (__stage_has_qa(stage) and stage['data']['qa']['passed'])
+    return stage['type'] != 'passage' or (__stage_has_qa(stage) and stage['data']['qa']['passed'])
 
 
 def __stage_has_error(stage):
-    return __stage_has_qa(stage) and \
-           not stage['data']['qa']['passed']
+    return stage['type'] == 'passage' and __stage_has_qa(stage) and not stage['data']['qa']['passed']
 
 
 def __stage_has_qa(stage):

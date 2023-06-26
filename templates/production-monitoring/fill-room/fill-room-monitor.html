@@ -18,64 +18,76 @@
                     Update Monitor
                 </a>
             </div>
-            <div id="fillroom" class="bm-prod-line-fillroom__content">
-                <div class="row g-2">
-                    <div class="col-12 col-md-4">
-                        <div class="bm-monitor-info-block bm-monitor-info-block-fill"
-                             value={{ batch.active_stage.data.fill_room.temp }} min="0"
-                             max="100" unit="°C">
-                            <h6 class="bm-monitor-info-block__title">Temperature</h6>
-                            <div class="bm-monitor-dial__wrapper"></div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <div class="bm-monitor-info-block bm-monitor-info-block-fill"
-                             value={{ batch.active_stage.data.fill_room.humidity }} min="0"
-                             max="100" unit="%">
-                            <h6 class="bm-monitor-info-block__title">Humidity</h6>
-                            <div class="bm-monitor-dial__wrapper"></div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <div class="bm-monitor-info-block bm-monitor-info-block-fill">
-                            <h6 class="bm-monitor-info-block__title">Last Stir Delta</h6>
-                            <span class="bm-monitor-info-block-fill__title">{{ batch.active_stage.data.fill_room.last_stir_delta }}</span>
-                        </div>
+            <div class="row g-2">
+                <div class="col-12 col-md-4">
+                    <div class="bm-monitor-info-block bm-monitor-info-block-fill"
+                         value={{ batch.active_stage.data.fill_room.temp }} min="0"
+                         max="100" unit="°C">
+                        <h6 class="bm-monitor-info-block__title">Temperature</h6>
+                        <div class="bm-monitor-dial__wrapper"></div>
                     </div>
                 </div>
-                <div class="row g-2">
-                    {% if not batch.active_stage.data.qa %}
-                        <a href="/add-fill-room-qa/{{ production_facility }}/{{ batch.batch_no }}"
-                           class="col-12 bm-monitor-info-block-link">
-                            <h6 class="bm-monitor-info-block__title-fill">Fill Room QA</h6>
-                            <div class="bm-monitor-info-block bm-monitor-info-block--blue bm-monitor-info-block--clickable bm-monitor-info-block-fill">
-                                <h6 class="bm-monitor-info-block__title">Add QA</h6>
-                                <i class="fa-xl fa-solid fa-plus bm-monitor-info-block--fill__button"></i>
-                            </div>
-                        </a>
-                    {% else %}
-                        <div class="col-12">
-                            <div class="bm-monitor-info-block bm-monitor-info-block-fill-qa">
-                                <h6 class="bm-monitor-info-block__title-fill">Fill Room QA</h6>
-                                <table class="table table-striped bm-fill-room-qa-table">
-                                    <tr class="row g-2">
-                                        <th class="fill-room-qa__info col-3">Mycoplasma</th>
-                                        <th class="fill-room-qa__info col-3">Virus Testing</th>
-                                        <th class="fill-room-qa__info col-3">Amino Acids</th>
-                                        <th class="fill-room-qa__info col-3">Trace Element</th>
-                                    </tr>
-                                    <tr class="row g-2">
-                                        <td class="fill-room-qa__info col-3">{{ batch.active_stage.data.qa.mycoplasma }}</td>
-                                        <td class="fill-room-qa__info col-3">{{ batch.active_stage.data.qa.virus_testing }}</td>
-                                        <td class="fill-room-qa__info col-3">{{ batch.active_stage.data.qa.amino_acids }}</td>
-                                        <td class="fill-room-qa__info col-3">{{ batch.active_stage.data.qa.trace_elements }}</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    {% endif %}
+                <div class="col-12 col-md-4">
+                    <div class="bm-monitor-info-block bm-monitor-info-block-fill"
+                         value={{ batch.active_stage.data.fill_room.humidity }} min="0"
+                         max="100" unit="%">
+                        <h6 class="bm-monitor-info-block__title">Humidity</h6>
+                        <div class="bm-monitor-dial__wrapper"></div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="bm-monitor-info-block bm-monitor-info-block-fill">
+                        <h6 class="bm-monitor-info-block__title">Last Stir Delta</h6>
+                        <span class="bm-monitor-info-block-fill__title">{{ batch.active_stage.data.fill_room.last_stir_delta }}</span>
+                    </div>
                 </div>
             </div>
+            <div class="row g-2">
+                {% if not batch.active_stage.data.qa %}
+                    <a href="/add-fill-room-qa/{{ production_facility }}/{{ batch.batch_no }}"
+                       class="col-12 bm-monitor-info-block-link">
+                        <div class="bm-monitor-info-block-fill-qa bm-monitor-info-block bm-monitor-info-block--blue bm-monitor-info-block--clickable">
+                            <h6 class="bm-monitor-info-block__title">Add QA</h6>
+                            <i class="fa-xl fa-solid fa-plus bm-monitor-info-block--fill__button"></i>
+                        </div>
+                    </a>
+                {% else %}
+                    <div class="col-12">
+                        <div class="bm-monitor-info-block bm-monitor-info-block-fill-qa">
+                            <h6 class="bm-monitor-info-block__title-fill">Fill Room QA -
+                                {{ batch.active_stage.data.qa.result }}</h6>
+                            <table class="table table-striped bm-fill-room-qa-table">
+                                <tr class="row g-2">
+                                    <th class="fill-room-qa__info col-3">Mycoplasma</th>
+                                    <th class="fill-room-qa__info col-3">Virus Testing</th>
+                                    <th class="fill-room-qa__info col-3">Amino Acids</th>
+                                    <th class="fill-room-qa__info col-3">Trace Element</th>
+                                </tr>
+                                <tr class="row g-2">
+                                    <td class="fill-room-qa__info col-3">{{ batch.active_stage.data.qa.mycoplasma }}</td>
+                                    <td class="fill-room-qa__info col-3">{{ batch.active_stage.data.qa.virus_testing }}</td>
+                                    <td class="fill-room-qa__info col-3">{{ batch.active_stage.data.qa.amino_acids }}</td>
+                                    <td class="fill-room-qa__info col-3">{{ batch.active_stage.data.qa.trace_elements }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                {% endif %}
+
+            </div>
+            {% if batch.active_stage.data.qa.failures %}
+                <div class="bm-warning-banner">
+                    <i class="fa-solid fa-5x fa-triangle-exclamation"></i>
+                    <div>
+                        <h5 class=""> Quality assurance testing failed for the following reasons: </h5>
+                        <ul class="bm-warning-banner__content__list">
+                            {% for failure in batch.active_stage.data.qa.failures %}
+                                <li>{{ failure }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
         </div>
     {% endfor %}
 {% endblock %}

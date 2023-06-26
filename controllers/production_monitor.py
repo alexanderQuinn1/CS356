@@ -13,7 +13,7 @@ IDLE_HTML = 'production-monitoring/prod-line-monitor/prod-line-idle.html'
 
 def render_activity(heading, production_facility):
     if production_facility == 'fill-room':
-        batches = fill_room_processor.get_batches_in_fillroom()
+        batches = fill_room_processor.get_batches_in_fill_room()
         return render_template(FILL_ROOM_MONITOR_HTML, heading=heading, production_facility=production_facility, batches=batches)
     prod_activity = prod_schedule_repo.get_by_prod_line(production_facility)
     if prod_activity is None:
@@ -27,7 +27,7 @@ def render_activity(heading, production_facility):
 def render_batch_manufacture(heading, prod_line, prod_activity):
     batch = batch_processor.get_batch_by_prod_schedule(prod_activity['id'])
     stages = prod_stage_processor.get_monitoring_stages(batch)
-    return render_template(BATCH_MONITOR_HTML, heading=heading, production_facility=prod_line, stages=stages, batch=batch)
+    return render_template(BATCH_MONITOR_HTML, heading=heading, production_facility=prod_line, stages=stages, batch=batch, prod_activity=prod_activity)
 
 
 def render_maintenance(heading, prod_line, prod_activity):

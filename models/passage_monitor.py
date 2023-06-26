@@ -31,7 +31,7 @@ def update(passage_monitor_id, peristaltic_pump, cell_count):
 
 def create(batch_no):
     create_passage_query = """
-        INSERT INTO passage VALUES (%s, %s)
+        INSERT INTO passage VALUES(default, %s, %s)
     """
 
     passage1_id = db.insert_commit(create_passage_query, (batch_no, 3))
@@ -45,7 +45,7 @@ def create(batch_no):
 
 def insert(passage_id):
     create_passage_monitor_query = """
-                INSERT INTO passage_monitor VALUES (%s, 0, 'off'))
+                INSERT INTO passage_monitor VALUES (default, %s, 0, 'off')
             """
 
     db.insert_commit(create_passage_monitor_query, (passage_id,))

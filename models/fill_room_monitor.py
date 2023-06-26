@@ -22,19 +22,19 @@ def get(batch_no):
     }
 
 
-def update(fill_room_monitor_id, humidity, last_stir_delta, temp):
+def update(fill_room_monitor_id, room_temp, humidity, last_stir_delta):
     query = """
         UPDATE fill_room_monitor 
         SET fill_room_monitor.humidity = %s, fill_room_monitor.last_stir_delta = %s, fill_room_monitor.temp = %s
         WHERE fill_room_monitor.fill_room_monitor_id = %s 
     """
 
-    db.commit(query, (fill_room_monitor_id, humidity, last_stir_delta, temp))
+    db.commit(query, (humidity, last_stir_delta, room_temp, fill_room_monitor_id))
 
 
 def create(batch_no, fill_room_vat):
     create_fill_room_query = """
-        INSERT INTO fill_room VALUES (%s)
+        INSERT INTO fill_room VALUES (default, %s)
     """
 
     fill_room_id = db.insert_commit(create_fill_room_query, (batch_no,))
@@ -42,10 +42,9 @@ def create(batch_no, fill_room_vat):
 
 
 def insert(fill_room_id, fill_room_vat):
-    # TODO insert VAT ID after db update merged
 
     create_fill_room_monitor_query = """
-                INSERT INTO fill_room_monitor VALUES (%s,0,0,0)
+                INSERT INTO fill_room_monitor VALUES (default, %s,0,0,0,%s)
             """
 
-    db.insert_commit(create_fill_room_monitor_query, (fill_room_id,))
+    db.insert_commit(create_fill_room_monitor_query, (fill_room_id, fill_room_vat))
