@@ -27,3 +27,25 @@ def update(passage_monitor_id, peristaltic_pump, cell_count):
     """
 
     db.commit(query, (peristaltic_pump, cell_count, passage_monitor_id))
+
+
+def create(batch_no):
+    create_passage_query = """
+        INSERT INTO passage VALUES(default, %s, %s)
+    """
+
+    passage1_id = db.insert_commit(create_passage_query, (batch_no, 3))
+    passage2_id = db.insert_commit(create_passage_query, (batch_no, 5))
+    end_of_line_id = db.insert_commit(create_passage_query, (batch_no, 7))
+
+    insert(passage1_id)
+    insert(passage2_id)
+    insert(end_of_line_id)
+
+
+def insert(passage_id):
+    create_passage_monitor_query = """
+                INSERT INTO passage_monitor VALUES (default, %s, 0, 'off')
+            """
+
+    db.insert_commit(create_passage_monitor_query, (passage_id,))

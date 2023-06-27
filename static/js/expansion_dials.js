@@ -2,18 +2,21 @@ function drawDials() {
     let blocks = document.getElementsByClassName('bm-monitor-info-block')
 
     for (let block of blocks) {
-
         let value = parseInt(block.getAttribute('value'))
-        if (value) {
-            let min = parseInt(block.getAttribute('min'))
-            let max = parseInt(block.getAttribute('max'))
-            let unit = block.getAttribute('unit')
-            let colour = getDialColour(value, min, max)
-            let dialElm = block.getElementsByClassName('bm-monitor-dial__wrapper')[0]
+        let dials = block.getElementsByClassName('bm-monitor-dial__wrapper')
+        console.log(dials.length)
+        if (dials.length === 1) {
+            let dialElm = dials[0]
+            if (value != null && dialElm != null) {
+                let min = parseInt(block.getAttribute('min'))
+                let max = parseInt(block.getAttribute('max'))
+                let unit = block.getAttribute('unit')
+                let colour = getDialColour(value, min, max)
 
-            let colourClassName = 'bm-monitor-info-block--' + colour
-            block.classList.add(colourClassName)
-            drawDial(dialElm, value, min, max, colour, unit)
+                let colourClassName = 'bm-monitor-info-block--' + colour
+                block.classList.add(colourClassName)
+                drawDial(dialElm, value, min, max, colour, unit)
+            }
         }
     }
 }

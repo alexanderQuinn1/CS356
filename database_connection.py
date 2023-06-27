@@ -69,6 +69,23 @@ def commit(query_string, params=None):
     db.close()
 
 
+def insert_commit(query_string, params=None):
+    db = connect_database()
+    cursor = db.cursor()
+
+    try:
+        cursor.execute(query_string, params)
+        db.commit()
+    except Exception as e:
+        db.rollback()
+        print(e)
+
+    new_id = cursor.lastrowid
+    cursor.close()
+    db.close()
+    return new_id
+
+
 def fetch(query_string, params=None):
     db = connect_database()
     cursor = db.cursor()

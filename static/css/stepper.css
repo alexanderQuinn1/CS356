@@ -57,14 +57,14 @@
 }
 
 .bm-stepper__step__circle--next {
-    background-color: var(--bm-grey--light);
-    border: solid 1px var(--bm-grey--dark);
-    color: var(--bm-grey--dark);
+    background-color: var(--bm-blue--lightest);
+    border: solid 1px var(--bm-blue);
+    color: var(--bm-blue);
     cursor: pointer;
 }
 
 .bm-stepper__step__circle--next:hover {
-    background-color: var(--bm-grey);
+    background-color: var(--bm-blue--lighter);
 }
 
 .bm-stepper__step__circle--disabled {
@@ -74,6 +74,10 @@
 .bm-stepper__step__circle--complete {
     background-color: var(--bm-green);
     color: #fff;
+}
+
+.bm-stepper__step__circle--error {
+    background-color: var(--bm-red);
 }
 
 

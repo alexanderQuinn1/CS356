@@ -2,7 +2,7 @@
     border: solid 1px var(--bm-grey--light);
     padding: 20px;
     border-radius: 4px;
-    margin-bottom: 20px
+    margin-bottom: 20px;
 }
 
 .bm-monitor-group__header {
@@ -23,6 +23,7 @@
     border-radius: 8px;
     padding: 30px 0;
     cursor: default;
+    margin-bottom: 12px;
 }
 
 .bm-monitor-info-block--blue {
@@ -89,27 +90,25 @@
     margin-bottom: -48px
 }
 
-.row{
-    padding-bottom: 25px;
-}
-
-.col-md-4-fill {
-    width: 25%;
-}
-
 .bm-monitor-info-block-fill__title {
     padding: 30px;
     font-size: 30px;
     display: block;
 }
 
-.bm-monitor-info-block__title-fill{
-        font-size: 20px;
+.bm-monitor-info-block__title-fill {
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+    margin-left: 45px;
 }
 
-.bm-monitor-info-block-fill {
+.bm-monitor-info-block-fill-qa {
     height: 200px;
+    margin-top: 10px;
+    border-color: var(--bm-grey);
 }
+
 .bm-monitor-info-block--fill__button{
     padding: 50px;
     font-size: 2em;
@@ -127,6 +126,31 @@
 	display: block;
 }
 
-.entry-type input[value="Maintenance"]:checked ~ .maintenance-form {
-	display: block;
+.bm-warning-banner {
+    color: var(--bm-red);
+    border: solid 2px var(--bm-red);
+    border-radius: 4px;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    column-gap: 12px;
+}
+
+.bm-warning-banner__content__list {
+    margin: 0;
+}
+
+.fill-room-qa__info {
+    text-align: left;
+}
+
+.fill-room-qa {
+    width: 95%;
+}
+
+.bm-fill-room-qa-table{
+    border-radius: 30px;
+    width: 95%;
+    margin-left: 45px;
 }

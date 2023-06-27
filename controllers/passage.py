@@ -22,5 +22,5 @@ def render_update_monitor(request, prod_line, batch_no):
     if request.method == 'GET':
         return render_template(UPDATE_PASSAGE_MONITOR_HTML, heading=heading, production_facility=prod_line, batch=batch)
     if request.method == 'POST':
-        form_validation = passage_processor.update_monitor(request.form, batch)
+        passage_processor.update_monitor(request.form, batch)
         return redirect('/production-monitoring/{line}'.format(line=prod_line))

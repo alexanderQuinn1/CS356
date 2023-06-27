@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `production_schedule`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `production_schedule` (
-  `prod_schedule_id` int NOT NULL,
+  `prod_schedule_id` int NOT NULL AUTO_INCREMENT,
   `start` datetime DEFAULT NULL,
   `end` datetime DEFAULT NULL,
   `prod_line` char(1) DEFAULT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE `production_schedule` (
 
 LOCK TABLES `production_schedule` WRITE;
 /*!40000 ALTER TABLE `production_schedule` DISABLE KEYS */;
-INSERT INTO `production_schedule` VALUES (1,'2023-05-12 13:00:00','2023-05-28 15:30:00','A','maintenance'),(2,'2023-05-13 11:30:00','2023-05-13 13:30:00','B','maintenance'),(3,'2023-05-14 13:30:00','2023-05-29 18:30:00','C','maintenance'),(4,'2023-05-16 09:30:00','2023-05-29 16:30:00','A','batch'),(5,'2023-05-17 11:30:00','2023-05-28 16:00:00','B','batch'),(6,'2023-05-18 15:30:00','2023-05-28 21:30:00','C','batch');
+INSERT INTO `production_schedule` VALUES (1,'2023-06-12 13:00:00','2023-05-15 15:30:00','A','maintenance'),(2,'2023-05-13 11:30:00','2023-05-15 13:30:00','B','maintenance'),(3,'2023-05-14 13:30:00','2023-05-15 18:30:00','C','maintenance'),(4,'2023-06-23 09:30:00','2023-06-26 22:30:00','A','batch'),(5,'2023-06-23 11:30:00','2023-06-26 22:00:00','B','batch'),(6,'2023-05-18 15:30:00','2023-05-20 21:30:00','C','batch'),(7,'2023-06-30 09:00:00','2023-07-02 15:30:00','A','batch'),(8,'2023-06-30 09:00:00','2023-07-02 15:30:00','b','batch'),(9,'2023-06-30 09:30:00','2023-07-02 15:30:00','c','maintenance');
 /*!40000 ALTER TABLE `production_schedule` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-01 14:58:59
+-- Dump completed on 2023-06-23 14:34:02

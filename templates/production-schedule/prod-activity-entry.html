@@ -8,7 +8,7 @@
         innerHtml = ''
         if (type === 'maintenance') {
             innerHtml = `{% include 'production-schedule/maintenance-schedule-entry.html' %}`
-        } else if (type === 'batch-manufacture') {
+        } else if (type === 'batch') {
             innerHtml = `{% include 'production-schedule/batch-schedule-entry.html' %}`
         }
 
@@ -20,30 +20,26 @@
 {% block content %}
 <form action="/add-prod-activity" method="post">
     <div class="form-group">
-        <label for="prod-line">Production Line</label><br/>
-        <select id="prod-line" name="Production Line" required>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
+        <label for="prod_line">Production Line</label><br/>
+        <select id="prod_line" name="prod_line" required>
+            {%  for prod_line in prod_lines %}
+                <option value="{{ prod_line }}">{{ prod_line }}</option>
+            {%  endfor %}
         </select>
     </div>
     <div class="form-group">
-        <label for="batch-date">Date (ddmmyy format):</label><br/>
-        <input type="date" id="batch-date" name="date" required>
+        <label for="start">Production Start (ddmmyy HH:mm format):</label><br/>
+        <input type="datetime-local" id="start" name="start" required>
     </div>
     <div class="form-group">
-        <label for="batch-start-time">Time (24-hour format):</label><br/>
-        <input type="time" id="batch-start-time" name="time" required>
+        <label for="duration">Production Duration (Hours)</label><br/>
+        <input type="number" id="duration" name="duration" required>
     </div>
     <div class="form-group">
-        <label for="prod-duration">Production Duration (Hours)</label><br/>
-        <input type="number" id="prod-duration" name="Production Duration" required>
-    </div>
-    <div class="form-group">
-        <label>Type of Activity:</label><br/>
-        <input onclick="prodActivityChange('batch-manufacture')" type="radio" id="batch_manufacture"
-               name="prod_activity_type" value="batch_manufacture" required>
-        <label for="batch_manufacture">Batch Manufacture</label><br>
+        <label for="prod_activity_type">Type of Activity:</label><br/>
+        <input onclick="prodActivityChange('batch')" type="radio" id="batch"
+               name="prod_activity_type" value="batch" required>
+        <label for="batch">Batch Manufacture</label><br>
         <input onclick="prodActivityChange('maintenance')" type="radio" id="maintenance" name="prod_activity_type"
                value="maintenance" required>
         <label for="maintenance">Maintenance</label><br>

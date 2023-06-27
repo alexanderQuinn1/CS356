@@ -1,46 +1,54 @@
 {% extends 'production-monitoring/production-monitoring.html' %}
 
 {% block head %}
-{{super()}}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/monitor.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/stepper.css') }}">
-<script type="text/javascript" src="{{ url_for('static', filename='js/stages.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/pureknob.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/expansion_dials.js') }}"></script>
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/monitor.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/stepper.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/stages.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/pureknob.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/expansion_dials.js') }}"></script>
 {% endblock %}
 
 {% block production_activity %}
-<h4>{{ batch.batch_no }} - {{ batch.product.product_code }}</h4>
-<h5> Quantity: {{ batch.quantity }}</h5>
+    <h4>{{ batch.batch_no }} - {{ batch.product.product_code }}</h4>
+    <h5> Quantity: {{ batch.quantity }}</h5>
 
-<div class="bm-stepper" id="stepper">
-    {% for stage in stages %}
-    <div class="bm-stepper__step">
+    <div class="bm-stepper" id="stepper">
+        {% for stage in stages %}
+            <div class="bm-stepper__step">
         <span class="bm-stepper__step__circle bm-stepper__step__circle--{{ stage.status }}"
-              {% if stage.status=='next' %}
+                {% if stage.status=='next' %}
               onClick="moveToNextStage('{{ production_facility }}', '{{ batch.batch_no }}')"
-              {% endif %}
+                {% endif %}
         >
         {% if stage.status == 'next' %}
             <i class="fa-solid fa-arrow-right"></i>
         {% elif stage.status == 'complete' %}
             <i class="fa-solid fa-check"></i>
+        {% elif stage.status == 'error' %}
+            <i class="fa-solid fa-exclamation"></i>
         {% else %}
             {{ stage.id }}
         {% endif %}
         </span>
-        <span class="bm-stepper__step__text">  {{ stage.name }} </span>
+                <span class="bm-stepper__step__text">  {{ stage.name }} </span>
+            </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
 
 
-{% if batch.active_stage.type == 'expansion' %}
-{% include 'production-monitoring/prod-line-monitor/batch-monitor/expansion/expansion-monitor.html' %}
-{% elif batch.active_stage.type == 'passage' %}
-{% include 'production-monitoring/prod-line-monitor/batch-monitor/passage/passage-monitor.html' %}
-{% else %}
-<div>start of production - no data</div>
-{% endif %}
-
+    {% if batch.active_stage.type == 'expansion' %}
+        {% include 'production-monitoring/prod-line-monitor/batch-monitor/expansion/expansion-monitor.html' %}
+    {% elif batch.active_stage.type == 'passage' %}
+        {% include 'production-monitoring/prod-line-monitor/batch-monitor/passage/passage-monitor.html' %}
+    {% elif batch.active_stage.type == 'start' %}
+        <div>start of production - no data</div>
+    {% elif batch.active_stage.type == 'fill_room' %}
+        <div>
+            <h6>Batch {{ batch.batch_no }} is now in the fill room.</h6>
+            <p>This activity is scheduled to end at {{ prod_activity.end }}.</br>
+                Please refresh the page if the production line isn't showing the latest activity after this time.
+            </p>
+        </div>
+    {% endif %}
 {% endblock %}
