@@ -1,22 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h4>Update Passage Monitor for {{batch.batch_no}} - {{batch.active_stage.name}}</h4>
-    <form action="/update_passage_monitor/{{production_facility}}/{{batch.batch_no}}" method="post">
-        <div class="form-group">
-            <label for="peristaltic_pump">Enter flow rate of peristaltic pump:*</label><br/>
-            <select name="peristaltic_pump" id="peristaltic_pump" required>
-                <option value="off">Off</option>
-                <option value="low">Low</option>
-                <option value="high">High</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="cell_count">Enter current cell count:*</label><br/>
-            <input type="number" name="cell_count" id="cell_count" required>
-        </div>
-        <div>
-            <button type="submit">Submit</button>
-        </div>
-    </form>
+<h5 class="bm-form-heading">{{batch.active_stage.name}} monitor ({{batch.batch_no}})</h5>
+<form action="/update_passage_monitor/{{production_facility}}/{{batch.batch_no}}" method="post">
+    <div class="form-group">
+        <label for="peristaltic_pump">Enter flow rate of peristaltic pump:*</label><br/>
+        <select class="form-control" name="peristaltic_pump" id="peristaltic_pump" required
+                value="{{batch.active_stage.data.passage.peristaltic_pump}}">
+            <option value="off">Off</option>
+            <option value="low">Low</option>
+            <option value="high">High</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="cell_count">Enter current cell count:*</label><br/>
+        <input class="form-control" type="number" name="cell_count" id="cell_count" required
+               value="{{batch.active_stage.data.passage.cell_count}}">
+    </div>
+    <div class="form-group">
+        <button class="bm-button--primary" type="submit">Submit</button>
+    </div>
+</form>
 {% endblock %}

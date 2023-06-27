@@ -44,6 +44,10 @@
     background-color: var(--bm-blue);
 }
 
+.bm-stepper__step__circle--error {
+    background-color: var(--bm-red);
+}
+
 .bm-stepper__step:last-child::after {
     content: "";
     display: block;

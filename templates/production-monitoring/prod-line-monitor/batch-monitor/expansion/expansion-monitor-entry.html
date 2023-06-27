@@ -1,22 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h4>Update Expansion Monitor for {{batch.batch_no}} - {{batch.active_stage.name}} - flask ID: {{flask_id}}</h4>
-    <form action="/update_expansion_monitor/{{production_facility}}/{{batch.batch_no}}/{{flask_monitor_id}}" method="post">
-        <div class="form-group">
-            <label for="temperature">Temperature (*C):</label><br/>
-            <input name="temperature" id="temperature" type="number" required>
-        </div>
-        <div class="form-group">
-            <label for="ph">Ph:</label><br/>
-            <input name="ph" id="ph" type="number" required>
-        </div>
-        <div class="form-group">
-            <label for="osmolality">Osmolality:</label><br/>
-            <input name="osmolality" id="osmolality" type="number" required>
-        </div>
-        <div>
-            <button type="submit">Submit</button>
-        </div>
-    </form>
+<h5 class="bm-form-heading">{{batch.active_stage.name}} monitor - Flask ID: TODO {{flask_id}} ({{batch.batch_no}})</h5>
+<form action="/update_expansion_monitor/{{production_facility}}/{{batch.batch_no}}/{{flask_monitor_id}}" method="post">
+    <div class="form-group">
+        <label for="temperature">Temperature (*C):</label><br/>
+        <input class="form-control" name="temperature" id="temperature" type="number" required>
+    </div>
+    <div class="form-group">
+        <label for="ph">PH:</label><br/>
+        <input class="form-control" name="ph" id="ph" type="number" required>
+    </div>
+    <div class="form-group">
+        <label for="osmolality">Osmolality:</label><br/>
+        <input class="form-control" name="osmolality" id="osmolality" type="number" required>
+    </div>
+    <div class="form-group">
+        <button class="bm-button--primary" type="submit">Submit</button>
+    </div>
+</form>
 {% endblock %}

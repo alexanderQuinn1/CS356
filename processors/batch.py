@@ -51,6 +51,6 @@ def __get_stage_data(stage_type, batch):
             'passage': passage,
             'qa': qa
         }
-    elif stgage_type == 'fill_room':
+    elif stage_type == 'fill_room':
         # TODO
         return None

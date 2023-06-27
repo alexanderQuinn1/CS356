@@ -75,36 +75,35 @@ nav a:hover {
 }
 
 .form-group {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
-
-input, select {
-    padding: 12px;
-    border: 1px solid #ccc;
+.bm-button--primary {
+    background-color: var(--bm-blue);
+    color: white;
     border-radius: 4px;
+    text-decoration: none;
+    padding: 6px 8px;
+    width: fit-content;
+    margin-bottom: 8px;
+    border: none;
 }
 
-label {
-    padding: 12px 12px 12px 0;
+.bm-button--primary:hover {
+    background-color: var(--bm-blue--dark);
+    color: white;
 }
 
-input[type=submit]:hover {
-    background-color: var(--bm-grey);
+.bm-button--primary:focus {
+    outline: none;
 }
 
-div.form {
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    grid-gap: 5px;
+.bm-button__icon {
+    margin-right: 4px;
 }
 
-div.form label {
-    text-align: right;
-}
-
-div.form label:after {
-    content: ":";
+.bm-form-heading {
+    text-transform: capitalize;
 }
 
 .production-calendar a {
