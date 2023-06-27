@@ -17,7 +17,7 @@ def render_add_prod_activity(request):
     if request.method == 'GET':
         return render_template(ADD_PROD_ACTIVITY_HTML, heading=heading, product_types=product_types,
                                prod_lines=prod_lines, operators=operators, plants=plants)
-    else:
+    elif request.method == 'POST':
         form_validation = prod_sched_processor.schedule_activity(request.form)
         if form_validation is not None:
             return render_template(ADD_PROD_ACTIVITY_HTML, heading=heading, product_types=product_types,
