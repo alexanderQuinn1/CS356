@@ -79,4 +79,4 @@ def run_add_prod_activity():
 
 
 db.create()
-app.run(port=5001)
+app.run()
