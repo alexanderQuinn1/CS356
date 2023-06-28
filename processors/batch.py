@@ -25,9 +25,9 @@ def update_stage(batch_no):
     batch_repo.update_stage(batch_no, stage_id)
 
 
-def add_batch_padding(new_batch_digit):
+def add_batch_padding(padding, new_batch_digit):
     length = new_batch_digit
-    length_after = 3
+    length_after = padding
     new_string = '0' * (length_after - len(str(length))) + str(length)
     return new_string
 
@@ -35,12 +35,14 @@ def add_batch_padding(new_batch_digit):
 def generate_batch_number(start_date):
     lastest_batch_no = batch_repo.get_batch_by_date(start_date.year, start_date.month)
     if lastest_batch_no is None:
-        batch_string = 'IRV{0}{1}001'.format(str(start_date.year), str(start_date.month))
+        month = add_batch_padding(2, start_date.month)
+        batch_string = 'IRV{0}{1}001'.format(str(start_date.year), month)
     else:
         last_digits = int(lastest_batch_no[-3])
         new_batch_digit = last_digits + 1
-        padded_digit = add_batch_padding(new_batch_digit)
-        batch_string = 'IRV{0}{1}{2}'.format(str(start_date.year), str(start_date.month), padded_digit)
+        padded_digit = add_batch_padding(3, new_batch_digit)
+        month = add_batch_padding(2, start_date.month)
+        batch_string = 'IRV{0}{1}{2}'.format(str(start_date.year), month, padded_digit)
     return batch_string
 
 
