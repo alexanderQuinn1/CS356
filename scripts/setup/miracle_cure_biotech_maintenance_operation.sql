@@ -22,22 +22,22 @@
 DROP TABLE IF EXISTS `maintenance_operation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `maintenance_operation` (
-  `maintenance_id` int NOT NULL AUTO_INCREMENT,
-  `date` date DEFAULT NULL,
-  `plant_id` varchar(9) DEFAULT NULL,
-  `description` varchar(2000) DEFAULT NULL,
-  `man_hours` int DEFAULT NULL,
-  `parts_replaced` varchar(2000) DEFAULT NULL,
-  `cost` decimal(10,0) DEFAULT NULL,
-  `shutdown_required` tinyint DEFAULT NULL,
-  `planned_activity` tinyint DEFAULT NULL,
-  `prod_schedule_id` int DEFAULT NULL,
-  PRIMARY KEY (`maintenance_id`),
-  KEY `maintenance_operation_plant_fk_idx` (`plant_id`),
-  KEY `maintenance_operation_prod_schedule_FK_idx` (`prod_schedule_id`),
-  CONSTRAINT `maintenance_operation_plant_fk` FOREIGN KEY (`plant_id`) REFERENCES `plant` (`plant_id`),
-  CONSTRAINT `maintenance_operation_prod_schedule_FK` FOREIGN KEY (`prod_schedule_id`) REFERENCES `production_schedule` (`prod_schedule_id`)
+CREATE TABLE `maintenance_operation`
+(
+    `maintenance_id`    int NOT NULL AUTO_INCREMENT,
+    `plant_id`          varchar(9)     DEFAULT NULL,
+    `description`       varchar(2000)  DEFAULT NULL,
+    `man_hours`         int            DEFAULT NULL,
+    `parts_replaced`    varchar(2000)  DEFAULT NULL,
+    `cost`              decimal(10, 0) DEFAULT NULL,
+    `shutdown_required` tinyint        DEFAULT NULL,
+    `planned_activity`  tinyint        DEFAULT NULL,
+    `prod_schedule_id`  int            DEFAULT NULL,
+    PRIMARY KEY (`maintenance_id`),
+    KEY                 `maintenance_operation_plant_fk_idx` (`plant_id`),
+    KEY                 `maintenance_operation_prod_schedule_FK_idx` (`prod_schedule_id`),
+    CONSTRAINT `maintenance_operation_plant_fk` FOREIGN KEY (`plant_id`) REFERENCES `plant` (`plant_id`),
+    CONSTRAINT `maintenance_operation_prod_schedule_FK` FOREIGN KEY (`prod_schedule_id`) REFERENCES `production_schedule` (`prod_schedule_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -45,11 +45,16 @@ CREATE TABLE `maintenance_operation` (
 -- Dumping data for table `maintenance_operation`
 --
 
-LOCK TABLES `maintenance_operation` WRITE;
+LOCK
+TABLES `maintenance_operation` WRITE;
 /*!40000 ALTER TABLE `maintenance_operation` DISABLE KEYS */;
-INSERT INTO `maintenance_operation` VALUES (10,'2023-05-15','IRV100111','Change Perstalic Pump',3,'Perstalic Pump',1000,1,1,1),(11,'2023-05-16','IRV100112','Change Flask sensor',NULL,'Flask Sensor',300,1,0,2),(12,'2023-05-14','IRV100113','Change Perstalic Pump',3,'Perstalic Pump',1000,1,1,3);
+INSERT INTO `maintenance_operation`
+VALUES (10, 'IRV100111', 'Change Perstalic Pump', 3, 'Perstalic Pump', 1000, 1, 1, 1),
+       (11, 'IRV100112', 'Change Flask sensor', NULL, 'Flask Sensor', 300, 1, 0, 2),
+       (12, 'IRV100113', 'Change Perstalic Pump', 3, 'Perstalic Pump', 1000, 1, 1, 3);
 /*!40000 ALTER TABLE `maintenance_operation` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK
+TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

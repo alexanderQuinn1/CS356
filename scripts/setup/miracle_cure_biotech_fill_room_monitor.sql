@@ -22,16 +22,17 @@
 DROP TABLE IF EXISTS `fill_room_monitor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `fill_room_monitor` (
-  `fill_room_monitor_id` int NOT NULL AUTO_INCREMENT,
-  `fill_room_id` int DEFAULT NULL,
-  `humidity` int DEFAULT NULL,
-  `last_stir_delta` int DEFAULT NULL,
-  `temp` int DEFAULT NULL,
-  `asset_id` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`fill_room_monitor_id`),
-  KEY `fill_room_monitor_fill_room_FK_idx` (`fill_room_id`),
-  CONSTRAINT `fill_room_monitor_fill_room_FK` FOREIGN KEY (`fill_room_id`) REFERENCES `fill_room` (`fill_room_id`)
+CREATE TABLE `fill_room_monitor`
+(
+    `fill_room_monitor_id` int NOT NULL AUTO_INCREMENT,
+    `fill_room_id`         int         DEFAULT NULL,
+    `humidity`             int         DEFAULT NULL,
+    `last_stir_delta`      int         DEFAULT NULL,
+    `temp`                 int         DEFAULT NULL,
+    `asset_id`             varchar(45) DEFAULT NULL,
+    PRIMARY KEY (`fill_room_monitor_id`),
+    KEY                    `fill_room_monitor_fill_room_FK_idx` (`fill_room_id`),
+    CONSTRAINT `fill_room_monitor_fill_room_FK` FOREIGN KEY (`fill_room_id`) REFERENCES `fill_room` (`fill_room_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -39,11 +40,17 @@ CREATE TABLE `fill_room_monitor` (
 -- Dumping data for table `fill_room_monitor`
 --
 
-LOCK TABLES `fill_room_monitor` WRITE;
+LOCK
+TABLES `fill_room_monitor` WRITE;
 /*!40000 ALTER TABLE `fill_room_monitor` DISABLE KEYS */;
-INSERT INTO `fill_room_monitor` VALUES (1,1,40,79,38,'VAT001'),(2,2,60,82,35,'VAT002'),(3,3,70,90,37,'VAT003'),(4,4,60,75,38,'VAT001'),(5,5,90,60,36,'VAT002');
+INSERT INTO `fill_room_monitor`
+VALUES (1, 1, 40, 79, 38, 'VAT001'),
+       (2, 2, 60, 82, 35, 'VAT002'),
+       (3, 3, 70, 90, 37, 'VAT003'),
+       (4, 4, 70, 12, 38, 'VAT001');
 /*!40000 ALTER TABLE `fill_room_monitor` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK
+TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

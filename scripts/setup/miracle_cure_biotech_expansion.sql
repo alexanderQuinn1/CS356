@@ -22,15 +22,16 @@
 DROP TABLE IF EXISTS `expansion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `expansion` (
-  `expansion_id` int NOT NULL AUTO_INCREMENT,
-  `batch_id` varchar(11) DEFAULT NULL,
-  `stage` int DEFAULT NULL,
-  PRIMARY KEY (`expansion_id`),
-  KEY `expansion_batch_fk_idx` (`batch_id`),
-  KEY `expansion_stage_lookup_fk_idx` (`stage`),
-  CONSTRAINT `expansion_batch_fk` FOREIGN KEY (`batch_id`) REFERENCES `batch` (`batch_no`),
-  CONSTRAINT `expansion_stage_lookup_fk` FOREIGN KEY (`stage`) REFERENCES `stage_lookup` (`stage_id`)
+CREATE TABLE `expansion`
+(
+    `expansion_id` int NOT NULL AUTO_INCREMENT,
+    `batch_id`     varchar(11) DEFAULT NULL,
+    `stage`        int         DEFAULT NULL,
+    PRIMARY KEY (`expansion_id`),
+    KEY            `expansion_batch_fk_idx` (`batch_id`),
+    KEY            `expansion_stage_lookup_fk_idx` (`stage`),
+    CONSTRAINT `expansion_batch_fk` FOREIGN KEY (`batch_id`) REFERENCES `batch` (`batch_no`),
+    CONSTRAINT `expansion_stage_lookup_fk` FOREIGN KEY (`stage`) REFERENCES `stage_lookup` (`stage_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -38,11 +39,26 @@ CREATE TABLE `expansion` (
 -- Dumping data for table `expansion`
 --
 
-LOCK TABLES `expansion` WRITE;
+LOCK
+TABLES `expansion` WRITE;
 /*!40000 ALTER TABLE `expansion` DISABLE KEYS */;
-INSERT INTO `expansion` VALUES (1,'IRV2305001',2),(2,'IRV2305001',4),(3,'IRV2305001',6),(4,'IRV2305003',2),(5,'IRV2305003',4),(6,'IRV2305003',6),(7,'IRV2305004',2),(8,'IRV2305004',4),(9,'IRV2305004',6),(10,'IRV2306001',2),(11,'IRV2306001',4),(12,'IRV2306001',6),(13,'IRV2306002',2),(14,'IRV2306002',4),(15,'IRV2306002',6);
+INSERT INTO `expansion`
+VALUES (1, 'IRV2305001', 2),
+       (2, 'IRV2305001', 4),
+       (3, 'IRV2305001', 6),
+       (4, 'IRV2305003', 2),
+       (5, 'IRV2305003', 4),
+       (6, 'IRV2305003', 6),
+       (7, 'IRV2305004', 2),
+       (8, 'IRV2305004', 4),
+       (9, 'IRV2305004', 6),
+       (10, 'IRV2306001', 2),
+       (11, 'IRV2306001', 4),
+       (12, 'IRV2306001', 6);
+
 /*!40000 ALTER TABLE `expansion` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK
+TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

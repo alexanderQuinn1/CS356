@@ -23,11 +23,10 @@ def schedule_activity(form):
         description = form['work_description']
         parts_replaced = form['parts_replaced']
         cost = float(form['parts_cost'])
-        shutdown_required = form['shutdown_required']
-        planned = form['planned']
+        shutdown_required = 1 if 'shutdown_required' in form == 1 else 0
+        planned = 1 if 'planned' in form == 1 else 0
 
-        maintenance_operation_repo.insert(plant_id, description, duration, parts_replaced, cost, shutdown_required,planned, prod_sched_id)
-
+        maintenance_operation_repo.insert(plant_id, description, duration, parts_replaced, cost, shutdown_required, planned, prod_sched_id)
     elif activity_type == 'batch':
         prod_type = form['prod_type_code']
         quantity = int(form['quantity'])

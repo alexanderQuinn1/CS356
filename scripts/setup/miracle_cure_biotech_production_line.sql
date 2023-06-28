@@ -22,9 +22,10 @@
 DROP TABLE IF EXISTS `production_line`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `production_line` (
-  `prod_line` char(1) NOT NULL,
-  PRIMARY KEY (`prod_line`)
+CREATE TABLE `production_line`
+(
+    `prod_line` char(1) NOT NULL,
+    PRIMARY KEY (`prod_line`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -32,11 +33,16 @@ CREATE TABLE `production_line` (
 -- Dumping data for table `production_line`
 --
 
-LOCK TABLES `production_line` WRITE;
+LOCK
+TABLES `production_line` WRITE;
 /*!40000 ALTER TABLE `production_line` DISABLE KEYS */;
-INSERT INTO `production_line` VALUES ('A'),('B'),('C');
+INSERT INTO `production_line`
+VALUES ('A'),
+       ('B'),
+       ('C');
 /*!40000 ALTER TABLE `production_line` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK
+TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
