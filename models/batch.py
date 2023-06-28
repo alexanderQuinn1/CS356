@@ -84,7 +84,7 @@ def get_latest_batch():
 
 
 def get_batch_by_date(year, month):
-    search_for = "IRV{0}{1}%".format(str(year), str(month))
+    search_for = "IRV{0}{1}%".format(year, month)
     query = """
         SELECT * FROM miracle_cure_biotech.batch WHERE batch_no LIKE %s ORDER BY batch_no DESC;
     """
