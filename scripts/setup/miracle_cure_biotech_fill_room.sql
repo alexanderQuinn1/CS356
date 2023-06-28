@@ -22,12 +22,13 @@
 DROP TABLE IF EXISTS `fill_room`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `fill_room` (
-  `fill_room_id` int NOT NULL AUTO_INCREMENT,
-  `batch_id` varchar(11) DEFAULT NULL,
-  PRIMARY KEY (`fill_room_id`),
-  KEY `fill_room_batch_fk_idx` (`batch_id`),
-  CONSTRAINT `fill_room_batch_fk` FOREIGN KEY (`batch_id`) REFERENCES `batch` (`batch_no`)
+CREATE TABLE `fill_room`
+(
+    `fill_room_id` int NOT NULL AUTO_INCREMENT,
+    `batch_id`     varchar(11) DEFAULT NULL,
+    PRIMARY KEY (`fill_room_id`),
+    KEY            `fill_room_batch_fk_idx` (`batch_id`),
+    CONSTRAINT `fill_room_batch_fk` FOREIGN KEY (`batch_id`) REFERENCES `batch` (`batch_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -35,11 +36,17 @@ CREATE TABLE `fill_room` (
 -- Dumping data for table `fill_room`
 --
 
-LOCK TABLES `fill_room` WRITE;
+LOCK
+TABLES `fill_room` WRITE;
 /*!40000 ALTER TABLE `fill_room` DISABLE KEYS */;
-INSERT INTO `fill_room` VALUES (1,'IRV2305001'),(2,'IRV2305003'),(3,'IRV2305004'),(4,'IRV2306001'),(5,'IRV2306002');
+INSERT INTO `fill_room`
+VALUES (1, 'IRV2305001'),
+       (2, 'IRV2305003'),
+       (3, 'IRV2305004'),
+       (4, 'IRV2306001');
 /*!40000 ALTER TABLE `fill_room` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK
+TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

@@ -22,10 +22,11 @@
 DROP TABLE IF EXISTS `stage_lookup`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `stage_lookup` (
-  `stage_id` int NOT NULL,
-  `stage_name` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`stage_id`)
+CREATE TABLE `stage_lookup`
+(
+    `stage_id`   int NOT NULL,
+    `stage_name` varchar(20) DEFAULT NULL,
+    PRIMARY KEY (`stage_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -33,11 +34,22 @@ CREATE TABLE `stage_lookup` (
 -- Dumping data for table `stage_lookup`
 --
 
-LOCK TABLES `stage_lookup` WRITE;
+LOCK
+TABLES `stage_lookup` WRITE;
 /*!40000 ALTER TABLE `stage_lookup` DISABLE KEYS */;
-INSERT INTO `stage_lookup` VALUES (1,'start'),(2,'expansion 1'),(3,'passage 1'),(4,'expansion 2'),(5,'passage 2'),(6,'expansion 3'),(7,'end of line'),(8,'fill room'),(9,'complete');
+INSERT INTO `stage_lookup`
+VALUES (1, 'start'),
+       (2, 'expansion 1'),
+       (3, 'passage 1'),
+       (4, 'expansion 2'),
+       (5, 'passage 2'),
+       (6, 'expansion 3'),
+       (7, 'end of line'),
+       (8, 'fill room'),
+       (9, 'complete');
 /*!40000 ALTER TABLE `stage_lookup` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK
+TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

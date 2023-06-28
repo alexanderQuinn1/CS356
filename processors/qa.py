@@ -10,15 +10,15 @@ def add_qa_details(qa):
 def analyse_results(product, ph, osmolality, sterility):
     failures = []
     if ph < product['min_ph']:
-        failures.append('sample is too acidic, ph must be regulated')
+        failures.append('Sample is too acidic: ph must be regulated')
     elif ph > product['max_ph']:
-        failures.append('sample is too alkaline, ph must be regulated')
+        failures.append('Sample is too alkaline: ph must be regulated')
     if osmolality < product['min_osmolality']:
-        failures.append('sample is hypotonic, osmolality must be regulated')
+        failures.append('Sample is hypotonic, osmolality must be regulated')
     elif osmolality > product['max_osmolality']:
-        failures.append('sample is hypertonic, osmolality must be regulated')
+        failures.append('Sample is hypertonic: osmolality must be regulated')
     if sterility < product['min_sterility']:
-        failures.append('sample is not sterile enough: batch should be disposed')
+        failures.append('Sample is not sterile enough: batch must be disposed')
 
     return failures
 

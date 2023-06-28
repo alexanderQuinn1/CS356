@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h4>Update Expansion Monitor for {{batch.batch_no}} - {{batch.active_stage.name}} - flask ID: {{flask_id}}</h4>
-    <form action="/update_expansion_monitor/{{production_facility}}/{{batch.batch_no}}/{{flask_monitor_id}}" method="post">
+    <h4>Monitoring for {{batch.batch_no}} - {{batch.active_stage.name}} - {{ flask.asset_id }}</h4>
+    <form action="/update_expansion_monitor/{{production_facility}}/{{batch.batch_no}}/{{flask.id}}" method="post">
         <div class="form-group">
             <label for="temperature">Temperature (*C):</label><br/>
             <input name="temperature" id="temperature" type="number" required>

@@ -41,13 +41,13 @@ def __analyse_results(product, ph, osmolality, sterility, mycoplasma, virus_test
     failures = qa_processor.analyse_results(product, ph, osmolality, sterility)
 
     if mycoplasma != "favourable":
-        failures.append('mycoplasma is not favourable: batch should be disposed')
+        failures.append('Mycoplasma is not favourable: batch should be disposed')
     if virus_testing != "favourable":
-        failures.append('virus testing is not favourable: batch should be disposed')
+        failures.append('Virus testing is not favourable: batch should be disposed')
     if amino_acids != "favourable":
-        failures.append('amino acids are not favourable: batch should be disposed')
+        failures.append('Amino acids are not favourable: batch should be disposed')
     if trace_elements != "favourable":
-        failures.append('trace elements are not favourable: batch should be disposed')
+        failures.append('Trace elements are not favourable: batch should be disposed')
 
     return failures
 

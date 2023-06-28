@@ -22,15 +22,16 @@
 DROP TABLE IF EXISTS `passage`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `passage` (
-  `passage_id` int NOT NULL AUTO_INCREMENT,
-  `batch_id` varchar(11) DEFAULT NULL,
-  `stage` int DEFAULT NULL,
-  PRIMARY KEY (`passage_id`),
-  KEY `passage_batch_FK_idx` (`batch_id`),
-  KEY `passage_stage_lookup_fk_idx` (`stage`),
-  CONSTRAINT `passage_batch_FK` FOREIGN KEY (`batch_id`) REFERENCES `batch` (`batch_no`),
-  CONSTRAINT `passage_stage_lookup_fk` FOREIGN KEY (`stage`) REFERENCES `stage_lookup` (`stage_id`)
+CREATE TABLE `passage`
+(
+    `passage_id` int NOT NULL AUTO_INCREMENT,
+    `batch_id`   varchar(11) DEFAULT NULL,
+    `stage`      int         DEFAULT NULL,
+    PRIMARY KEY (`passage_id`),
+    KEY          `passage_batch_FK_idx` (`batch_id`),
+    KEY          `passage_stage_lookup_fk_idx` (`stage`),
+    CONSTRAINT `passage_batch_FK` FOREIGN KEY (`batch_id`) REFERENCES `batch` (`batch_no`),
+    CONSTRAINT `passage_stage_lookup_fk` FOREIGN KEY (`stage`) REFERENCES `stage_lookup` (`stage_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -38,11 +39,25 @@ CREATE TABLE `passage` (
 -- Dumping data for table `passage`
 --
 
-LOCK TABLES `passage` WRITE;
+LOCK
+TABLES `passage` WRITE;
 /*!40000 ALTER TABLE `passage` DISABLE KEYS */;
-INSERT INTO `passage` VALUES (1,'IRV2305001',3),(2,'IRV2305001',5),(3,'IRV2305001',7),(4,'IRV2305003',3),(5,'IRV2305003',5),(6,'IRV2305003',7),(7,'IRV2305004',3),(8,'IRV2305004',5),(9,'IRV2305004',7),(10,'IRV2306001',3),(11,'IRV2306001',5),(12,'IRV2306001',7),(13,'IRV2306002',3),(14,'IRV2306002',5),(15,'IRV2306002',7);
+INSERT INTO `passage`
+VALUES (1, 'IRV2305001', 3),
+       (2, 'IRV2305001', 5),
+       (3, 'IRV2305001', 7),
+       (4, 'IRV2305003', 3),
+       (5, 'IRV2305003', 5),
+       (6, 'IRV2305003', 7),
+       (7, 'IRV2305004', 3),
+       (8, 'IRV2305004', 5),
+       (9, 'IRV2305004', 7),
+       (10, 'IRV2306001', 3),
+       (11, 'IRV2306001', 5),
+       (12, 'IRV2306001', 7);
 /*!40000 ALTER TABLE `passage` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK
+TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

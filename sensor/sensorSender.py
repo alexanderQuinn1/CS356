@@ -1,8 +1,9 @@
 import sys
-from random import random
+import random
 import pika
 import json
 import time
+
 
 try:
     connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))

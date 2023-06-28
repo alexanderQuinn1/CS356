@@ -22,15 +22,16 @@
 DROP TABLE IF EXISTS `production_schedule`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `production_schedule` (
-  `prod_schedule_id` int NOT NULL AUTO_INCREMENT,
-  `start` datetime DEFAULT NULL,
-  `end` datetime DEFAULT NULL,
-  `prod_line` char(1) DEFAULT NULL,
-  `activity_type` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`prod_schedule_id`),
-  KEY `Production_schedule_Production_line_idx` (`prod_line`),
-  CONSTRAINT `Production_schedule_Production_line` FOREIGN KEY (`prod_line`) REFERENCES `production_line` (`prod_line`)
+CREATE TABLE `production_schedule`
+(
+    `prod_schedule_id` int NOT NULL AUTO_INCREMENT,
+    `start`            datetime    DEFAULT NULL,
+    `end`              datetime    DEFAULT NULL,
+    `prod_line`        char(1)     DEFAULT NULL,
+    `activity_type`    varchar(45) DEFAULT NULL,
+    PRIMARY KEY (`prod_schedule_id`),
+    KEY                `Production_schedule_Production_line_idx` (`prod_line`),
+    CONSTRAINT `Production_schedule_Production_line` FOREIGN KEY (`prod_line`) REFERENCES `production_line` (`prod_line`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -38,11 +39,20 @@ CREATE TABLE `production_schedule` (
 -- Dumping data for table `production_schedule`
 --
 
-LOCK TABLES `production_schedule` WRITE;
+LOCK
+TABLES `production_schedule` WRITE;
 /*!40000 ALTER TABLE `production_schedule` DISABLE KEYS */;
-INSERT INTO `production_schedule` VALUES (1,'2023-06-12 13:00:00','2023-05-15 15:30:00','A','maintenance'),(2,'2023-05-13 11:30:00','2023-05-15 13:30:00','B','maintenance'),(3,'2023-05-14 13:30:00','2023-05-15 18:30:00','C','maintenance'),(4,'2023-06-23 09:30:00','2023-06-26 22:30:00','A','batch'),(5,'2023-06-23 11:30:00','2023-06-26 22:00:00','B','batch'),(6,'2023-05-18 15:30:00','2023-05-20 21:30:00','C','batch'),(7,'2023-06-30 09:00:00','2023-07-02 15:30:00','A','batch'),(8,'2023-06-30 09:00:00','2023-07-02 15:30:00','b','batch'),(9,'2023-06-30 09:30:00','2023-07-02 15:30:00','c','maintenance');
+INSERT INTO `production_schedule`
+VALUES (1, '2023-06-12 13:00:00', '2023-05-15 15:30:00', 'A', 'maintenance'),
+       (2, '2023-05-13 11:30:00', '2023-05-15 13:30:00', 'B', 'maintenance'),
+       (3, '2023-05-14 13:30:00', '2023-05-15 18:30:00', 'C', 'maintenance'),
+       (4, '2023-06-23 09:30:00', '2023-06-26 22:30:00', 'A', 'batch'),
+       (5, '2023-06-23 11:30:00', '2023-06-26 22:00:00', 'B', 'batch'),
+       (6, '2023-05-18 15:30:00', '2023-05-20 21:30:00', 'C', 'batch'),
+       (7, '2023-06-28 09:00:00', '2023-07-02 15:30:00', 'A', 'batch');
 /*!40000 ALTER TABLE `production_schedule` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK
+TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

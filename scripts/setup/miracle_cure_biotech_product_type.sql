@@ -22,16 +22,17 @@
 DROP TABLE IF EXISTS `product_type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `product_type` (
-  `prod_type_code` varchar(6) NOT NULL,
-  `max_ph` int DEFAULT NULL,
-  `min_ph` int DEFAULT NULL,
-  `max_temp` int DEFAULT NULL,
-  `min_temp` int DEFAULT NULL,
-  `max_osmoality` int DEFAULT NULL,
-  `min_osmoality` int DEFAULT NULL,
-  `min_sterility` int DEFAULT NULL,
-  PRIMARY KEY (`prod_type_code`)
+CREATE TABLE `product_type`
+(
+    `prod_type_code` varchar(6) NOT NULL,
+    `max_ph`         int DEFAULT NULL,
+    `min_ph`         int DEFAULT NULL,
+    `max_temp`       int DEFAULT NULL,
+    `min_temp`       int DEFAULT NULL,
+    `max_osmoality`  int DEFAULT NULL,
+    `min_osmoality`  int DEFAULT NULL,
+    `min_sterility`  int DEFAULT NULL,
+    PRIMARY KEY (`prod_type_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -39,11 +40,16 @@ CREATE TABLE `product_type` (
 -- Dumping data for table `product_type`
 --
 
-LOCK TABLES `product_type` WRITE;
+LOCK
+TABLES `product_type` WRITE;
 /*!40000 ALTER TABLE `product_type` DISABLE KEYS */;
-INSERT INTO `product_type` VALUES ('XXX10',8,5,40,32,295,275,10),('XXX11',14,4,39,32,280,250,8),('XXX12',12,8,38,34,200,100,12);
+INSERT INTO `product_type`
+VALUES ('XXX10', 8, 5, 40, 32, 295, 275, 10),
+       ('XXX11', 14, 4, 39, 32, 280, 250, 8),
+       ('XXX12', 12, 8, 38, 34, 200, 100, 12);
 /*!40000 ALTER TABLE `product_type` ENABLE KEYS */;
-UNLOCK TABLES;
+UNLOCK
+TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

@@ -1,6 +1,30 @@
 import database_connection as db
 
 
+def get(flask_monitor_id):
+    query = """
+            SELECT 
+                flask_monitor.flask_monitor_id, flask_monitor.temp, flask_monitor.ph, 
+                flask_monitor.osmolality, flask_monitor.asset_id
+            FROM flask_monitor
+            WHERE flask_monitor_id = %s
+        """
+
+    results = db.fetch(query, (flask_monitor_id,))
+
+    if len(results) == 0:
+        return None
+
+    result = results[0]
+    return {
+        'id': result[0],
+        'temp': result[1],
+        'ph': result[2],
+        'osmolality': result[3],
+        'asset_id': result[4]
+    }
+
+
 def get_all(batch_no, stage_id):
     query = """
         SELECT 

@@ -52,9 +52,11 @@ TABLES `fill_room_qa` WRITE;
 /*!40000 ALTER TABLE `fill_room_qa` DISABLE KEYS */;
 INSERT INTO `fill_room_qa`
 VALUES
-    (1, 1, '2023-05-16 16:00:00', 'favourable', 'intermediate', 'favourable', 'non-favourable', 120, 6, 280, 100, 0,''),
+    (1, 1, '2023-05-16 16:00:00', 'favourable', 'favourable', 'favourable', 'non-favourable', 120, 6, 280, 100, 1, ''),
     (2, 2, '2023-05-17 16:00:00', 'favourable', 'favourable', 'favourable', 'favourable', 145, 8, 250, 122, 1, ''),
-    (3, 3, '2023-05-18 21:00:00', 'intermediate', 'non-favourable', 'favourable', 'favourable', 180, 12, 180, 123, 0,'');
+    (3, 3, '2023-05-18 21:00:00', 'favourable', 'favourable', 'favourable', 'favourable', 180, 12, 180, 123, 1, ''),
+    (4, 4, '2023-06-28 16:00:00', 'favourable', 'favourable', 'favourable', 'favourable', 145, 7, 250, 100, 1, '');
+
 /*!40000 ALTER TABLE `fill_room_qa` ENABLE KEYS */;
 UNLOCK
 TABLES;

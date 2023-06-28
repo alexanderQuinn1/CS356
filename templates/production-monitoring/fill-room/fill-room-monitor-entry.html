@@ -1,23 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-<form action="/update-fill-room-monitor/{{production_facility}}/{{batch.batch_no}}" method="post">
-    <div class="form-group">
-        <label for="room_temp">Room Temperature *:</label><br>
-        <input type="number" id="room_temp" name="room_temp" required>
-    </div>
+    <h4>Fill room monitoring for {{ batch.batch_no }} - {{ batch.active_stage.data.fill_room.asset_id }}</h4>
+    <form action="/update-fill-room-monitor/{{ production_facility }}/{{ batch.batch_no }}" method="post">
+        <div class="form-group">
+            <label for="room_temp">Room Temperature *:</label><br>
+            <input type="number" id="room_temp" name="room_temp" required>
+        </div>
 
-    <div class="form-group">
-        <label for="humidity">Humidity *:</label><br/>
-        <input type="number" id="humidity" name="humidity" required>
-    </div>
+        <div class="form-group">
+            <label for="humidity">Humidity *:</label><br/>
+            <input type="number" id="humidity" name="humidity" required>
+        </div>
 
-    <div class="form-group">
-        <label for="last_stir_delta">Last Stir Delta *:</label><br>
-        <input type="number" id="last_stir_delta" name="last_stir_delta" required>
-    </div>
+        <div class="form-group">
+            <label for="last_stir_delta">Last Stir Delta *:</label><br>
+            <input type="number" id="last_stir_delta" name="last_stir_delta" required>
+        </div>
 
-    <div class="form-group">
-        <button type="submit">Submit</button>
-    </div>
-</form>
+        <div class="form-group">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
 {% endblock %}
