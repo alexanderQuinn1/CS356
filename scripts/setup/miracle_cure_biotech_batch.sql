@@ -50,8 +50,7 @@ INSERT INTO `batch`
 VALUES ('IRV2305001', 100, 'XXX10', 9, 4),
        ('IRV2305003', 100, 'XXX11', 9, 5),
        ('IRV2305004', 100, 'XXX12', 8, 6),
-       ('IRV2306001', 100, 'XXX11', 2, 7),
-       ('IRV2306002', 100, 'XXX12', 1, 8);
+       ('IRV2306001', 100, 'XXX11', 2, 7);
 /*!40000 ALTER TABLE `batch` ENABLE KEYS */;
 UNLOCK
 TABLES;
