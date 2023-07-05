@@ -1,5 +1,4 @@
 # CS356
 
-## User Guide
-[TODO]
+Please refer to the teams channel for the installation instructions
 

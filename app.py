@@ -126,7 +126,7 @@ def run_add_prod_activity():
 
 @app.route('/error_mock_page', methods=['GET', 'POST'])
 def run_error_mock_page():
-    e = 'error.................'
+    e = 'Something went wrong. Please try again later.'
     return render_error_page(e)
 
 
