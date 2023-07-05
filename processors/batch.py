@@ -33,16 +33,17 @@ def add_batch_padding(padding, new_batch_digit):
 
 
 def generate_batch_number(start_date):
-    lastest_batch_no = batch_repo.get_batch_by_date(start_date.year, start_date.month)
+    month_str = add_batch_padding(2, start_date.month)
+    year_str = str(start_date.year)[-2:]
+    lastest_batch_no = batch_repo.get_batch_by_date(year_str, month_str)
+
     if lastest_batch_no is None:
-        month = add_batch_padding(2, start_date.month)
-        batch_string = 'IRV{0}{1}001'.format(str(start_date.year), month)
+        batch_string = 'IRV{0}{1}001'.format(year_str, month_str)
     else:
-        last_digits = int(lastest_batch_no[-3])
+        last_digits = int(lastest_batch_no[-3:])
         new_batch_digit = last_digits + 1
         padded_digit = add_batch_padding(3, new_batch_digit)
-        month = add_batch_padding(2, start_date.month)
-        batch_string = 'IRV{0}{1}{2}'.format(str(start_date.year), month, padded_digit)
+        batch_string = 'IRV{0}{1}{2}'.format(year_str, month_str, padded_digit)
     return batch_string
 
 
