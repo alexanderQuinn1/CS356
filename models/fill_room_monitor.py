@@ -32,6 +32,13 @@ def update(fill_room_monitor_id, room_temp, humidity, last_stir_delta):
     db.commit(query, (humidity, last_stir_delta, room_temp, fill_room_monitor_id))
 
 
+def insert(fill_room_id, fill_room_vat):
+    create_fill_room_monitor_query = """
+                INSERT INTO fill_room_monitor VALUES (default, %s,0,0,0,%s)
+            """
+    db.insert_commit(create_fill_room_monitor_query, (fill_room_id, fill_room_vat))
+
+
 def create(batch_no, fill_room_vat):
     create_fill_room_query = """
         INSERT INTO fill_room VALUES (default, %s)
@@ -39,12 +46,3 @@ def create(batch_no, fill_room_vat):
 
     fill_room_id = db.insert_commit(create_fill_room_query, (batch_no,))
     insert(fill_room_id, fill_room_vat)
-
-
-def insert(fill_room_id, fill_room_vat):
-
-    create_fill_room_monitor_query = """
-                INSERT INTO fill_room_monitor VALUES (default, %s,0,0,0,%s)
-            """
-
-    db.insert_commit(create_fill_room_monitor_query, (fill_room_id, fill_room_vat))

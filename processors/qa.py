@@ -14,7 +14,7 @@ def analyse_results(product, ph, osmolality, sterility):
     elif ph > product['max_ph']:
         failures.append('Sample is too alkaline: ph must be regulated')
     if osmolality < product['min_osmolality']:
-        failures.append('Sample is hypotonic, osmolality must be regulated')
+        failures.append('Sample is hypotonic: osmolality must be regulated')
     elif osmolality > product['max_osmolality']:
         failures.append('Sample is hypertonic: osmolality must be regulated')
     if sterility < product['min_sterility']:
